@@ -8,82 +8,8 @@ sudo rpm -ivh epel-release-6-8.noarch.rpm
 sudo yum -y update
 rm epel-release-6-8.noarch.rpm
 
-# new binutils
-# CentOS6 vem com versão antiga do binutils.
-# Para compilar o julia, é necessário instalar uma versão mais recente
-# https://www.gnu.org/software/binutils/
-cd ~/tmp
-wget binutils-2.25.tar.gz
-tar -xvzf binutils-2.25.tar.gz
-cd binutils-2.25
-# conferir comandos abaixo
-./configure
-make
-sudo make install
-
-# new gcc
-# CentOS6 vem com versão antiga do GCC.
-# Para compilar o julia, é necessário instalar uma versão mais recente
-# https://www.vultr.com/docs/how-to-install-gcc-on-centos-6
-# https://gcc.gnu.org/install/build.html
-cd ~/tmp
-sudo yum -y install svn texinfo-tex flex zip libgcc.i686 glibc-devel.i686
-svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
-cd gcc_5_3_0_release/
-./contrib/download_prerequisites
-cd ..
-mkdir gcc_build
-cd gcc_build
-../gcc_5_3_0_release/configure
-make -j 8 # incluir número de cores para compilação em paralelo, ver resultado de nproc
-sudo make install
-hash -r # forget about old gcc
-gcc --version
-g++ --version
-which gcc
-# Add new libraries to linker
-echo "/usr/local/lib64" > usrLocalLib64.conf
-sudo mv usrLocalLib64.conf /etc/ld.so.conf.d/
-sudo ldconfig
-
-
 # Ferramentas para compilação
-#sudo yum -y install patch gcc-c++ gcc-gfortran bzip2 cmake curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker
-# linha abaixo sem gcc
-sudo yum -y install patch bzip2 cmake curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker
-
-### GIT
-# http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-cd /usr/local/src
-sudo wget https://www.kernel.org/pub/software/scm/git/git-2.6.4.tar.gz
-sudo tar xzf git-2.6.4.tar.gz
-cd git-2.6.4
-sudo make prefix=/usr/local all
-sudo make prefix=/usr/local install
-sudo rm /usr/local/src/git-2.6.4.tar.gz
-###
-cd ~/tmp
-sudo wget https://www.kernel.org/pub/software/scm/git/git-2.6.4.tar.gz
-sudo tar xzf git-2.6.4.tar.gz
-cd git-2.6.4
-make all
-sudo make install
-sudo rm ~/tmp/git-2.6.4.tar.gz
-###
-
-
-### JULIA
-cd ~/tmp
-git clone https://github.com/JuliaLang/julia.git
-cd julia
-git checkout release-0.4
-make
-sudo make install
-rm -rf julia
-
-# misc stuff
-sudo yum -y install clang # checar versao...
-sudo yum -y install valgrind # checar versao...
+sudo yum -y install patch gcc-c++ gcc-gfortran bzip2 cmake curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker
 
 # para o R
 cd ~/tmp
@@ -178,3 +104,75 @@ sudo cp -p /etc/rstudio/rserver.conf /etc/rstudio/rserver.conf.bak #faça um ba
 #Save workspace image? [y/n/c]: y
 #$ sudo su -c "R -e \"devtools::install_github('rstudio/rmarkdown')\""
 #$ sudo yum install texlive #já deve estar instalado
+
+
+# new binutils
+# CentOS6 vem com versão antiga do binutils.
+# Para compilar o julia, é necessário instalar uma versão mais recente
+# https://www.gnu.org/software/binutils/
+cd ~/tmp
+wget http://ftp.gnu.org/gnu/binutils/binutils-2.25.tar.gz
+tar -xvzf binutils-2.25.tar.gz
+cd binutils-2.25
+# conferir comandos abaixo
+./configure
+make
+sudo make install
+
+# new gcc
+# CentOS6 vem com versão antiga do GCC.
+# Para compilar o julia, é necessário instalar uma versão mais recente
+# https://www.vultr.com/docs/how-to-install-gcc-on-centos-6
+# https://gcc.gnu.org/install/build.html
+cd ~/tmp
+sudo yum -y install svn texinfo-tex flex zip libgcc.i686 glibc-devel.i686
+svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
+cd gcc_5_3_0_release/
+./contrib/download_prerequisites
+cd ..
+mkdir gcc_build
+cd gcc_build
+../gcc_5_3_0_release/configure
+make -j 8 # incluir número de cores para compilação em paralelo, ver resultado de nproc
+sudo make install
+hash -r # forget about old gcc
+gcc --version
+g++ --version
+which gcc
+# Add new libraries to linker
+echo "/usr/local/lib64" > usrLocalLib64.conf
+sudo mv usrLocalLib64.conf /etc/ld.so.conf.d/
+sudo ldconfig
+
+### GIT
+# http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
+cd /usr/local/src
+sudo wget https://www.kernel.org/pub/software/scm/git/git-2.6.4.tar.gz
+sudo tar xzf git-2.6.4.tar.gz
+cd git-2.6.4
+sudo make prefix=/usr/local all
+sudo make prefix=/usr/local install
+sudo rm /usr/local/src/git-2.6.4.tar.gz
+###
+cd ~/tmp
+sudo wget https://www.kernel.org/pub/software/scm/git/git-2.6.4.tar.gz
+sudo tar xzf git-2.6.4.tar.gz
+cd git-2.6.4
+make all
+sudo make install
+sudo rm ~/tmp/git-2.6.4.tar.gz
+###
+
+### JULIA
+cd ~/tmp
+git clone https://github.com/JuliaLang/julia.git
+cd julia
+git checkout release-0.4
+make
+sudo make install
+rm -rf julia
+
+# misc stuff
+sudo yum -y install clang # checar versao...
+sudo yum -y install valgrind # checar versao...
+
