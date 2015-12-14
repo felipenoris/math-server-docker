@@ -1,8 +1,12 @@
 #!/bin/sh
 
+#dhclient eth0
+#yum -y install system-config-network-tui
+
 sudo yum install -y wget
 mkdir ~/tmp
 cd ~/tmp
+# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain.sh
 wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 sudo rpm -ivh epel-release-6-8.noarch.rpm
 sudo yum -y update
@@ -19,19 +23,19 @@ wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/libicu-devel-4.2.1-9.
 wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/texinfo-tex-4.13a-8.el6.x86_64.rpm'
 wget 'ftp://rpmfind.net/linux/centos/6.6/os/x86_64/Packages/glpk-devel-4.40-1.1.el6.x86_64.rpm'
 wget 'ftp://rpmfind.net/linux/centos/6.6/os/x86_64/Packages/glpk-4.40-1.1.el6.x86_64.rpm'
-sudo yum localinstall lapack-devel-3.2.1-4.el6.x86_64.rpm
-sudo yum localinstall blas-devel-3.2.1-4.el6.x86_64.rpm
-sudo yum localinstall libicu-devel-4.2.1-9.1.el6_2.x86_64.rpm
-sudo yum localinstall texinfo-tex-4.13a-8.el6.x86_64.rpm
-sudo yum install unixodbc-devel
-sudo yum install QuantLib
-sudo yum install QuantLib-devel
-sudo yum install boost
-sudo yum install boost-devel
-sudo yum install libxml2 libxml2-devel
-sudo yum localinstall glpk
-sudo yum localinstall glpk-devel
-sudo yum install R
+sudo yum -y localinstall lapack-devel-3.2.1-4.el6.x86_64.rpm
+sudo yum -y localinstall blas-devel-3.2.1-4.el6.x86_64.rpm
+sudo yum -y localinstall libicu-devel-4.2.1-9.1.el6_2.x86_64.rpm
+sudo yum -y localinstall texinfo-tex-4.13a-8.el6.x86_64.rpm
+sudo yum -y install unixodbc-devel
+sudo yum -y install QuantLib
+sudo yum -y install QuantLib-devel
+sudo yum -y install boost
+sudo yum -y install boost-devel
+sudo yum -y install libxml2 libxml2-devel
+sudo yum -y localinstall glpk
+sudo yum -y localinstall glpk-devel
+sudo yum -y install R
 
 export CPATH=/usr/include/glpk
 
@@ -44,7 +48,7 @@ export CPATH=/usr/include/glpk
 #> install.packages(c("iterators","RQuantLib","XML", "fArma", "fAsianOptions", "fBasics", "fBonds", "timeDate", "fExoticOptions", "fExtremes", "fGarch", "fImport", "fNonlinear", "fOptions", "timeSeries", "Hmisc","roxygen2","fPortfolio","relaimpo"))
 
 # RStudio
-sudo yum install openssl098e # Required only for RedHat/CentOS 6 and 7
+sudo yum -y install openssl098e # Required only for RedHat/CentOS 6 and 7
 cd ~/tmp
 wget https://download2.rstudio.org/rstudio-server-rhel-0.99.489-x86_64.rpm
 sudo yum -y install --nogpgcheck rstudio-server-rhel-0.99.489-x86_64.rpm
