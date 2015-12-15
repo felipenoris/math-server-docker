@@ -126,7 +126,7 @@ make install
 # https://www.vultr.com/docs/how-to-install-gcc-on-centos-6
 # https://gcc.gnu.org/install/build.html
 cd ~/tmp
-yum -y install svn texinfo-tex flex zip libgcc.i686 glibc-devel.i686
+yum -y install svn flex zip libgcc.i686 glibc-devel.i686 #texinfo-tex ja instalado
 svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
 cd gcc_5_3_0_release/
 ./contrib/download_prerequisites
@@ -168,3 +168,19 @@ rm -rf julia
 # misc stuff
 yum -y install clang # checar versao...
 yum -y install valgrind # checar versao...
+yum -y install lynx
+
+# Python e Jupyter
+#https://www.continuum.io/downloads
+#http://jupyter.readthedocs.org/en/latest/install.html
+#https://jupyter.org/
+#http://conda.pydata.org/docs/test-drive.html#managing-conda
+cd ~/tmp
+wget https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda2-2.4.1-Linux-x86_64.sh
+bash Anaconda2-2.4.1-Linux-x86_64.sh
+./anaconda2/bin/conda update conda
+./anaconda2/bin/conda --version
+./anaconda2/bin/conda install jupyter
+./anaconda2/bin/conda install sqlite pandas openblas libxml2 numba numpy
+# next step: configurar servidor jupyter para acesso remoto
+# http://jupyter-notebook.readthedocs.org/en/latest/public_server.html
