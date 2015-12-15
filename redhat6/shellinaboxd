@@ -1,0 +1,8 @@
+# TCP port that shellinboxd's webserver listens on
+PORT=6175
+
+# specify the IP address of a destination SSH server
+OPTS="-s /:SSH:192.168.56.101"
+
+# if you want to restrict access to shellinaboxd from localhost only
+#OPTS="-s /:SSH:172.16.25.125 --localhost-only"

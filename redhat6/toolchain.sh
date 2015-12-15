@@ -184,3 +184,14 @@ bash Anaconda2-2.4.1-Linux-x86_64.sh
 ./anaconda2/bin/conda install sqlite pandas openblas libxml2 numba numpy
 # next step: configurar servidor jupyter para acesso remoto
 # http://jupyter-notebook.readthedocs.org/en/latest/public_server.html
+
+# Shell in a box
+yum -y install pam-devel zlib-devel autoconf automake libtool # git openssl-devel
+
+cd ~/tmp
+git clone https://github.com/shellinabox/shellinabox.git && cd shellinabox
+#Run autotools in project directory
+autoreconf -i
+#Run configure and make in project directory
+./configure && make
+make install
