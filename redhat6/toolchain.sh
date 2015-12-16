@@ -11,8 +11,8 @@ cd ~/tmp
 # wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain.sh
 wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 rpm -ivh epel-release-6-8.noarch.rpm
+rm -f epel-release-6-8.noarch.rpm
 yum -y update
-rm epel-release-6-8.noarch.rpm
 
 # Ferramentas para compilação
 yum -y install patch gcc-c++ gcc-gfortran bzip2 cmake curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker
@@ -21,16 +21,18 @@ yum -y install patch gcc-c++ gcc-gfortran bzip2 cmake curl-devel expat-devel get
 cd ~/tmp
 wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/lapack-devel-3.2.1-4.el6.x86_64.rpm'
 wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/blas-devel-3.2.1-4.el6.x86_64.rpm'
-wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/libicu-devel-4.2.1-9.1.el6_2.x86_64.rpm'
+wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/libicu-devel-4.2.1-12.el6.x86_64.rpm'
 wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/texinfo-tex-4.13a-8.el6.x86_64.rpm'
-wget 'ftp://rpmfind.net/linux/centos/6.6/os/x86_64/Packages/glpk-devel-4.40-1.1.el6.x86_64.rpm'
-wget 'ftp://rpmfind.net/linux/centos/6.6/os/x86_64/Packages/glpk-4.40-1.1.el6.x86_64.rpm'
-yum -y localinstall lapack-devel-3.2.1-4.el6.x86_64.rpm
+wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/glpk-4.40-1.1.el6.x86_64.rpm'
+wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/glpk-devel-4.40-1.1.el6.x86_64.rpm'
+
 yum -y localinstall blas-devel-3.2.1-4.el6.x86_64.rpm
-yum -y localinstall libicu-devel-4.2.1-9.1.el6_2.x86_64.rpm
+yum -y localinstall lapack-devel-3.2.1-4.el6.x86_64.rpm
+yum -y localinstall libicu-devel-4.2.1-12.el6.x86_64.rpm
 yum -y localinstall texinfo-tex-4.13a-8.el6.x86_64.rpm
-yum -y localinstall glpk
-yum -y localinstall glpk-devel
+yum -y localinstall glpk-4.40-1.1.el6.x86_64.rpm
+yum -y localinstall glpk-devel-4.40-1.1.el6.x86_64.rpm
+rm -f *.rpm
 yum -y install unixodbc-devel QuantLib QuantLib-devel boost boost-devel libxml2 libxml2-devel
 yum -y install R
 
@@ -49,6 +51,7 @@ yum -y install openssl098e # Required only for RedHat/CentOS 6 and 7
 cd ~/tmp
 wget https://download2.rstudio.org/rstudio-server-rhel-0.99.489-x86_64.rpm
 yum -y install --nogpgcheck rstudio-server-rhel-0.99.489-x86_64.rpm
+rm -f rstudio-server-rhel-0.99.489-x86_64.rpm
 
 # Default port is 8787. Changing to port 80 (default for http).
 
@@ -60,10 +63,16 @@ rstudio-server verify-installation
 
 #VERIFICAR SE HÁ OUTRA ESTRATÉGIA (USAR ARQUIVO rsession.conf)
 
-#Feitas as instalações necessárias e configurado o RStudio para responder na porta 80, devemos configurá-lo para utilizar a autenticação integrada ao AD. Para isso, remetemos ao guia de administração do RStudio. Infelizmente, durante a instalação do ambiente de laboratório, identificamos que a documentação, em sua seção 5.3, indica a possibilidade de utilizar o parâmetro auth-pam-sessions-profile no arquivo de configuração do RStudio rserver.conf, sendo que o sistema não o reconhece como válido. Diante do cenário, o sistema foi monitorado e identificamos que as configurações do pam.d devem ser realizadas sobre o perfil /etc/pam.d /rstudio, incluindo-se neste as mesmas diretivas encontradas no perfil /etc/pam.d/su:
+# Feitas as instalações necessárias e configurado o RStudio para responder na porta 80, devemos configurá-lo
+# para utilizar a autenticação integrada ao AD. Para isso, remetemos ao guia de administração do RStudio.
+# Infelizmente, durante a instalação do ambiente de laboratório, identificamos que a documentação, em sua seção 5.3,
+# indica a possibilidade de utilizar o parâmetro auth-pam-sessions-profile no arquivo de configuração do RStudio rserver.conf,
+# sendo que o sistema não o reconhece como válido. Diante do cenário, o sistema foi monitorado e identificamos
+# que as configurações do pam.d devem ser realizadas sobre o perfil /etc/pam.d /rstudio, incluindo-se neste as mesmas
+# diretivas encontradas no perfil /etc/pam.d/su:
 
-cp -p /etc/rstudio/rserver.conf /etc/rstudio/rserver.conf.bak #faça um backup do arquivo de configuração do RStudio-server
-#$ sudo echo auth-pam-sessions-profile=rstudio-session >> /etc/rstudio/rserver.conf #inclua o parâmetro para um novo perfil do pam.d a ser utilizado
+# cp -p /etc/rstudio/rserver.conf /etc/rstudio/rserver.conf.bak #faça um backup do arquivo de configuração do RStudio-server
+# sudo echo auth-pam-sessions-profile=rstudio-session >> /etc/rstudio/rserver.conf #inclua o parâmetro para um novo perfil do pam.d a ser utilizado
 
 # inclua os parâmetros do novo perfil (próximas X linhas)
 
@@ -106,6 +115,39 @@ cp -p /etc/rstudio/rserver.conf /etc/rstudio/rserver.conf.bak #faça um backup 
 #$ sudo su -c "R -e \"devtools::install_github('rstudio/rmarkdown')\""
 #$ sudo yum install texlive #já deve estar instalado
 
+# new gcc
+# CentOS6 vem com versão antiga do GCC.
+# Para compilar o julia, é necessário instalar uma versão mais recente
+# https://www.vultr.com/docs/how-to-install-gcc-on-centos-6
+# https://gcc.gnu.org/install/build.html
+yum -y install svn flex zip libgcc.i686 glibc-devel.i686 #texinfo-tex ja instalado
+cd ~/tmp
+svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
+cd gcc_5_3_0_release/
+./contrib/download_prerequisites
+cd ..
+mkdir gcc_build
+cd gcc_build
+../gcc_5_3_0_release/configure
+make -j 8 # incluir número de cores para compilação em paralelo, ver resultado de nproc
+make install
+hash -r # forget about old gcc
+
+# Checks if we got new gcc
+gcc --version
+g++ --version
+gfortran --version
+which gcc
+
+# Add new libraries to linker
+echo "/usr/local/lib64" > usrLocalLib64.conf
+mv usrLocalLib64.conf /etc/ld.so.conf.d/
+ldconfig
+
+# cleans gcc installation files
+cd ..
+rm -rf gcc_build
+rm -rf gcc_5_3_0_release
 
 # new binutils
 # CentOS6 vem com versão antiga do binutils.
@@ -119,31 +161,9 @@ cd binutils-2.25
 ./configure
 make
 make install
-
-# new gcc
-# CentOS6 vem com versão antiga do GCC.
-# Para compilar o julia, é necessário instalar uma versão mais recente
-# https://www.vultr.com/docs/how-to-install-gcc-on-centos-6
-# https://gcc.gnu.org/install/build.html
-cd ~/tmp
-yum -y install svn flex zip libgcc.i686 glibc-devel.i686 #texinfo-tex ja instalado
-svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
-cd gcc_5_3_0_release/
-./contrib/download_prerequisites
 cd ..
-mkdir gcc_build
-cd gcc_build
-../gcc_5_3_0_release/configure
-make -j 8 # incluir número de cores para compilação em paralelo, ver resultado de nproc
-make install
-hash -r # forget about old gcc
-gcc --version
-g++ --version
-which gcc
-# Add new libraries to linker
-echo "/usr/local/lib64" > usrLocalLib64.conf
-mv usrLocalLib64.conf /etc/ld.so.conf.d/
-ldconfig
+rm -rf binutils-2.25
+rm -f binutils-2.25.tar.gz
 
 ### GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
