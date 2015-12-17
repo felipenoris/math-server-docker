@@ -38,13 +38,12 @@ yum -y install R
 
 export CPATH=/usr/include/glpk
 
-#$ sudo R
+cd ~/tmp
+wget 'http://www.omegahat.org/XMLRPC/XMLRPC_0.3-0.tar.gz'
 
-#$ wget 'http://www.omegahat.org/XMLRPC/XMLRPC_0.3-0.tar.gz'
-#> install.packages("/tmp/XMLRPC_0.3-0.tar.gz", repos = NULL, type = "source")
-
-#> install.packages(c("data.table","XLConnect","RODBC","reshape","ggplot2","vars","sqldf","shinyAce"))
-#> install.packages(c("iterators","RQuantLib","XML", "fArma", "fAsianOptions", "fBasics", "fBonds", "timeDate", "fExoticOptions", "fExtremes", "fGarch", "fImport", "fNonlinear", "fOptions", "timeSeries", "Hmisc","roxygen2","fPortfolio","relaimpo"))
+R -e 'install.packages("/tmp/XMLRPC_0.3-0.tar.gz", repos = NULL, type = "source")'
+R -e 'install.packages(c("data.table","XLConnect","RODBC","reshape","ggplot2","vars","sqldf","shinyAce"))'
+R -e 'install.packages(c("iterators","RQuantLib","XML", "fArma", "fAsianOptions", "fBasics", "fBonds", "timeDate", "fExoticOptions", "fExtremes", "fGarch", "fImport", "fNonlinear", "fOptions", "timeSeries", "Hmisc","roxygen2","fPortfolio","relaimpo"))'
 
 # RStudio
 yum -y install openssl098e # Required only for RedHat/CentOS 6 and 7
