@@ -171,9 +171,12 @@ cd ~/tmp
 wget https://www.kernel.org/pub/software/scm/git/git-2.6.4.tar.gz
 tar xzf git-2.6.4.tar.gz
 cd git-2.6.4
-make all
-make install
-rm ~/tmp/git-2.6.4.tar.gz
+make prefix=/usr/local all
+make prefix=/usr/local install
+cd ..
+rm -f git-2.6.4.tar.gz
+rm -rf git-2.6.4
+git --version ## não está encontrando... pois está sendo instalado no diretório /root
 ###
 
 ### JULIA
