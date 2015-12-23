@@ -3,6 +3,8 @@
 #dhclient eth0
 #yum -y install system-config-network-tui
 
+# default EC2 user is: ec2-user
+
 # run this script with: sudo ./toolchain.sh
 
 yum install -y wget
@@ -16,6 +18,68 @@ yum -y update
 
 # Ferramentas para compilação
 yum -y install patch gcc-c++ gcc-gfortran bzip2 cmake curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker
+
+# new gcc
+# CentOS6 vem com versão antiga do GCC.
+# Para compilar o julia, é necessário instalar uma versão mais recente
+# https://www.vultr.com/docs/how-to-install-gcc-on-centos-6
+# https://gcc.gnu.org/install/build.html
+yum -y install svn flex zip libgcc.i686 glibc-devel.i686 #texinfo-tex ja instalado
+cd ~/tmp
+svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
+cd gcc_5_3_0_release/
+./contrib/download_prerequisites
+cd ..
+mkdir gcc_build
+cd gcc_build
+../gcc_5_3_0_release/configure
+make -j 4 # incluir número de cores para compilação em paralelo, ver resultado de nproc
+make install
+hash -r # forget about old gcc
+
+# Add new libraries to linker
+echo "/usr/local/lib64" > usrLocalLib64.conf
+mv usrLocalLib64.conf /etc/ld.so.conf.d/
+ldconfig
+
+# Checks if we got new gcc
+gcc --version
+g++ --version
+gfortran --version
+which gcc
+
+# cleans gcc installation files
+cd ..
+rm -rf gcc_build && rm -rf gcc_5_3_0_release
+
+# new binutils
+# CentOS6 vem com versão antiga do binutils.
+# Para compilar o julia, é necessário instalar uma versão mais recente
+# https://www.gnu.org/software/binutils/
+cd ~/tmp
+wget http://ftp.gnu.org/gnu/binutils/binutils-2.25.tar.gz
+tar -xvzf binutils-2.25.tar.gz
+cd binutils-2.25
+# conferir comandos abaixo
+./configure
+make
+make install
+cd ..
+rm -rf binutils-2.25
+rm -f binutils-2.25.tar.gz
+
+### GIT
+# http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
+cd ~/tmp
+wget https://www.kernel.org/pub/software/scm/git/git-2.6.4.tar.gz
+tar xzf git-2.6.4.tar.gz
+cd git-2.6.4
+make prefix=/usr/local all
+make prefix=/usr/local install
+cd ..
+rm -f git-2.6.4.tar.gz && rm -rf git-2.6.4
+git --version
+###
 
 # para o R
 cd ~/tmp
@@ -41,9 +105,10 @@ export CPATH=/usr/include/glpk
 cd ~/tmp
 wget 'http://www.omegahat.org/XMLRPC/XMLRPC_0.3-0.tar.gz'
 
-R -e 'install.packages("/tmp/XMLRPC_0.3-0.tar.gz", repos = NULL, type = "source")'
-R -e 'install.packages(c("data.table","XLConnect","RODBC","reshape","ggplot2","vars","sqldf","shinyAce"))'
-R -e 'install.packages(c("iterators","RQuantLib","XML", "fArma", "fAsianOptions", "fBasics", "fBonds", "timeDate", "fExoticOptions", "fExtremes", "fGarch", "fImport", "fNonlinear", "fOptions", "timeSeries", "Hmisc","roxygen2","fPortfolio","relaimpo"))'
+R -e 'install.packages(c("RCurl", "XML"), repos="http://cran.us.r-project.org")'
+R -e 'install.packages("XMLRPC_0.3-0.tar.gz", repos = NULL, type = "source")'
+R -e 'install.packages(c("data.table","XLConnect","reshape","ggplot2","vars","sqldf","shinyAce"), , repos="http://cran.us.r-project.org")' # RODBC
+R -e 'install.packages(c("iterators","RQuantLib","fArma", "fAsianOptions", "fBasics", "fBonds", "timeDate", "fExoticOptions", "fExtremes", "fGarch", "fImport", "fNonlinear", "fOptions", "timeSeries", "Hmisc","roxygen2","fPortfolio","relaimpo"), repos="http://cran.us.r-project.org")'
 
 # RStudio
 yum -y install openssl098e # Required only for RedHat/CentOS 6 and 7
@@ -113,70 +178,6 @@ rstudio-server verify-installation
 #Save workspace image? [y/n/c]: y
 #$ sudo su -c "R -e \"devtools::install_github('rstudio/rmarkdown')\""
 #$ sudo yum install texlive #já deve estar instalado
-
-# new gcc
-# CentOS6 vem com versão antiga do GCC.
-# Para compilar o julia, é necessário instalar uma versão mais recente
-# https://www.vultr.com/docs/how-to-install-gcc-on-centos-6
-# https://gcc.gnu.org/install/build.html
-yum -y install svn flex zip libgcc.i686 glibc-devel.i686 #texinfo-tex ja instalado
-cd ~/tmp
-svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
-cd gcc_5_3_0_release/
-./contrib/download_prerequisites
-cd ..
-mkdir gcc_build
-cd gcc_build
-../gcc_5_3_0_release/configure
-make -j 8 # incluir número de cores para compilação em paralelo, ver resultado de nproc
-make install
-hash -r # forget about old gcc
-
-# Checks if we got new gcc
-gcc --version
-g++ --version
-gfortran --version
-which gcc
-
-# Add new libraries to linker
-echo "/usr/local/lib64" > usrLocalLib64.conf
-mv usrLocalLib64.conf /etc/ld.so.conf.d/
-ldconfig
-
-# cleans gcc installation files
-cd ..
-rm -rf gcc_build
-rm -rf gcc_5_3_0_release
-
-# new binutils
-# CentOS6 vem com versão antiga do binutils.
-# Para compilar o julia, é necessário instalar uma versão mais recente
-# https://www.gnu.org/software/binutils/
-cd ~/tmp
-wget http://ftp.gnu.org/gnu/binutils/binutils-2.25.tar.gz
-tar -xvzf binutils-2.25.tar.gz
-cd binutils-2.25
-# conferir comandos abaixo
-./configure
-make
-make install
-cd ..
-rm -rf binutils-2.25
-rm -f binutils-2.25.tar.gz
-
-### GIT
-# http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-cd ~/tmp
-wget https://www.kernel.org/pub/software/scm/git/git-2.6.4.tar.gz
-tar xzf git-2.6.4.tar.gz
-cd git-2.6.4
-make prefix=/usr/local all
-make prefix=/usr/local install
-cd ..
-rm -f git-2.6.4.tar.gz
-rm -rf git-2.6.4
-git --version ## não está encontrando... pois está sendo instalado no diretório /root
-###
 
 ### JULIA
 cd ~/tmp
