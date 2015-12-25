@@ -105,10 +105,10 @@ export CPATH=/usr/include/glpk
 cd ~/tmp
 wget 'http://www.omegahat.org/XMLRPC/XMLRPC_0.3-0.tar.gz'
 
-R -e 'install.packages(c("RCurl", "XML"), repos="http://cran.us.r-project.org")'
+R -e 'install.packages(c("RCurl", "XML"), repos="http://cran.fiocruz.br/")'
 R -e 'install.packages("XMLRPC_0.3-0.tar.gz", repos = NULL, type = "source")'
-R -e 'install.packages(c("data.table","XLConnect","reshape","ggplot2","vars","sqldf","shinyAce"), , repos="http://cran.us.r-project.org")' # RODBC
-R -e 'install.packages(c("iterators","RQuantLib","fArma", "fAsianOptions", "fBasics", "fBonds", "timeDate", "fExoticOptions", "fExtremes", "fGarch", "fImport", "fNonlinear", "fOptions", "timeSeries", "Hmisc","roxygen2","fPortfolio","relaimpo"), repos="http://cran.us.r-project.org")'
+R -e 'install.packages(c("data.table","XLConnect","reshape","ggplot2","vars","sqldf","shinyAce"), , repos="http://cran.fiocruz.br/")' # RODBC
+R -e 'install.packages(c("iterators","RQuantLib","fArma", "fAsianOptions", "fBasics", "fBonds", "timeDate", "fExoticOptions", "fExtremes", "fGarch", "fImport", "fNonlinear", "fOptions", "timeSeries", "Hmisc","roxygen2","fPortfolio","relaimpo"), repos="http://cran.fiocruz.br/")' #Rsymphony, RQuantLib, Rglpk, fPortfolio
 
 # RStudio
 yum -y install openssl098e # Required only for RedHat/CentOS 6 and 7
@@ -185,7 +185,7 @@ git clone https://github.com/JuliaLang/julia.git
 cd julia
 git checkout release-0.4
 make
-make install
+sudo make install
 rm -rf julia
 
 # misc stuff
@@ -194,27 +194,46 @@ yum -y install valgrind # checar versao...
 yum -y install lynx
 
 # Python e Jupyter
-#https://www.continuum.io/downloads
-#http://jupyter.readthedocs.org/en/latest/install.html
-#https://jupyter.org/
-#http://conda.pydata.org/docs/test-drive.html#managing-conda
+# https://www.continuum.io/downloads
+# http://jupyter.readthedocs.org/en/latest/install.html
+# https://jupyter.org/
+# http://conda.pydata.org/docs/test-drive.html#managing-conda
+# Scipy http://www.scipy.org/install.html
 cd ~/tmp
 wget https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda2-2.4.1-Linux-x86_64.sh
+
+# anaconda part is still interactive...
 bash Anaconda2-2.4.1-Linux-x86_64.sh
-./anaconda2/bin/conda update conda
-./anaconda2/bin/conda --version
-./anaconda2/bin/conda install jupyter
-./anaconda2/bin/conda install sqlite pandas openblas libxml2 numba numpy
+
+# instalacao default em ~/anaconda2/bin/conda
+
+# ao final da instalacao, inclui path no .bashrc do usuario
+# deslogar e logar para continuar
+conda update conda
+conda --version
+conda install jupyter
+conda install sqlite pandas openblas libxml2 numba numpy
 # next step: configurar servidor jupyter para acesso remoto
 # http://jupyter-notebook.readthedocs.org/en/latest/public_server.html
+
+# Suporte Jupyter para outras linguagens
+#https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
+
+# Julia
+# https://github.com/JuliaLang/IJulia.jl
+
+# R
+#http://irkernel.github.io/installation/
+sudo yum -y install czmq-devel
+R -e 'install.packages(c("rzmq","repr","IRkernel", "IRdisplay"), repos = c("http://irkernel.github.io/", "http://cran.fiocruz.br/", getOption("repos")), type = "source")'
 
 # Shell in a box
 yum -y install pam-devel zlib-devel autoconf automake libtool # git openssl-devel
 
 cd ~/tmp
 git clone https://github.com/shellinabox/shellinabox.git && cd shellinabox
-#Run autotools in project directory
+# Run autotools in project directory
 autoreconf -i
-#Run configure and make in project directory
+# Run configure and make in project directory
 ./configure && make
 make install
