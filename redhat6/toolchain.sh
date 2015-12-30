@@ -24,7 +24,7 @@ yum -y install patch gcc-c++ gcc-gfortran bzip2 cmake curl-devel expat-devel get
 # Para compilar o julia, é necessário instalar uma versão mais recente
 # https://www.vultr.com/docs/how-to-install-gcc-on-centos-6
 # https://gcc.gnu.org/install/build.html
-yum -y install svn flex zip libgcc.i686 glibc-devel.i686 #texinfo-tex ja instalado
+yum -y install svn flex zip libgcc.i686 glibc-devel.i686 texinfo-tex
 cd ~/tmp
 # svn ls svn://gcc.gnu.org/svn/gcc/tags # listar releases
 svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
