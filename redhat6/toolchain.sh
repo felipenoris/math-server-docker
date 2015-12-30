@@ -13,7 +13,7 @@ cd ~/tmp
 # wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain.sh
 wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 rpm -ivh epel-release-6-8.noarch.rpm
-rm -f epel-release-6-8.noarch.rpm
+#rm -f epel-release-6-8.noarch.rpm
 yum -y update
 
 # Ferramentas para compilação
@@ -26,6 +26,7 @@ yum -y install patch gcc-c++ gcc-gfortran bzip2 cmake curl-devel expat-devel get
 # https://gcc.gnu.org/install/build.html
 yum -y install svn flex zip libgcc.i686 glibc-devel.i686 #texinfo-tex ja instalado
 cd ~/tmp
+# svn ls svn://gcc.gnu.org/svn/gcc/tags # listar releases
 svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
 cd gcc_5_3_0_release/
 ./contrib/download_prerequisites
@@ -51,6 +52,37 @@ which gcc
 # cleans gcc installation files
 cd ..
 rm -rf gcc_build && rm -rf gcc_5_3_0_release
+
+# llvm needs CMake 2.8.12.2 or higher
+# https://cmake.org/download/
+cd ~/tmp
+wget https://cmake.org/files/v3.4/cmake-3.4.1.tar.gz
+tar -xvzf cmake-3.4.1.tar.gz
+cd cmake-3.4.1
+./bootstrap && make && make install
+# needs to logout and login (fixme)
+
+# llvm https://github.com/llvm-mirror/llvm
+# http://llvm.org/docs/CMake.html
+# http://llvm.org/releases/download.html
+cd ~/tmp
+#git clone https://github.com/llvm-mirror/llvm.git
+wget http://llvm.org/releases/3.7.0/llvm-3.7.0.src.tar.xz
+tar xf llvm-3.7.0.src.tar.xz
+mkdir llvm_build
+cmake ../llvm
+cmake --build .
+cmake --build . --target install
+#cmake -DCMAKE_INSTALL_PREFIX=/tmp/llvm -P cmake_install.cmake # para escolher o diretorio
+cd ..
+rm -rf llvm_build
+rm -rf llvm
+
+# clang
+# http://llvm.org/releases/3.7.0/cfe-3.7.0.src.tar.xz
+wget http://llvm.org/releases/3.7.0/cfe-3.7.0.src.tar.xz
+tar xf cfe-3.7.0.src.tar.xz
+cd cfe-3.7.0.src
 
 # new binutils
 # CentOS6 vem com versão antiga do binutils.
@@ -226,6 +258,9 @@ conda install sqlite pandas openblas libxml2 numba numpy
 #http://irkernel.github.io/installation/
 sudo yum -y install czmq-devel
 R -e 'install.packages(c("rzmq","repr","IRkernel", "IRdisplay"), repos = c("http://irkernel.github.io/", "http://cran.fiocruz.br/", getOption("repos")), type = "source")'
+
+# multi-user jupyter
+# https://github.com/jupyter/jupyterhub
 
 # Shell in a box
 yum -y install pam-devel zlib-devel autoconf automake libtool # git openssl-devel
