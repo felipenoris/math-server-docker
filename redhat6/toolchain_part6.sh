@@ -6,7 +6,7 @@ git clone https://github.com/JuliaLang/julia.git
 cd julia
 git checkout release-0.4
 make
-sudo make install
+make install
 #rm -rf julia
 
 # Shell in a box
