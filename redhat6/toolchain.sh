@@ -16,15 +16,39 @@ rpm -ivh epel-release-6-8.noarch.rpm
 #rm -f epel-release-6-8.noarch.rpm
 yum -y update
 
+# para o R
+cd ~/tmp
+wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/lapack-devel-3.2.1-4.el6.x86_64.rpm'
+wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/blas-devel-3.2.1-4.el6.x86_64.rpm'
+wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/libicu-devel-4.2.1-12.el6.x86_64.rpm'
+wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/texinfo-tex-4.13a-8.el6.x86_64.rpm'
+wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/glpk-4.40-1.1.el6.x86_64.rpm'
+wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/glpk-devel-4.40-1.1.el6.x86_64.rpm'
+
+yum -y localinstall blas-devel-3.2.1-4.el6.x86_64.rpm
+yum -y localinstall lapack-devel-3.2.1-4.el6.x86_64.rpm
+yum -y localinstall libicu-devel-4.2.1-12.el6.x86_64.rpm
+yum -y localinstall texinfo-tex-4.13a-8.el6.x86_64.rpm
+yum -y localinstall glpk-4.40-1.1.el6.x86_64.rpm
+yum -y localinstall glpk-devel-4.40-1.1.el6.x86_64.rpm
+#rm -f *.rpm
+yum -y install unixodbc-devel QuantLib QuantLib-devel boost boost-devel libxml2 libxml2-devel
+yum -y install R
+
+export CPATH=/usr/include/glpk
+
 # Ferramentas para compilação
-yum -y install patch gcc-c++ gcc-gfortran bzip2 cmake curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker
+yum -y install patch gcc-c++ gcc-gfortran bzip2 cmake curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker valgrind lynx unzip
+
+# Java http://openjdk.java.net/install/index.html
+yum -y install java-1.8.0-openjdk-devel.x86_64 java-1.8.0-openjdk-javadoc.noarch
 
 # new gcc
 # CentOS6 vem com versão antiga do GCC.
 # Para compilar o julia, é necessário instalar uma versão mais recente
 # https://www.vultr.com/docs/how-to-install-gcc-on-centos-6
 # https://gcc.gnu.org/install/build.html
-yum -y install svn flex zip libgcc.i686 glibc-devel.i686 texinfo-tex
+yum -y install svn flex zip libgcc.i686 glibc-devel.i686 # texinfo-tex already installed
 cd ~/tmp
 # svn ls svn://gcc.gnu.org/svn/gcc/tags # listar releases
 svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
@@ -33,13 +57,13 @@ cd gcc_5_3_0_release/
 cd ..
 mkdir gcc_build
 cd gcc_build
-../gcc_5_3_0_release/configure
+../gcc_5_3_0_release/configure --prefix=/usr #default is /usr/local, see https://gcc.gnu.org/install/configure.html
 make -j 4 # incluir número de cores para compilação em paralelo, ver resultado de nproc
 make install
 hash -r # forget about old gcc
 
 # Add new libraries to linker
-echo "/usr/local/lib64" > usrLocalLib64.conf
+echo "/usr/lib64" > usrLocalLib64.conf
 mv usrLocalLib64.conf /etc/ld.so.conf.d/
 ldconfig
 
@@ -52,37 +76,6 @@ which gcc
 # cleans gcc installation files
 cd ..
 rm -rf gcc_build && rm -rf gcc_5_3_0_release
-
-# llvm needs CMake 2.8.12.2 or higher
-# https://cmake.org/download/
-cd ~/tmp
-wget https://cmake.org/files/v3.4/cmake-3.4.1.tar.gz
-tar -xvzf cmake-3.4.1.tar.gz
-cd cmake-3.4.1
-./bootstrap && make && make install
-# needs to logout and login (fixme)
-
-# llvm https://github.com/llvm-mirror/llvm
-# http://llvm.org/docs/CMake.html
-# http://llvm.org/releases/download.html
-cd ~/tmp
-#git clone https://github.com/llvm-mirror/llvm.git
-wget http://llvm.org/releases/3.7.0/llvm-3.7.0.src.tar.xz
-tar xf llvm-3.7.0.src.tar.xz
-mkdir llvm_build
-cmake ../llvm
-cmake --build .
-cmake --build . --target install
-#cmake -DCMAKE_INSTALL_PREFIX=/tmp/llvm -P cmake_install.cmake # para escolher o diretorio
-cd ..
-rm -rf llvm_build
-rm -rf llvm
-
-# clang
-# http://llvm.org/releases/3.7.0/cfe-3.7.0.src.tar.xz
-wget http://llvm.org/releases/3.7.0/cfe-3.7.0.src.tar.xz
-tar xf cfe-3.7.0.src.tar.xz
-cd cfe-3.7.0.src
 
 # new binutils
 # CentOS6 vem com versão antiga do binutils.
@@ -108,32 +101,114 @@ tar xzf git-2.6.4.tar.gz
 cd git-2.6.4
 make prefix=/usr/local all
 make prefix=/usr/local install
-cd ..
-rm -f git-2.6.4.tar.gz && rm -rf git-2.6.4
+#cd ..
+#rm -f git-2.6.4.tar.gz && rm -rf git-2.6.4
 git --version
 ###
 
-# para o R
+# llvm needs CMake 2.8.12.2 or higher
+# https://cmake.org/download/
 cd ~/tmp
-wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/lapack-devel-3.2.1-4.el6.x86_64.rpm'
-wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/blas-devel-3.2.1-4.el6.x86_64.rpm'
-wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/libicu-devel-4.2.1-12.el6.x86_64.rpm'
-wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/texinfo-tex-4.13a-8.el6.x86_64.rpm'
-wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/glpk-4.40-1.1.el6.x86_64.rpm'
-wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/glpk-devel-4.40-1.1.el6.x86_64.rpm'
+wget https://cmake.org/files/v3.4/cmake-3.4.1.tar.gz
+tar -xvzf cmake-3.4.1.tar.gz
+cd cmake-3.4.1
+./bootstrap && make && make install
+# needs to logout and login (fixme)
 
-yum -y localinstall blas-devel-3.2.1-4.el6.x86_64.rpm
-yum -y localinstall lapack-devel-3.2.1-4.el6.x86_64.rpm
-yum -y localinstall libicu-devel-4.2.1-12.el6.x86_64.rpm
-yum -y localinstall texinfo-tex-4.13a-8.el6.x86_64.rpm
-yum -y localinstall glpk-4.40-1.1.el6.x86_64.rpm
-yum -y localinstall glpk-devel-4.40-1.1.el6.x86_64.rpm
-rm -f *.rpm
-yum -y install unixodbc-devel QuantLib QuantLib-devel boost boost-devel libxml2 libxml2-devel
-yum -y install R
+# llvm needs python 2.7 or higher
+# Python e Jupyter
+# https://www.continuum.io/downloads
+# http://jupyter.readthedocs.org/en/latest/install.html
+# https://jupyter.org/
+# http://conda.pydata.org/docs/test-drive.html#managing-conda
+# Scipy http://www.scipy.org/install.html
+cd ~/tmp
+wget https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda2-2.4.1-Linux-x86_64.sh
 
-export CPATH=/usr/include/glpk
+# TODO anaconda part is still interactive...
+bash Anaconda2-2.4.1-Linux-x86_64.sh
 
+# instalacao default em ~/anaconda2/bin/conda
+
+# ao final da instalacao, inclui path no .bashrc do usuario
+# deslogar e logar para continuar
+conda update conda
+
+# Ninja build system https://ninja-build.org/ (used to build llvm)
+# https://github.com/ninja-build/ninja/releases
+cd ~/tmp
+wget https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-linux.zip
+unzip ninja-linux.zip
+mv ninja /usr/bin
+
+# compile ninja from source
+#git clone git://github.com/ninja-build/ninja.git && cd ninja
+#git checkout release
+#./configure.py --bootstrap
+#cp ninja /usr/bin
+#chmod o+r /usr/bin/ninja # https://cmake.org/Bug/view.php?id=13910
+
+# llvm https://github.com/llvm-mirror/llvm
+# http://llvm.org/docs/CMake.html
+# http://llvm.org/releases/download.html
+#git clone https://github.com/llvm-mirror/llvm.git
+#wget http://llvm.org/releases/3.7.0/llvm-3.7.0.src.tar.xz
+#tar xf llvm-3.7.0.src.tar.xz
+
+# Based on: http://llvm.org/docs/GettingStarted.html#getting-started-quickly-a-summary
+cd ~/tmp
+svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm # checkout llvm svn
+cd llvm/tools
+svn co http://llvm.org/svn/llvm-project/cfe/trunk clang # checkout clang svn
+cd ../projects
+svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk compiler-rt # Checkout Compiler-RT (required to build the sanitizers)
+svn co http://llvm.org/svn/llvm-project/openmp/trunk openmp # Checkout Libomp (required for OpenMP support)
+#svn co http://llvm.org/svn/llvm-project/libcxx/trunk libcxx # Checkout libcxx [Optional]
+#svn co http://llvm.org/svn/llvm-project/libcxxabi/trunk libcxxabi # Checkout libcxxabi [Optional]
+#svn co http://llvm.org/svn/llvm-project/test-suite/trunk test-suite # Get the Test Suite Source Code [Optional]
+cd ~/tmp
+mkdir llvm_build
+cd llvm_build
+#cmake -G Ninja ../llvm
+cmake ../llvm
+cmake --build .
+cmake --build . --target install
+#cmake -DCMAKE_INSTALL_PREFIX=/tmp/llvm -P cmake_install.cmake # para escolher o diretorio
+#cd ..
+#rm -rf llvm_build
+#rm -rf llvm
+
+# clang
+# http://llvm.org/releases/3.7.0/cfe-3.7.0.src.tar.xz
+#wget http://llvm.org/releases/3.7.0/cfe-3.7.0.src.tar.xz
+#tar xf cfe-3.7.0.src.tar.xz
+#cd cfe-3.7.0.src
+
+### JULIA
+cd ~/tmp
+git clone https://github.com/JuliaLang/julia.git
+cd julia
+git checkout release-0.4
+make
+sudo make install
+#rm -rf julia
+
+# Shell in a box
+yum -y install pam-devel zlib-devel autoconf automake libtool # git openssl-devel
+
+cd ~/tmp
+git clone https://github.com/shellinabox/shellinabox.git && cd shellinabox
+# Run autotools in project directory
+autoreconf -i
+# Run configure and make in project directory
+./configure && make
+make install
+
+###########################
+## APPS
+###########################
+
+# R Packages
 cd ~/tmp
 wget 'http://www.omegahat.org/XMLRPC/XMLRPC_0.3-0.tar.gz'
 
@@ -150,7 +225,6 @@ yum -y install --nogpgcheck rstudio-server-rhel-0.99.489-x86_64.rpm
 rm -f rstudio-server-rhel-0.99.489-x86_64.rpm
 
 # Default port is 8787. Changing to port 80 (default for http).
-
 echo -e "www-port=80" | tee /etc/rstudio/rserver.conf
 rstudio-server restart
 rstudio-server verify-installation
@@ -211,37 +285,7 @@ rstudio-server verify-installation
 #$ sudo su -c "R -e \"devtools::install_github('rstudio/rmarkdown')\""
 #$ sudo yum install texlive #já deve estar instalado
 
-### JULIA
-cd ~/tmp
-git clone https://github.com/JuliaLang/julia.git
-cd julia
-git checkout release-0.4
-make
-sudo make install
-rm -rf julia
-
-# misc stuff
-yum -y install clang # checar versao...
-yum -y install valgrind # checar versao...
-yum -y install lynx
-
-# Python e Jupyter
-# https://www.continuum.io/downloads
-# http://jupyter.readthedocs.org/en/latest/install.html
-# https://jupyter.org/
-# http://conda.pydata.org/docs/test-drive.html#managing-conda
-# Scipy http://www.scipy.org/install.html
-cd ~/tmp
-wget https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda2-2.4.1-Linux-x86_64.sh
-
-# anaconda part is still interactive...
-bash Anaconda2-2.4.1-Linux-x86_64.sh
-
-# instalacao default em ~/anaconda2/bin/conda
-
-# ao final da instalacao, inclui path no .bashrc do usuario
-# deslogar e logar para continuar
-conda update conda
+# jupyter and python libs
 conda --version
 conda install jupyter
 conda install sqlite pandas openblas libxml2 numba numpy
@@ -261,14 +305,3 @@ R -e 'install.packages(c("rzmq","repr","IRkernel", "IRdisplay"), repos = c("http
 
 # multi-user jupyter
 # https://github.com/jupyter/jupyterhub
-
-# Shell in a box
-yum -y install pam-devel zlib-devel autoconf automake libtool # git openssl-devel
-
-cd ~/tmp
-git clone https://github.com/shellinabox/shellinabox.git && cd shellinabox
-# Run autotools in project directory
-autoreconf -i
-# Run configure and make in project directory
-./configure && make
-make install
