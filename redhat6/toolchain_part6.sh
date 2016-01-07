@@ -10,6 +10,7 @@ make install
 #rm -rf julia
 
 # Shell in a box
+# http://www.tecmint.com/shell-in-a-box-a-web-based-ssh-terminal-to-access-remote-linux-servers/
 yum -y install pam-devel zlib-devel autoconf automake libtool # git openssl-devel
 
 cd ~/tmp
@@ -19,6 +20,11 @@ autoreconf -i
 # Run configure and make in project directory
 ./configure && make
 make install
+
+cd ~/tmp
+wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/shellinaboxd
+cp shellinaboxd /etc/sysconfig/ # edit IP
+#service shellinaboxd start
 
 ###########################
 ## APPS
