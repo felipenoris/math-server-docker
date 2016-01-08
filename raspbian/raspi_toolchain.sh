@@ -1,6 +1,11 @@
 #!/bin/sh
 
+# Run 'sudo rpi-update' if using Pi for the first time to update firmware.
+# 
+
 apt-get update
+apt-get -y upgrade
+apt-get -y dist-upgrade
 
 # Debian R
 # https://cran.r-project.org/bin/linux/debian/
@@ -33,3 +38,5 @@ apt-get -y install subversion flex
 
 #override USE_SYSTEM_LLVM=1
 #LLVM_CONFIG=${EXTRACTED_LOCATION}/bin/llvm-config
+
+# download files make -C deps getall
