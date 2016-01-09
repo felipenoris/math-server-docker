@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Run 'sudo rpi-update' if using Pi for the first time to update firmware.
-# 
-
 apt-get update
 apt-get -y upgrade
 apt-get -y dist-upgrade
