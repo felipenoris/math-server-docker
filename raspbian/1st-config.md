@@ -56,6 +56,8 @@ set boot options B1 Console (requiring user to login)
 
 reboot
 
+obs.: use 'startx' on command line to go to X11 from terminal.
+
 ## Fix wifi stability
 http://docs.brewpi.com/installing-your-pi/rpi-setup.html
 
