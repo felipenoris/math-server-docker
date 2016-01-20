@@ -38,7 +38,7 @@ yum -y install R
 export CPATH=/usr/include/glpk
 
 # Ferramentas para compilação
-yum -y install patch gcc-c++ gcc-gfortran bzip2 cmake curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker valgrind lynx unzip
+yum -y install patch gcc-c++ gcc-gfortran bzip2 cmake curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker valgrind lynx unzip man
 
 # Java http://openjdk.java.net/install/index.html
 yum -y install java-1.8.0-openjdk-devel.x86_64 java-1.8.0-openjdk-javadoc.noarch
