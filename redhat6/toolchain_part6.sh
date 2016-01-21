@@ -21,6 +21,11 @@ autoreconf -i
 ./configure && make
 make install
 
+#openssl req -x509 -nodes -days 7300 -newkey rsa:2048 -keyout certificate.pem -out certificate.pem -subj /CN=noris.local/
+#sudo /sbin/iptables -I INPUT -p tcp -m tcp --dport 4200 -j ACCEPT
+#sudo /sbin/service iptables save
+#shellinaboxd --user-css=wob:+~/shellinabox/shellinabox/white-on-black.css
+
 cd ~/tmp
 wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/shellinaboxd
 cp shellinaboxd /etc/sysconfig/ # edit IP
