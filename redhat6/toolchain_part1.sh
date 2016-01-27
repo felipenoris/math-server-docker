@@ -5,12 +5,24 @@
 
 # default EC2 user is: ec2-user
 
-# run this script with: sudo ./toolchain.sh
-
 yum install -y wget
+
+# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part1.sh
+# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part2.sh
+# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part3.sh
+# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part4.sh
+# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part5.sh
+# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part6.sh
+# chmod +x *sh
+# sudo ./toolchain_part1.sh
+# sudo ./toolchain_part1.sh
+# sudo ./toolchain_part1.sh
+# sudo ./toolchain_part1.sh
+# sudo ./toolchain_part1.sh
+# sudo ./toolchain_part1.sh
+
 mkdir ~/tmp
 cd ~/tmp
-# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain.sh
 wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 rpm -ivh epel-release-6-8.noarch.rpm
 #rm -f epel-release-6-8.noarch.rpm
