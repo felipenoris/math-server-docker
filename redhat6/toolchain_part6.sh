@@ -90,6 +90,9 @@ rstudio-server verify-installation
 
 #$ wget http://download3.rstudio.org/centos-5.9/x86_64/shiny-server-1.2.3.368-x86_64.rpm
 
+# lastest version for CentOS6 is:
+# wget http://download3.rstudio.org/centos6.3/x86_64/shiny-server-1.5.0.730-rh6-x86_64.rpm
+
 #$ sudo yum install --nogpgcheck shiny-server-1.2.3.368-x86_64.rpm
 
 #$ status shiny-server #confirme que o shiny-server está rodando. ex: shiny-server start/running, process 50862
