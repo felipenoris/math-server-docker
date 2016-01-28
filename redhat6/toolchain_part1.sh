@@ -13,6 +13,7 @@ yum install -y wget
 # wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part4.sh
 # wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part5.sh
 # wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part6.sh
+# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part7.sh
 # chmod +x *sh
 # sudo ./toolchain_part1.sh
 # sudo ./toolchain_part1.sh
