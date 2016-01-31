@@ -1,3 +1,0 @@
-JULIA_CPU_TARGET=cortex-a7
-override USE_SYSTEM_LLVM=1
-LLVM_CONFIG=/home/pi/Documents/llvm37/bin/llvm-config
