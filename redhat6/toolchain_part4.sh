@@ -31,5 +31,5 @@ svn co http://llvm.org/svn/llvm-project/openmp/trunk openmp # Checkout Libomp (r
 cd ~/tmp
 mkdir llvm_build
 cd llvm_build
-cmake -G Ninja ../llvm
-#cmake ../llvm
+#cmake -G Ninja ../llvm
+cmake ../llvm
