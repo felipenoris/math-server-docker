@@ -26,11 +26,6 @@ make install
 #sudo /sbin/service iptables save
 #shellinaboxd --user-css=wob:+~/shellinabox/shellinabox/white-on-black.css
 
-cd ~/tmp
-wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/shellinaboxd
-cp shellinaboxd /etc/sysconfig/ # edit IP
-#service shellinaboxd start
-
 ###########################
 ## APPS
 ###########################
