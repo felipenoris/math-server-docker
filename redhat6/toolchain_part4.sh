@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# TODO anaconda part is still interactive...
+cd ~/tmp
+bash Anaconda2-2.4.1-Linux-x86_64.sh
+
+# default target dir is ~/anaconda2, change it to /usr/local/anaconda2
+
+# ao final da instalacao, inclui path no .bashrc do usuario
+# deslogar e logar para continuar
+
 # TODO incluir /usr/local/anaconda2/bin no PATH
 conda update conda
 

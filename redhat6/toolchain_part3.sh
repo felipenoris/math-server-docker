@@ -51,11 +51,3 @@ cd cmake-3.4.1
 # Scipy http://www.scipy.org/install.html
 cd ~/tmp
 wget https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda2-2.4.1-Linux-x86_64.sh
-
-# TODO anaconda part is still interactive...
-bash Anaconda2-2.4.1-Linux-x86_64.sh
-
-# default target dir is ~/anaconda2, change it to /usr/local/anaconda2
-
-# ao final da instalacao, inclui path no .bashrc do usuario
-# deslogar e logar para continuar

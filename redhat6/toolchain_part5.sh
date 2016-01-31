@@ -9,3 +9,7 @@ cmake --build . --target install
 #cd ..
 #rm -rf llvm_build
 #rm -rf llvm
+
+# Check llvm and clang version
+/usr/local/bin/lli --version
+/usr/local/bin/clang --version
