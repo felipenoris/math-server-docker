@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# TODO anaconda part is still interactive...
+# TODO: THIS SCRIPT IS INTERACTIVE
+
 cd ~/tmp
 bash Anaconda2-2.4.1-Linux-x86_64.sh
 
@@ -9,7 +10,8 @@ bash Anaconda2-2.4.1-Linux-x86_64.sh
 # ao final da instalacao, inclui path no .bashrc do usuario
 # deslogar e logar para continuar
 
-# TODO incluir /usr/local/anaconda2/bin no PATH
+echo "export PATH=$PATH:/usr/local/anaconda2/bin" >> ~/.bashrc
+source ~/.bashrc
 conda update conda
 
 # Ninja build system https://ninja-build.org/ (used to build llvm)

@@ -8,6 +8,8 @@
 yum install -y wget
 
 # sudo su
+# echo "export PATH=$PATH:/usr/local/bin" >> ~/.bashrc
+# source ~/.bashrc
 # cd
 # wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part1.sh
 # wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part2.sh
