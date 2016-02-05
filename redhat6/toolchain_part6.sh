@@ -3,11 +3,20 @@
 ### JULIA
 cd ~/tmp
 git clone https://github.com/JuliaLang/julia.git
+cp -rf julia julia-dev
 cd julia
 git checkout release-0.4
+echo "USECLANG=1" > Make.user
 make
 make install
-#rm -rf julia
+#cd .. && rm -rf julia
+
+# build dev version
+cd ~/tmp/julia-dev
+echo "USECLANG=1" > Make.user
+echo "SANITIZE=1" >> Make.user
+echo "USE_SYSTEM_LLVM=1" >> Make.user
+echo "USE_LLVM_SHLIB=1" >> Make.user
 
 # Shell in a box
 # http://www.tecmint.com/shell-in-a-box-a-web-based-ssh-terminal-to-access-remote-linux-servers/
@@ -20,11 +29,18 @@ autoreconf -i
 # Run configure and make in project directory
 ./configure && make
 make install
+cp ./shellinabox/white-on-black.css /misc
 
-#openssl req -x509 -nodes -days 7300 -newkey rsa:2048 -keyout certificate.pem -out certificate.pem -subj /CN=noris.local/
-#sudo /sbin/iptables -I INPUT -p tcp -m tcp --dport 4200 -j ACCEPT
-#sudo /sbin/service iptables save
-#shellinaboxd --user-css=wob:+~/shellinabox/shellinabox/white-on-black.css
+#cd
+#openssl req -x509 -nodes -days 7300 -newkey rsa:2048 -keyout certificate.pem -out certificate.pem -subj /CN=local/
+#mv certificate.pem .ssh
+#chmod 400 .ssh/certificate.pem
+/sbin/iptables -I INPUT -p tcp -m tcp --dport 4200 -j ACCEPT
+/sbin/service iptables save
+
+# para iniciar serviço, usar usuário não root com o comando abaixo.
+# Acessar com o link https://ip:4200
+# shellinaboxd --css=/misc/white-on-black.css
 
 ###########################
 ## APPS
