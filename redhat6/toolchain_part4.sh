@@ -1,46 +1,26 @@
 #!/bin/sh
 
-# TODO: THIS SCRIPT IS INTERACTIVE
+# Python 2.7 and 3 from source
+# https://github.com/h2oai/h2o-2/wiki/Installing-python-2.7-on-centos-6.3.-Follow-this-sequence-exactly-for-centos-machine-only
 
 cd ~/tmp
-bash Anaconda2-2.4.1-Linux-x86_64.sh
+wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tar.xz
+wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tar.xz
 
-# default target dir is ~/anaconda2, change it to /usr/local/anaconda2
+tar xvf Python-2.7.11.tar.xz
+tar xvf Python-3.5.1.tar.xz
 
-# ao final da instalacao, inclui path no .bashrc do usuario
-# deslogar e logar para continuar
-
-echo "export PATH=$PATH:/usr/local/anaconda2/bin" >> ~/.bashrc
-source ~/.bashrc
-conda update conda
-
-# Ninja build system https://ninja-build.org/ (used to build llvm)
-# https://github.com/ninja-build/ninja/releases
+cd Python-2.7.11
+./configure --prefix=/usr/local
+make -j 4 && make altinstall # It is important to use altinstall instead of install, otherwise you will end up with two different versions of Python in the filesystem both named python.
+# Install pip for 2.7
 cd ~/tmp
-wget https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-linux.zip
-unzip ninja-linux.zip
-mv ninja /usr/bin
+wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+/usr/local/bin/python2.7 ez_setup.py
+/usr/local/bin/easy_install-2.7 pip
+which pip # checks if pip is installed
 
-# compile ninja from source
-#git clone git://github.com/ninja-build/ninja.git && cd ninja
-#git checkout release
-#./configure.py --bootstrap
-#cp ninja /usr/bin
-#chmod o+r /usr/bin/ninja # https://cmake.org/Bug/view.php?id=13910
-
-# Based on: http://llvm.org/docs/GettingStarted.html#getting-started-quickly-a-summary
-cd ~/tmp
-svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm # checkout llvm svn
-cd llvm/tools
-svn co http://llvm.org/svn/llvm-project/cfe/trunk clang # checkout clang svn
-cd ../projects
-svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk compiler-rt # Checkout Compiler-RT (required to build the sanitizers)
-svn co http://llvm.org/svn/llvm-project/openmp/trunk openmp # Checkout Libomp (required for OpenMP support)
-#svn co http://llvm.org/svn/llvm-project/libcxx/trunk libcxx # Checkout libcxx [Optional]
-#svn co http://llvm.org/svn/llvm-project/libcxxabi/trunk libcxxabi # Checkout libcxxabi [Optional]
-#svn co http://llvm.org/svn/llvm-project/test-suite/trunk test-suite # Get the Test Suite Source Code [Optional]
-cd ~/tmp
-mkdir llvm_build
-cd llvm_build
-#cmake -G Ninja ../llvm
-cmake ../llvm
+cd Python-3.5.1
+./configure --prefix=/usr/local
+make -j 4 && make altinstall
+which pip3.5 # checks if pip3 is installed
