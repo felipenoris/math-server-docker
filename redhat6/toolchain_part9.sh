@@ -8,6 +8,7 @@ cd node-5.5.0
 ./configure
 make -j 4
 make install
-
-echo "# Check nodejs install"
+cd ..
+rm -f v5.5.0.tar.gz && rm -rf node-5.5.0
+echo "Checking nodejs..."
 node --version >> log.txt

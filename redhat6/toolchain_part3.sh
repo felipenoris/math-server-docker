@@ -21,12 +21,11 @@ cd gold
 ./configure
 make -j 4
 make install
-cd ..
-cd ..
+cd ../..
 rm -rf binutils-2.26
 rm -f binutils-2.26.tar.gz
 
-echo "# Check binutils installation" >> log.txt
+echo "Checking binutils..." >> log.txt
 ld --version >> log.txt # check if install is ok
 ld.gold --version >> log.txt
 
@@ -38,10 +37,10 @@ tar xzf git-2.6.4.tar.gz
 cd git-2.6.4
 make -j 4 prefix=/usr/local all
 make prefix=/usr/local install
-#cd ..
-#rm -f git-2.6.4.tar.gz && rm -rf git-2.6.4
+cd ..
+rm -f git-2.6.4.tar.gz && rm -rf git-2.6.4
 
-echo "#Check git installation" >> log.txt
+echo "Checking git..." >> log.txt
 git --version >> log.txt
 
 # llvm needs CMake 2.8.12.2 or higher
@@ -52,5 +51,8 @@ tar -xvzf cmake-3.4.1.tar.gz
 cd cmake-3.4.1
 ./bootstrap && make -j 4 && make install
 
-echo "# Check cmake installation" >> log.txt
+echo "Checking cmake..." >> log.txt
 cmake --version >> log.txt
+
+cd ..
+rm -f cmake-3.4.1.tar.gz && rm -rf cmake-3.4.1
