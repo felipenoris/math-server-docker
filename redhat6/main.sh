@@ -37,6 +37,6 @@ chmod +x *sh
 ./toolchain_part5.sh > out_part5.txt
 ./toolchain_part6.sh > out_part6.txt
 ./toolchain_part7.sh > out_part7.txt
-./toolchain_part8.sh > out_part8.txt
+#./toolchain_part8.sh > out_part8.txt
 ./toolchain_part9.sh > out_part9.txt
-./toolchain_part10.sh > out_part10.txt
+#./toolchain_part10.sh > out_part10.txt
