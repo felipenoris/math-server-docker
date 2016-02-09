@@ -12,6 +12,9 @@ make -j 4
 make install
 #cd .. && rm -rf julia
 ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
+echo "# Check julia" >> log.txt
+which julia >> log.txt
+julia --version >> log.txt
 
 # build dev version
 cd ~/tmp/julia-dev

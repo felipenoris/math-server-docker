@@ -11,5 +11,6 @@ cmake --build . --target install
 #rm -rf llvm
 
 # Check llvm and clang version
-/usr/local/bin/lli --version
-/usr/local/bin/clang --version
+echo "# Check llvm"
+/usr/local/bin/lli --version >> log.txt
+/usr/local/bin/clang --version >> log.txt

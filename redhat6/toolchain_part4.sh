@@ -13,14 +13,22 @@ tar xvf Python-3.5.1.tar.xz
 cd Python-2.7.11
 ./configure --prefix=/usr/local
 make -j 4 && make altinstall # It is important to use altinstall instead of install, otherwise you will end up with two different versions of Python in the filesystem both named python.
+
 # Install pip for 2.7
 cd ~/tmp
 wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
 /usr/local/bin/python2.7 ez_setup.py
 /usr/local/bin/easy_install-2.7 pip
-which pip # checks if pip is installed
+
+echo "Check python2.7 installation" >> log.txt
+/usr/local/bin/python2.7 --version >> log.txt
+which pip >> log.txt
 
 cd Python-3.5.1
 ./configure --prefix=/usr/local
 make -j 4 && make altinstall
-which pip3.5 # checks if pip3 is installed
+ln -s /usr/local/bin/python3.5 /usr/local/bin/python3
+ln -s /usr/local/bin/pip3.5 /usr/local/bin/pip3
+echo "# Check python 3 installation" >> log.txt
+/usr/local/bin/python3 --version >> log.txt
+which pip3 >> log.txt # checks if pip3 is installed

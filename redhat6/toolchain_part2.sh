@@ -20,7 +20,8 @@ mv usrLocalLib64.conf /etc/ld.so.conf.d/
 ldconfig
 
 # Checks if we got new gcc
-gcc --version
-g++ --version
-gfortran --version
-which gcc
+echo "# Check gcc installation" >> log.txt
+gcc --version >> log.txt
+g++ --version >> log.txt
+gfortran --version >> log.txt
+which gcc >> log.txt
