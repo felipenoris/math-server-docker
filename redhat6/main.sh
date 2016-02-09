@@ -10,6 +10,9 @@
 # For fresh Redhat6 on EC2
 # the default EC2 user is: ec2-user
 
+# yum -y install wget
+# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/main.sh
+
 yum -y install wget
 
 echo "export PATH=$PATH:/usr/local/bin" >> ~/.bashrc
