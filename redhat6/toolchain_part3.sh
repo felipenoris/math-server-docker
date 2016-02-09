@@ -16,12 +16,19 @@ cd binutils-2.26
 ./configure
 make -j 4
 make install
+# Make ld.gold, used by nodejs
+cd gold
+./configure
+make -j 4
+make install
+cd ..
 cd ..
 rm -rf binutils-2.26
 rm -f binutils-2.26.tar.gz
 
 echo "# Check binutils installation" >> log.txt
 ld --version >> log.txt # check if install is ok
+ld.gold --version >> log.txt
 
 ### GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
