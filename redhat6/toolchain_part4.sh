@@ -1,5 +1,7 @@
 #!/bin/sh
 
+yum -y install sqlite sqlite-devel # needed by jupyterhub, used when compiling Python3
+
 # Python 2.7 and 3 from source
 # https://github.com/h2oai/h2o-2/wiki/Installing-python-2.7-on-centos-6.3.-Follow-this-sequence-exactly-for-centos-machine-only
 

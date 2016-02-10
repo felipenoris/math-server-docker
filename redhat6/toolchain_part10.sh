@@ -23,7 +23,7 @@ pip3 install numpy pandas
 
 # R
 # http://irkernel.github.io/installation/
-sudo yum -y install czmq-devel
+yum -y install czmq-devel
 R -e 'install.packages(c("rzmq","repr","IRkernel", "IRdisplay"), repos = c("http://irkernel.github.io/", "http://cran.fiocruz.br/", getOption("repos")), type = "source")'
 
 # multi-user jupyter
