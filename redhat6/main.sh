@@ -16,7 +16,7 @@
 
 yum -y install wget
 
-echo "export PATH=$PATH:/usr/local/bin" >> ~/.bashrc
+echo "export PATH=/usr/local/bin:$PATH" >> ~/.bashrc
 source ~/.bashrc
 cd
 wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part1.sh
