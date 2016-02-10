@@ -14,12 +14,14 @@ wget http://ftp.gnu.org/gnu/binutils/binutils-2.26.tar.gz
 tar -xvzf binutils-2.26.tar.gz
 cd binutils-2.26
 ./configure
-make -j 4
+p="$(nproc --all)"
+make -j $p
 make install
 # Make ld.gold, used by nodejs
 cd gold
 ./configure
-make -j 4
+p="$(nproc --all)"
+make -j $p
 make install
 cd ../..
 rm -rf binutils-2.26
@@ -35,7 +37,8 @@ cd ~/tmp
 wget https://www.kernel.org/pub/software/scm/git/git-2.6.4.tar.gz
 tar xzf git-2.6.4.tar.gz
 cd git-2.6.4
-make -j 4 prefix=/usr/local all
+p="$(nproc --all)"
+make -j $p prefix=/usr/local all
 make prefix=/usr/local install
 cd ..
 rm -f git-2.6.4.tar.gz && rm -rf git-2.6.4

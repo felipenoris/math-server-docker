@@ -12,7 +12,8 @@ tar xvf Python-3.5.1.tar.xz
 
 cd Python-2.7.11
 ./configure --prefix=/usr/local
-make -j 4 && make altinstall # It is important to use altinstall instead of install, otherwise you will end up with two different versions of Python in the filesystem both named python.
+p="$(nproc --all)"
+make -j $p && make altinstall # It is important to use altinstall instead of install, otherwise you will end up with two different versions of Python in the filesystem both named python.
 ln -s /usr/local/bin/python2.7 /usr/local/bin/python # this will override system's python if /usr/local/bin appears before /usr/bin on env variable PATH
 cd ..
 rm -f Python-2.7.11.tar.xz && rm -rf Python-2.7.11
@@ -30,7 +31,8 @@ which pip >> log.txt
 
 cd Python-3.5.1
 ./configure --prefix=/usr/local
-make -j 4 && make altinstall
+p="$(nproc --all)"
+make -j $p && make altinstall
 ln -s /usr/local/bin/python3.5 /usr/local/bin/python3
 ln -s /usr/local/bin/pip3.5 /usr/local/bin/pip3
 cd ..

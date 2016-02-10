@@ -9,7 +9,8 @@ git clone https://github.com/shellinabox/shellinabox.git && cd shellinabox
 # Run autotools in project directory
 autoreconf -i
 # Run configure and make in project directory
-./configure && make
+p="$(nproc --all)"
+./configure && make -j $p
 make install
 cp ./shellinabox/white-on-black.css /misc
 

@@ -10,7 +10,8 @@ cd ..
 mkdir gcc_build
 cd gcc_build
 ../gcc_5_3_0_release/configure --prefix=/usr #default is /usr/local, see https://gcc.gnu.org/install/configure.html
-make -j 4 # incluir número de cores para compilação em paralelo, ver resultado de nproc
+p="$(nproc --all)"
+make -j $p
 make install
 hash -r # forget about old gcc
 

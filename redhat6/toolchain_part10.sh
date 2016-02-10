@@ -2,12 +2,13 @@
 
 # Jupyter
 pip install IPython notebook
-pip3.5 install IPython jupyterhub notebook
+pip3 install IPython jupyterhub notebook
 npm install -g configurable-http-proxy # depends on nodejs
 # to start the server: jupyterhub
 
-
 # jupyter and python libs
+pip install numpy pandas # missing: sqlite, openblas, libxml2
+pip3 install numpy pandas
 #conda --version
 #conda install jupyter
 #conda install sqlite pandas openblas libxml2 numba numpy

@@ -8,7 +8,8 @@ cd julia
 git checkout release-0.4
 echo "USECLANG=1" > Make.user
 echo "prefix=/usr/local/julia" >> Make.user
-make -j 4
+p="$(nproc --all)"
+make -j $p
 make install
 #cd .. && rm -rf julia
 ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
@@ -23,5 +24,6 @@ echo "USECLANG=1" > Make.user
 echo "USE_SYSTEM_LLVM=1" >> Make.user
 echo "USE_LLVM_SHLIB=1" >> Make.user
 echo "prefix=/usr/local/julia-dev" >> Make.user
-make -j 4
+p="$(nproc --all)"
+make -j $p
 make install
