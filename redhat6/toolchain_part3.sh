@@ -47,13 +47,13 @@ git --version >> log.txt
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
 cd ~/tmp
-wget https://cmake.org/files/v3.4/cmake-3.4.1.tar.gz
-tar -xvzf cmake-3.4.1.tar.gz
-cd cmake-3.4.1
+wget https://cmake.org/files/v3.4/cmake-3.4.3.tar.gz
+tar -xvzf cmake-3.4.3.tar.gz
+cd cmake-3.4.3
 ./bootstrap && make -j 4 && make install
 
 echo "Checking cmake..." >> log.txt
 cmake --version >> log.txt
 
 cd ..
-rm -f cmake-3.4.1.tar.gz && rm -rf cmake-3.4.1
+rm -f cmake-3.4.3.tar.gz && rm -rf cmake-3.4.3
