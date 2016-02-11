@@ -61,4 +61,13 @@ ERROR:root:kernel e8db9fa9-288b-464b-b5af-c45aabf6c236 restarted failed!
 [W 2016-02-11 03:24:10.001 felipenoris handlers:463] Kernel deleted before session
 [W 2016-02-11 03:24:10.001 felipenoris log:47] 410 DELETE /user/felipenoris/api/sessions/ac31537a-1ede-4eff-8ff0-42d6c58ad6ee (::ffff:192.168.56.1) 1.48ms referer=http://192.168.56.101:8000/user/felipenoris/notebooks/Untitled5.ipynb?kernel_name=julia-0.4
 
+- Problem with R Kernel installation
+
+> install.packages(c("rzmq","repr","IRkernel", "IRdisplay"), repos = c("http://irkernel.github.io/", "http://cran.fiocruz.br/", getOption("repos")), type = "source")
+Installing packages into ‘/usr/lib64/R/library’
+(as ‘lib’ is unspecified)
+Error in contrib.url(repos, type) : 
+  trying to use CRAN without setting a mirror
+Calls: install.packages -> grep -> contrib.url
+Execução interrompida
 
