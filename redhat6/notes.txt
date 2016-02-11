@@ -1,4 +1,4 @@
---- Notes for Shellinabox
+### Notes for Shellinabox ###
 
 You may have to open port for external access
 # /sbin/iptables -I INPUT -p tcp -m tcp --dport 4200 -j ACCEPT
@@ -16,7 +16,7 @@ You can generate the certificate using the following commands:
 # mv certificate.pem .ssh
 # chmod 400 .ssh/certificate.pem
 
---- Notes for Jupyter
+### Notes for Jupyter ###
 
 To start the server:
 # jupyterhub
@@ -28,3 +28,15 @@ You may have to open port for external access:
 # 	/sbin/service iptables save
 
 Supported kernels for other languages: https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
+
+### Notes for RStudio ###
+Default port is 8787.
+
+Change the default port by editing rserver.conf. The following will change to port 80:
+# echo -e "www-port=80" | tee /etc/rstudio/rserver.conf
+# rstudio-server restart
+# rstudio-server verify-installation
+
+### TODO List ###
+
+- Precompilated packages default to /usr/local/share/julia/lib. This should be a per-user configuration.
