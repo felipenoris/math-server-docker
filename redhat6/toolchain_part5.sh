@@ -5,7 +5,7 @@
 cd ~/tmp
 wget https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-linux.zip
 unzip ninja-linux.zip
-mv ninja /usr/bin
+mv ninja /usr/local/bin
 echo "Checking ninja..." >> log.txt
 ninja --version
 
