@@ -39,6 +39,8 @@ Change the default port by editing rserver.conf. The following will change to po
 
 ### TODO List ###
 
+- add https support for Jupyter.
+
 - Precompilated packages default to /usr/local/share/julia/lib. This should be a per-user configuration. Current workaround: use a regular user to precompile packages.
 
 - Error with jupyterhub with Julia kernel. Compat not found in path.
