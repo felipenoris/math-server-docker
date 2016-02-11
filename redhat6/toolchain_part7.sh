@@ -17,12 +17,20 @@ echo "Checking julia..." >> log.txt
 which julia >> log.txt
 julia --version >> log.txt
 
+# Set julia package dir
+mkdir /usr/local/share/julia
+echo "export JULIA_PKGDIR=/usr/local/share/julia" > /etc/profile.d/julia-pkg.sh
+source /etf/profile
+julia -e 'Pkg.init()'
+mkdir $JULIA_PKGDIR/lib
+chmod a+w $JULIA_PKGDIR/lib
+
 # build dev version
 cd ~/tmp/julia-dev
 echo "USECLANG=1" > Make.user
 #echo "SANITIZE=1" >> Make.user
 echo "USE_SYSTEM_LLVM=1" >> Make.user
-echo "USE_LLVM_SHLIB=1" >> Make.user
+#echo "USE_LLVM_SHLIB=1" >> Make.user
 echo "prefix=/usr/local/julia-dev" >> Make.user
 p="$(nproc --all)"
 make -j $p
