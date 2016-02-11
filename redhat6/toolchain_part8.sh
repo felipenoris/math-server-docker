@@ -35,10 +35,13 @@ cp ./shellinabox/white-on-black.css /misc
 
 # R Packages
 cd ~/tmp
-wget 'http://www.omegahat.org/XMLRPC/XMLRPC_0.3-0.tar.gz'
+
+#XMLRPC
+wget 'http://bioconductor.org/packages/devel/extra/src/contrib/XMLRPC_0.3-0.tar.gz'
+R -e 'install.packages("XMLRPC_0.3-0.tar.gz", repos = NULL, type = "source")'
+rm -f XMLRPC_0.3-0.tar.gz
 
 R -e 'install.packages(c("RCurl", "XML"), repos="http://cran.fiocruz.br/")'
-R -e 'install.packages("XMLRPC_0.3-0.tar.gz", repos = NULL, type = "source")'
 R -e 'install.packages(c("data.table","XLConnect","reshape","ggplot2","vars","sqldf","shinyAce"), , repos="http://cran.fiocruz.br/")' # RODBC
 R -e 'install.packages(c("iterators","RQuantLib","fArma", "fAsianOptions", "fBasics", "fBonds", "timeDate", "fExoticOptions", "fExtremes", "fGarch", "fImport", "fNonlinear", "fOptions", "timeSeries", "Hmisc","roxygen2","fPortfolio","relaimpo"), repos="http://cran.fiocruz.br/")' #Rsymphony, RQuantLib, Rglpk, fPortfolio
 
@@ -49,8 +52,8 @@ wget https://download2.rstudio.org/rstudio-server-rhel-0.99.878-x86_64.rpm
 yum -y install --nogpgcheck rstudio-server-rhel-0.99.878-x86_64.rpm
 rm -f rstudio-server-rhel-0.99.878-x86_64.rpm
 
-# Default port is 8787. Changing to port 80 (default for http).
-echo -e "www-port=80" | tee /etc/rstudio/rserver.conf
+# Default port is 8787.
+#echo -e "www-port=80" | tee /etc/rstudio/rserver.conf
 rstudio-server restart
 rstudio-server verify-installation
 
