@@ -4,9 +4,7 @@
 cd ~/tmp
 rm -rf gcc_build && rm -rf gcc_5_3_0_release
 
-# new binutils
-# CentOS6 vem com versão antiga do binutils.
-# Para compilar o julia, é necessário instalar uma versão mais recente
+# new binutils, used by julia
 # https://www.gnu.org/software/binutils/
 yum -y install bison # byacc # needed to build ld.gold, which is needed by nodejs
 cd ~/tmp
