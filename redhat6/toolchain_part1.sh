@@ -9,6 +9,9 @@ rpm -ivh epel-release-6-8.noarch.rpm
 rm -f epel-release-6-8.noarch.rpm
 yum -y update
 
+echo "export PATH=/usr/local/bin:${PATH}" > /etc/profile.d/local-bin.sh
+source /etc/profile
+
 # CentOS packages for R that are not available for Redhat6, but are compatible
 cd ~/tmp
 wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/lapack-devel-3.2.1-4.el6.x86_64.rpm'
