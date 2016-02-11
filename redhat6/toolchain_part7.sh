@@ -20,7 +20,7 @@ julia --version >> log.txt
 # Set julia package dir
 mkdir /usr/local/share/julia
 echo "export JULIA_PKGDIR=/usr/local/share/julia" > /etc/profile.d/julia-pkg.sh
-source /etf/profile
+source /etc/profile
 julia -e 'Pkg.init()'
 mkdir $JULIA_PKGDIR/lib
 chmod a+w $JULIA_PKGDIR/lib
