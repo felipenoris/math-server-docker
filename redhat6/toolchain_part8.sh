@@ -45,9 +45,9 @@ R -e 'install.packages(c("iterators","RQuantLib","fArma", "fAsianOptions", "fBas
 # RStudio
 yum -y install openssl098e # Required only for RedHat/CentOS 6 and 7
 cd ~/tmp
-wget https://download2.rstudio.org/rstudio-server-rhel-0.99.489-x86_64.rpm
-yum -y install --nogpgcheck rstudio-server-rhel-0.99.489-x86_64.rpm
-rm -f rstudio-server-rhel-0.99.489-x86_64.rpm
+wget https://download2.rstudio.org/rstudio-server-rhel-0.99.878-x86_64.rpm
+yum -y install --nogpgcheck rstudio-server-rhel-0.99.878-x86_64.rpm
+rm -f rstudio-server-rhel-0.99.878-x86_64.rpm
 
 # Default port is 8787. Changing to port 80 (default for http).
 echo -e "www-port=80" | tee /etc/rstudio/rserver.conf
