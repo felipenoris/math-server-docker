@@ -9,7 +9,7 @@ rpm -ivh epel-release-6-8.noarch.rpm
 rm -f epel-release-6-8.noarch.rpm
 yum -y update
 
-echo "export PATH=/usr/local/bin:${PATH}" > /etc/profile.d/local-bin.sh
+echo "export PATH=/usr/local/sbin:/usr/local/bin:${PATH}" > /etc/profile.d/local-bin.sh
 source /etc/profile
 
 # CentOS packages for R that are not available for Redhat6, but are compatible
