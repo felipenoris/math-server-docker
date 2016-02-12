@@ -43,7 +43,8 @@ cd ~/tmp
 wget https://cmake.org/files/v3.4/cmake-3.4.3.tar.gz
 tar -xvzf cmake-3.4.3.tar.gz
 cd cmake-3.4.3
-./bootstrap && make -j 4 && make install
+p="$(nproc --all)"
+./bootstrap && make -j $p && make install
 
 cd ..
 rm -f cmake-3.4.3.tar.gz && rm -rf cmake-3.4.3
