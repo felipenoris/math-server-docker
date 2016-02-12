@@ -25,10 +25,6 @@ cd ../..
 rm -rf binutils-2.26
 rm -f binutils-2.26.tar.gz
 
-echo "Checking binutils..." >> log.txt
-ld --version >> ~/log.txt # check if install is ok
-ld.gold --version >> ~/log.txt
-
 ### GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
 cd ~/tmp
@@ -41,9 +37,6 @@ make prefix=/usr/local install
 cd ..
 rm -f git-2.6.4.tar.gz && rm -rf git-2.6.4
 
-echo "Checking git..." >> ~/log.txt
-git --version >> ~/log.txt
-
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
 cd ~/tmp
@@ -51,9 +44,6 @@ wget https://cmake.org/files/v3.4/cmake-3.4.3.tar.gz
 tar -xvzf cmake-3.4.3.tar.gz
 cd cmake-3.4.3
 ./bootstrap && make -j 4 && make install
-
-echo "Checking cmake..." >> ~/log.txt
-cmake --version >> ~/log.txt
 
 cd ..
 rm -f cmake-3.4.3.tar.gz && rm -rf cmake-3.4.3

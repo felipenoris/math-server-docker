@@ -31,9 +31,6 @@ rm -f *.rpm
 yum -y install unixodbc-devel QuantLib QuantLib-devel boost boost-devel libxml2 libxml2-devel
 yum -y install R
 
-echo "Checking R..." >> ~/log.txt
-R --version >> ~/log.txt
-
 export CPATH=/usr/include/glpk
 
 # Compilation tools

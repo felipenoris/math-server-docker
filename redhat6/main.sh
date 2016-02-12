@@ -27,6 +27,7 @@ wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/too
 wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part8.sh
 wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part9.sh
 wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part10.sh
+wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/final_check.sh
 chmod +x *sh
 ./toolchain_part1.sh > ~/out_part1.txt
 ./toolchain_part2.sh > ~/out_part2.txt
@@ -38,3 +39,4 @@ chmod +x *sh
 #./toolchain_part8.sh > ~/out_part8.txt
 ./toolchain_part9.sh > ~/out_part9.txt
 ./toolchain_part10.sh > ~/out_part10.txt
+./final_check.sh > ~/final_check.txt

@@ -13,9 +13,6 @@ make -j $p
 make install
 #cd .. && rm -rf julia
 ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
-echo "Checking julia..." >> ~/log.txt
-which julia >> ~/log.txt
-julia --version >> ~/log.txt
 
 # Set julia package dir
 mkdir /usr/local/share/julia

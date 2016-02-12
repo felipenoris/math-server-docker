@@ -9,6 +9,7 @@ python -m ipykernel install # register Python 2 kernel
 npm install -g configurable-http-proxy # depends on nodejs
 
 # to start the server: jupyterhub
+# or: jupyterhub --ip=192.168.1.2 --port=443
 # you may have to open port for external access:
 # 	/sbin/iptables -I INPUT -p tcp -m tcp --dport 8000 -j ACCEPT
 # 	/sbin/service iptables save
@@ -30,6 +31,3 @@ julia -e 'Pkg.add("IJulia")'
 yum -y install czmq-devel
 R -e 'install.packages(c("rzmq","repr","IRkernel", "IRdisplay"), repos = c("http://irkernel.github.io/", "http://cran.fiocruz.br/", getOption("repos")), type = "source")'
 R -e 'IRkernel::installspec(user = FALSE)' # makes R kernel available for jupyter
-
-# multi-user jupyter
-# https://github.com/jupyter/jupyterhub

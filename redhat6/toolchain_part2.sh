@@ -19,10 +19,3 @@ hash -r # forget about old gcc
 echo "/usr/local/lib64" > usrLocalLib64.conf
 mv usrLocalLib64.conf /etc/ld.so.conf.d/
 ldconfig
-
-# Checks if we got new gcc
-echo "Checking gcc..." >> ~/log.txt
-gcc --version >> ~/log.txt
-g++ --version >> ~/log.txt
-gfortran --version >> ~/log.txt
-which gcc >> ~/log.txt

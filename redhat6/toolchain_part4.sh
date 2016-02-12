@@ -26,11 +26,6 @@ wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
 /usr/local/bin/python2.7 ez_setup.py
 /usr/local/bin/easy_install-2.7 pip
 
-echo "Checking python2.7..." >> ~/log.txt
-python --version >> ~/log.txt
-which python >> ~/log.txt
-which pip >> ~/log.txt
-
 cd Python-3.5.1
 ./configure --prefix=/usr/local
 p="$(nproc --all)"
@@ -39,6 +34,3 @@ ln -s /usr/local/bin/python3.5 /usr/local/bin/python3
 ln -s /usr/local/bin/pip3.5 /usr/local/bin/pip3
 cd ..
 rm -f Python-3.5.1.tar.xz && rm -rf Python-3.5.1
-echo "Checking python3..." >> ~/log.txt
-/usr/local/bin/python3 --version >> ~/log.txt
-which pip3 >> ~/log.txt
