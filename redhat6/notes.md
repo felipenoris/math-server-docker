@@ -26,7 +26,7 @@ You can generate the certificate using the following commands:
 # chmod 400 .ssh/certificate.pem
 ```
 
-# Notes for Jupyter
+## Notes for Jupyter
 
 To start the server:
 
@@ -51,47 +51,13 @@ You may have to open port for external access:
 
 Supported kernels for other languages: https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
 
-### Notes for RStudio ###
+## Notes for RStudio
 Default port is 8787.
 
 Change the default port by editing rserver.conf. The following will change to port 80:
+
+```shell
 # echo -e "www-port=80" | tee /etc/rstudio/rserver.conf
 # rstudio-server restart
 # rstudio-server verify-installation
-
-### TODO List ###
-
-- add https support for Jupyter.
-
-- Precompilated packages default to /usr/local/share/julia/lib. This should be a per-user configuration. Current workaround: use a regular user to precompile packages.
-
-- Error with jupyterhub with Julia kernel. Compat not found in path.
-
-[I 2016-02-11 03:24:06.973 felipenoris restarter:103] KernelRestarter: restarting kernel (4/5)
-WARNING:root:kernel e8db9fa9-288b-464b-b5af-c45aabf6c236 restarted
-ERROR: LoadError: LoadError: ArgumentError: Compat not found in path
- in require at ./loading.jl:233
- in include at ./boot.jl:261
- in include_from_node1 at ./loading.jl:304
- in include at ./boot.jl:261
- in include_from_node1 at ./loading.jl:304
- in process_options at ./client.jl:280
- in _start at ./client.jl:378
-while loading /usr/local/share/julia/v0.4/IJulia/src/IJulia.jl, in expression starting on line 4
-while loading /usr/local/share/julia/v0.4/IJulia/src/kernel.jl, in expression starting on line 4
-[W 2016-02-11 03:24:09.988 felipenoris restarter:95] KernelRestarter: restart failed
-[W 2016-02-11 03:24:09.988 felipenoris kernelmanager:54] Kernel e8db9fa9-288b-464b-b5af-c45aabf6c236 died, removing from map.
-ERROR:root:kernel e8db9fa9-288b-464b-b5af-c45aabf6c236 restarted failed!
-[W 2016-02-11 03:24:10.001 felipenoris handlers:463] Kernel deleted before session
-[W 2016-02-11 03:24:10.001 felipenoris log:47] 410 DELETE /user/felipenoris/api/sessions/ac31537a-1ede-4eff-8ff0-42d6c58ad6ee (::ffff:192.168.56.1) 1.48ms referer=http://192.168.56.101:8000/user/felipenoris/notebooks/Untitled5.ipynb?kernel_name=julia-0.4
-
-- Problem with R Kernel installation
-
-> install.packages(c("rzmq","repr","IRkernel", "IRdisplay"), repos = c("http://irkernel.github.io/", "http://cran.fiocruz.br/", getOption("repos")), type = "source")
-Installing packages into ‘/usr/lib64/R/library’
-(as ‘lib’ is unspecified)
-Error in contrib.url(repos, type) : 
-  trying to use CRAN without setting a mirror
-Calls: install.packages -> grep -> contrib.url
-Execução interrompida
-
+```
