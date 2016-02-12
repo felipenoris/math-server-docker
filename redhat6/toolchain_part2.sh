@@ -9,7 +9,7 @@ cd gcc_5_3_0_release/
 cd ..
 mkdir gcc_build
 cd gcc_build
-../gcc_5_3_0_release/configure --prefix=/usr/local # default is /usr/local, see https://gcc.gnu.org/install/configure.html
+../gcc_5_3_0_release/configure --prefix=/usr # default is /usr/local, see https://gcc.gnu.org/install/configure.html
 p="$(nproc --all)"
 make -j $p
 make install
