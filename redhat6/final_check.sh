@@ -21,13 +21,16 @@ echo "Checking cmake..."
 cmake --version
 
 echo "Checking python2.7..."
-python --version
 which python
+python --version
 which pip
+pip --version
 
 echo "Checking python3..."
-/usr/local/bin/python3 --version
+which python3
+python3 --version
 which pip3
+pip3 --version
 
 # Check llvm and clang version
 echo "Checking llvm..."
