@@ -12,4 +12,4 @@ svn co http://llvm.org/svn/llvm-project/openmp/tags/RELEASE_371/final openmp # C
 cd ~/tmp
 mkdir llvm_build
 cd llvm_build
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=prefix=/usr/local -DCMAKE_BUILD_TYPE=Release ../llvm
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release ../llvm
