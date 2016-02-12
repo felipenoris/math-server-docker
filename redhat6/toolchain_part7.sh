@@ -7,6 +7,9 @@ cp -rf julia julia-dev
 cd julia
 git checkout release-0.4
 echo "USECLANG=1" > Make.user
+#echo "SANITIZE=1" >> Make.user
+echo "USE_SYSTEM_LLVM=1" >> Make.user
+echo "USE_LLVM_SHLIB=1" >> Make.user
 echo "prefix=/usr/local/julia" >> Make.user
 p="$(nproc --all)"
 make -j $p
@@ -27,7 +30,7 @@ cd ~/tmp/julia-dev
 echo "USECLANG=1" > Make.user
 #echo "SANITIZE=1" >> Make.user
 echo "USE_SYSTEM_LLVM=1" >> Make.user
-#echo "USE_LLVM_SHLIB=1" >> Make.user
+echo "USE_LLVM_SHLIB=1" >> Make.user
 echo "prefix=/usr/local/julia-dev" >> Make.user
 p="$(nproc --all)"
 make -j $p
