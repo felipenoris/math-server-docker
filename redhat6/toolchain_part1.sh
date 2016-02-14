@@ -31,6 +31,9 @@ rm -f *.rpm
 yum -y install unixodbc-devel QuantLib QuantLib-devel boost boost-devel libxml2 libxml2-devel
 yum -y install R
 
+# Set default CRAN Mirror
+echo 'options(repos = c(CRAN="http://cran.fiocruz.br/"))' >> /usr/lib64/R/library/base/R/Rprofile
+
 export CPATH=/usr/include/glpk
 
 # Compilation tools
