@@ -6,13 +6,13 @@ Toolchain script for Financial and Mathematical Programming on Amazon´s AWS EC2
 
 * Jupyterhub [https://github.com/jupyter/jupyterhub] with support for the following languages:
 
-	* Python2.7
+	* Python 2.7
 
-	* Python3
+	* Python 3.5
 
 	* R 3.2.3
 
-	* Julia
+	* Julia 0.4
 
 * RStudio Server [https://www.rstudio.com/]
 
@@ -43,11 +43,17 @@ $ sudo su
 # ./main.sh 
 ```
 
+## Requirements
+
+*Redhat6* or *CentOS6*.
+
+Support for *Redhat7*/*CentOS7* is under development.
+
 ## System specific notes
 
 ### CentOS6
 
-For fresh *CentOS6*, you may need to configure network:
+For a fresh *CentOS6* Virtual Machine, you may need to configure network:
 
 ```
 # dhclient eth0
@@ -68,13 +74,13 @@ To start the server:
 # jupyterhub
 ```
 
+By default, Jupyterhub will be accessible on the following link: `http://localhost:8000`.
+
 To set IP and port, use:
 
 ```
 # jupyterhub --ip=192.168.1.2 --port=443
 ```
-
-Jupyterhub will be accessible by default on the following link: `http://localhost:8000`
 
 You may have to open port for external access:
 
@@ -86,6 +92,7 @@ You may have to open port for external access:
 Supported kernels for other languages: https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
 
 ### RStudio
+
 Default port is 8787.
 
 Change the default port by editing rserver.conf. The following will change to port 80:
@@ -96,10 +103,9 @@ Change the default port by editing rserver.conf. The following will change to po
 # rstudio-server verify-installation
 ```
 
-
 ### Shellinabox
 
-You may have to open port for external access
+You may have to open port for external access:
 
 ```
 # /sbin/iptables -I INPUT -p tcp -m tcp --dport 4200 -j ACCEPT
@@ -112,7 +118,7 @@ You can start the service with a non-root user using the following command:
 # shellinaboxd --css=/misc/white-on-black.css
 ```
 
-Shellinabox will be accessible by default on the following link: `https://localhost:4200`
+Shellinabox will be accessible by default on the following link: `https://localhost:4200`.
 
 When using root user to start the service, it may not create the certificate automatically.
 
@@ -128,6 +134,8 @@ You can generate the certificate using the following commands:
 ## TODO list
 
 - [ ] redhat7 toolchain script is under construction.
+
+- [ ] build Julia with system's llvm and shared libs.
 
 - [ ] add https support for Jupyter.
 
