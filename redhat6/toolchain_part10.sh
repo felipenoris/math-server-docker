@@ -29,5 +29,5 @@ julia -e 'Pkg.add("IJulia")'
 # R
 # http://irkernel.github.io/installation/
 yum -y install czmq-devel
-R -e 'install.packages(c("rzmq","repr","IRkernel", "IRdisplay"), repos = c("http://irkernel.github.io/", "http://cran.fiocruz.br/", getOption("repos")), type = "source")'
+R -e 'install.packages(c("rzmq","repr","IRkernel","IRdisplay"), repos = c("http://irkernel.github.io/", getOption("repos")),type = "source")'
 R -e 'IRkernel::installspec(user = FALSE)' # makes R kernel available for jupyter
