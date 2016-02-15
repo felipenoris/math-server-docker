@@ -127,13 +127,21 @@ You can generate the certificate using the following commands:
 
 ## TODO list
 
-- redhat7 toolchain script is under construction.
+- [ ] redhat7 toolchain script is under construction.
 
-- add https support for Jupyter.
+- [ ] add https support for Jupyter.
 
-- Precompilated packages default to /usr/local/share/julia/lib. This should be a per-user configuration. Current workaround: use a regular user to precompile packages.
+- [ ] fix user authentication on Jupyter.
 
-- Error with jupyterhub with Julia kernel. Compat not found in path.
+- [ ] complete RStudio installation.
+
+- [ ] Solve packages folder issue for python, julia and R.
+
+- [ ] Define user groups.
+
+- [ ] Precompilated packages default to /usr/local/share/julia/lib. This should be a per-user configuration. Current workaround: use a regular user to precompile packages.
+
+- [ ] Error with jupyterhub with Julia kernel. Compat not found in path.
 
 ```
 [I 2016-02-11 03:24:06.973 felipenoris restarter:103] KernelRestarter: restarting kernel (4/5)
