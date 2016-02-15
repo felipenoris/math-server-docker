@@ -2,7 +2,7 @@
 
 Toolchain script for Financial and Mathematical Programming on Amazon´s AWS EC2 fresh instance.
 
-## List of tools:
+## List of tools
 
 * Jupyterhub [https://github.com/jupyter/jupyterhub] with support for the following languages:
 
@@ -20,23 +20,23 @@ Toolchain script for Financial and Mathematical Programming on Amazon´s AWS EC2
 
 ## Usage
 
-1. Start a fresh server instance with a minimal installation of *redhat6* or *centos6*.
+1 - Start a fresh server instance with a minimal installation of *redhat6* or *centos6*.
 
-2. Access your system with as root.
+2 - Access your system as root.
 
 ```shell
 $ sudo su
 ```
 
-3. Install wget.
+3 - Install wget.
 
-```shell
+```
 # yum -y install wget
 ```
 
-4. Download and run the main script.
+4 - Download and run the main script.
 
-```shell
+```
 # cd
 # wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/main.sh
 # chmod +x main.sh
@@ -49,14 +49,14 @@ $ sudo su
 
 For fresh *CentOS6*, you may need to configure network:
 
-```shell
+```
 # dhclient eth0
 # yum -y install system-config-network-tui
 ```
 
 ### Redhat6
 
-For fresh *Redhat6* on EC2, the default user is `ec2-user`.
+For a fresh *Redhat6* instance on Amazon's EC2, the default user is `ec2-user`.
 
 ## Application specific notes
 
@@ -64,13 +64,13 @@ For fresh *Redhat6* on EC2, the default user is `ec2-user`.
 
 To start the server:
 
-```shell
+```
 # jupyterhub
 ```
 
 To set IP and port, use:
 
-```shell
+```
 # jupyterhub --ip=192.168.1.2 --port=443
 ```
 
@@ -78,7 +78,7 @@ Jupyterhub will be accessible by default on the following link: `http://localhos
 
 You may have to open port for external access:
 
-```shell
+```
 # /sbin/iptables -I INPUT -p tcp -m tcp --dport 8000 -j ACCEPT
 # /sbin/service iptables save
 ```
@@ -90,7 +90,7 @@ Default port is 8787.
 
 Change the default port by editing rserver.conf. The following will change to port 80:
 
-```shell
+```
 # echo -e "www-port=80" | tee /etc/rstudio/rserver.conf
 # rstudio-server restart
 # rstudio-server verify-installation
@@ -101,14 +101,14 @@ Change the default port by editing rserver.conf. The following will change to po
 
 You may have to open port for external access
 
-```shell
+```
 # /sbin/iptables -I INPUT -p tcp -m tcp --dport 4200 -j ACCEPT
 # /sbin/service iptables save
 ```
 
 You can start the service with a non-root user using the following command:
 
-```shell
+```
 # shellinaboxd --css=/misc/white-on-black.css
 ```
 
@@ -118,7 +118,7 @@ When using root user to start the service, it may not create the certificate aut
 
 You can generate the certificate using the following commands:
 
-```shell
+```
 # cd
 # openssl req -x509 -nodes -days 7300 -newkey rsa:2048 -keyout certificate.pem -out certificate.pem -subj /CN=local/
 # mv certificate.pem .ssh
