@@ -16,8 +16,6 @@ Toolchain script for Financial and Mathematical Programming on Amazon´s AWS EC2
 
 * RStudio Server [https://www.rstudio.com/]
 
-* Shellinabox [https://github.com/shellinabox/shellinabox]
-
 ## Usage
 
 1 - Start a fresh server instance with a minimal installation of *redhat6* or *centos6*.
@@ -46,8 +44,6 @@ $ sudo su
 ## Requirements
 
 *Redhat6* or *CentOS6*.
-
-Support for *Redhat7*/*CentOS7* is under development.
 
 ## System specific notes
 
@@ -89,7 +85,7 @@ You may have to open port for external access:
 # /sbin/service iptables save
 ```
 
-Supported kernels for other languages: https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
+The full list of supported kernels is at https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages.
 
 ### RStudio
 
@@ -103,34 +99,6 @@ Change the default port by editing rserver.conf. The following will change to po
 # rstudio-server verify-installation
 ```
 
-### Shellinabox
-
-You may have to open port for external access:
-
-```
-# /sbin/iptables -I INPUT -p tcp -m tcp --dport 4200 -j ACCEPT
-# /sbin/service iptables save
-```
-
-You can start the service with a non-root user using the following command:
-
-```
-# shellinaboxd --css=/misc/white-on-black.css
-```
-
-Shellinabox will be accessible by default on the following link: `https://localhost:4200`.
-
-When using root user to start the service, it may not create the certificate automatically.
-
-You can generate the certificate using the following commands:
-
-```
-# cd
-# openssl req -x509 -nodes -days 7300 -newkey rsa:2048 -keyout certificate.pem -out certificate.pem -subj /CN=local/
-# mv certificate.pem .ssh
-# chmod 400 .ssh/certificate.pem
-```
-
 ## TODO list
 
 - [ ] redhat7 toolchain script is under construction.
@@ -142,6 +110,8 @@ You can generate the certificate using the following commands:
 - [ ] fix user authentication on Jupyter.
 
 - [ ] complete RStudio installation.
+
+- [ ] install Shiny for RStudio.
 
 - [ ] Solve packages folder issue for python, julia and R.
 

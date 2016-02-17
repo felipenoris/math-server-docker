@@ -1,19 +1,5 @@
 #!/bin/sh
 
-# Shell in a box
-# http://www.tecmint.com/shell-in-a-box-a-web-based-ssh-terminal-to-access-remote-linux-servers/
-yum -y install pam-devel zlib-devel autoconf automake libtool # git openssl-devel
-
-cd ~/tmp
-git clone https://github.com/shellinabox/shellinabox.git && cd shellinabox
-# Run autotools in project directory
-autoreconf -i
-# Run configure and make in project directory
-p="$(nproc --all)"
-./configure && make -j $p
-make install
-cp ./shellinabox/white-on-black.css /misc
-
 ###########################
 ## APPS
 ###########################
@@ -21,26 +7,33 @@ cp ./shellinabox/white-on-black.css /misc
 # R Packages
 cd ~/tmp
 
+R -e 'install.packages(c("RCurl", "XML"))'
+
 #XMLRPC
 wget 'http://bioconductor.org/packages/devel/extra/src/contrib/XMLRPC_0.3-0.tar.gz'
 R -e 'install.packages("XMLRPC_0.3-0.tar.gz", repos = NULL, type = "source")'
 rm -f XMLRPC_0.3-0.tar.gz
 
-R -e 'install.packages(c("RCurl", "XML"), repos="http://cran.fiocruz.br/")'
-R -e 'install.packages(c("data.table","XLConnect","reshape","ggplot2","vars","sqldf","shinyAce"), , repos="http://cran.fiocruz.br/")' # RODBC
-R -e 'install.packages(c("iterators","RQuantLib","fArma", "fAsianOptions", "fBasics", "fBonds", "timeDate", "fExoticOptions", "fExtremes", "fGarch", "fImport", "fNonlinear", "fOptions", "timeSeries", "Hmisc","roxygen2","fPortfolio","relaimpo"), repos="http://cran.fiocruz.br/")' #Rsymphony, RQuantLib, Rglpk, fPortfolio
+R -e 'install.packages(c("data.table","XLConnect","reshape","ggplot2","vars","sqldf","shinyAce"))' # RODBC
+R -e 'install.packages(c("iterators","RQuantLib","fArma", "fAsianOptions", "fBasics", "fBonds", "timeDate", "fExoticOptions", "fExtremes", "fGarch", "fImport", "fNonlinear", "fOptions", "timeSeries", "Hmisc","roxygen2","fPortfolio","relaimpo"))' #Rsymphony, RQuantLib, Rglpk, fPortfolio
 
 # RStudio
 yum -y install openssl098e # Required only for RedHat/CentOS 6 and 7
 cd ~/tmp
-wget https://download2.rstudio.org/rstudio-server-rhel-0.99.878-x86_64.rpm
-yum -y install --nogpgcheck rstudio-server-rhel-0.99.878-x86_64.rpm
-rm -f rstudio-server-rhel-0.99.878-x86_64.rpm
+wget https://download2.rstudio.org/rstudio-server-rhel-0.99.879-x86_64.rpm
+yum -y install --nogpgcheck rstudio-server-rhel-0.99.879-x86_64.rpm
+rm -f rstudio-server-rhel-0.99.879-x86_64.rpm
 
 # Default port is 8787.
 #echo -e "www-port=80" | tee /etc/rstudio/rserver.conf
 rstudio-server restart
 rstudio-server verify-installation
+
+# https://support.rstudio.com/hc/en-us/articles/200552316-Configuring-the-Server
+# https://support.rstudio.com/hc/en-us/articles/200488488-Configuring-R-to-Use-an-HTTP-or-HTTPS-Proxy
+# https://support.rstudio.com/hc/en-us/articles/200552326-Running-with-a-Proxy
+# http://www.r-bloggers.com/how-to-get-your-very-own-rstudio-server-and-shiny-server-with-digitalocean/
+# https://s3.amazonaws.com/rstudio-server/rstudio-server-pro-0.99.879-admin-guide.pdf
 
 #Importante: Veja que o processo do RStudio é configurado pelos arquivos contidos em /etc/rstudio (pasta padrão criada pela instalação do pacote), e gerenciado pelo comando rstudio-server.
 
