@@ -3,6 +3,10 @@
 echo "Checking R..."
 R --version
 
+echo "Checking Java..."
+java -version
+javac -version
+
 # Checks if we got new gcc
 echo "Checking gcc..."
 gcc --version
