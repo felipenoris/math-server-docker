@@ -3,7 +3,7 @@
 # nodejs
 cd ~/tmp
 wget https://github.com/nodejs/node/archive/v5.5.0.tar.gz
-tar -xvf v5.5.0.tar.gz
+tar xf v5.5.0.tar.gz
 cd node-5.5.0
 ./configure
 p="$(nproc --all)"

@@ -9,7 +9,7 @@ rm -rf gcc_build && rm -rf gcc_5_3_0_release
 yum -y install bison # byacc # needed to build ld.gold, which is needed by nodejs
 cd ~/tmp
 wget http://ftp.gnu.org/gnu/binutils/binutils-2.26.tar.gz
-tar -xvzf binutils-2.26.tar.gz
+tar xf binutils-2.26.tar.gz
 cd binutils-2.26
 ./configure
 p="$(nproc --all)"
@@ -29,7 +29,7 @@ rm -f binutils-2.26.tar.gz
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
 cd ~/tmp
 wget https://www.kernel.org/pub/software/scm/git/git-2.6.4.tar.gz
-tar xzf git-2.6.4.tar.gz
+tar xf git-2.6.4.tar.gz
 cd git-2.6.4
 p="$(nproc --all)"
 make -j $p prefix=/usr/local all
@@ -41,7 +41,7 @@ rm -f git-2.6.4.tar.gz && rm -rf git-2.6.4
 # https://cmake.org/download/
 cd ~/tmp
 wget https://cmake.org/files/v3.4/cmake-3.4.3.tar.gz
-tar -xvzf cmake-3.4.3.tar.gz
+tar xf cmake-3.4.3.tar.gz
 cd cmake-3.4.3
 p="$(nproc --all)"
 ./bootstrap && make -j $p && make install

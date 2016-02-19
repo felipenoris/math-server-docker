@@ -9,8 +9,8 @@ cd ~/tmp
 wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tar.xz
 wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tar.xz
 
-tar xvf Python-2.7.11.tar.xz
-tar xvf Python-3.5.1.tar.xz
+tar xf Python-2.7.11.tar.xz
+tar xf Python-3.5.1.tar.xz
 
 cd Python-2.7.11
 ./configure --prefix=/usr/local
