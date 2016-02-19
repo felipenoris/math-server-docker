@@ -34,3 +34,7 @@ ln -s /usr/local/bin/python3.5 /usr/local/bin/python3
 ln -s /usr/local/bin/pip3.5 /usr/local/bin/pip3
 cd ..
 rm -f Python-3.5.1.tar.xz && rm -rf Python-3.5.1
+
+# https://pip.pypa.io/en/stable/installing/#upgrading-pip
+pip install -U pip
+pip3 install -U pip
