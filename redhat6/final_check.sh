@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "system path is ${PATH}"
+
 echo "Checking R..."
 R --version
 
@@ -35,6 +37,10 @@ which python3
 python3 --version
 which pip3
 pip3 --version
+
+# Swig
+which ccache-swig
+ccache-swig -V
 
 # Check llvm and clang version
 echo "Checking llvm..."
