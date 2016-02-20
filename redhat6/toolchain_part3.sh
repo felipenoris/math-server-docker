@@ -12,14 +12,12 @@ wget http://ftp.gnu.org/gnu/binutils/binutils-2.26.tar.gz
 tar xf binutils-2.26.tar.gz
 cd binutils-2.26
 ./configure
-p="$(nproc --all)"
-make -j $p
+make -j "$(nproc --all)"
 make install
 # Make ld.gold, used by nodejs
 cd gold
 ./configure
-p="$(nproc --all)"
-make -j $p
+make -j "$(nproc --all)"
 make install
 cd ../..
 rm -rf binutils-2.26
@@ -31,8 +29,7 @@ cd ~/tmp
 wget https://www.kernel.org/pub/software/scm/git/git-2.6.4.tar.gz
 tar xf git-2.6.4.tar.gz
 cd git-2.6.4
-p="$(nproc --all)"
-make -j $p prefix=/usr/local all
+make -j "$(nproc --all)" prefix=/usr/local all
 make prefix=/usr/local install
 cd ..
 rm -f git-2.6.4.tar.gz && rm -rf git-2.6.4
@@ -43,8 +40,7 @@ cd ~/tmp
 wget https://cmake.org/files/v3.4/cmake-3.4.3.tar.gz
 tar xf cmake-3.4.3.tar.gz
 cd cmake-3.4.3
-p="$(nproc --all)"
-./bootstrap && make -j $p && make install
+./bootstrap && make -j "$(nproc --all)" && make install
 
 cd ..
 rm -f cmake-3.4.3.tar.gz && rm -rf cmake-3.4.3
