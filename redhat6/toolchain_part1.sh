@@ -34,7 +34,8 @@ yum -y install R
 # Set default CRAN Mirror
 echo 'options(repos = c(CRAN="http://cran.fiocruz.br/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
-export CPATH=/usr/include/glpk
+echo "export CPATH=/usr/include/glpk" > /etc/profile.d/glpk-include.sh
+source /etc/profile 
 
 # Compilation tools
 yum -y install patch gcc-c++ gcc-gfortran bzip2 cmake curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker valgrind lynx unzip man
@@ -50,4 +51,4 @@ yum -y install java-1.8.0-openjdk-devel.x86_64 java-1.8.0-openjdk-javadoc.noarch
 yum -y install svn flex zip libgcc.i686 glibc-devel.i686 # texinfo-tex already installed
 
 # tools
-yum -y install nload htop
+yum -y install nload htop nano vim
