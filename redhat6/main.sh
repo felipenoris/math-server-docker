@@ -12,7 +12,7 @@
 
 # yum -y install wget
 # wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/main.sh
-# chmod +x main.sh
+# chmod u+x main.sh
 
 yum -y install wget
 
@@ -28,7 +28,7 @@ wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/too
 wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part9.sh
 wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/toolchain_part10.sh
 wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/final_check.sh
-chmod +x *sh
+chmod u+x *sh
 ./toolchain_part1.sh > ~/out_part1.txt 2>&1
 ./toolchain_part2.sh > ~/out_part2.txt 2>&1
 ./toolchain_part3.sh > ~/out_part3.txt 2>&1
