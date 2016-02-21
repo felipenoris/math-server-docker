@@ -1,15 +1,31 @@
 #!/bin/sh
 
+# list gcc svn tags
+# svn ls svn://gcc.gnu.org/svn/gcc/tags
+
+
 # new gcc (cont.)
 cd ~/tmp
-# svn ls svn://gcc.gnu.org/svn/gcc/tags # listar releases
-svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
-cd gcc_5_3_0_release/
+
+# GCC5 has new abi: http://allanmcrae.com/2015/06/the-case-of-gcc-5-1-and-the-two-c-abis/
+# svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
+# cd gcc_5_3_0_release/
+# ./contrib/download_prerequisites
+# cd ..
+# mkdir gcc_build
+# cd gcc_build
+# ../gcc_5_3_0_release/configure --prefix=/usr # default is /usr/local, see https://gcc.gnu.org/install/configure.html
+# make -j "$(nproc --all)"
+# make install
+
+# Going for last stable release before GCC5, so that clang compiled objects are compatible with gcc's
+svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_4_9_3_release/
+cd gcc_4_9_3_release/
 ./contrib/download_prerequisites
 cd ..
 mkdir gcc_build
 cd gcc_build
-../gcc_5_3_0_release/configure --prefix=/usr # default is /usr/local, see https://gcc.gnu.org/install/configure.html
+../gcc_4_9_3_release/configure --prefix=/usr # default is /usr/local, see https://gcc.gnu.org/install/configure.html
 make -j "$(nproc --all)"
 make install
 
@@ -35,6 +51,5 @@ make install
 hash -r # forget about old gcc
 
 # Add new libraries to linker
-echo "/usr/lib64" > usrLib64.conf
-mv usrLib64.conf /etc/ld.so.conf.d/
+echo "/usr/lib64" > /etc/ld.so.conf.d/usrLib64.conf
 ldconfig

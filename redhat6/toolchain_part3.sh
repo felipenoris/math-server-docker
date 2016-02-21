@@ -2,7 +2,7 @@
 
 # cleans gcc installation files
 cd ~/tmp
-rm -rf gcc_build && rm -rf gcc_5_3_0_release
+rm -rf gcc_build && rm -rf gcc_4_9_3_release
 
 # new binutils, used by julia
 # https://www.gnu.org/software/binutils/
