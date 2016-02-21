@@ -38,7 +38,7 @@
 # VER 3.7.1
 
 # dependencies
-yum -y install libedit-devel #swig libedit-devel
+yum -y install libedit-devel libffi-devel #swig libedit-devel
 # Centof7 http://rpm.pbone.net/index.php3/stat/4/idpl/31980484/dir/centos_7/com/libedit-devel-3.0-12.20121213cvs.el7.x86_64.rpm.html
 # wget ftp://ftp.muug.mb.ca/mirror/centos/7.2.1511/os/x86_64/Packages/libedit-devel-3.0-12.20121213cvs.el7.x86_64.rpm
 # Rh6 http://rpm.pbone.net/index.php3/stat/4/idpl/16860051/dir/redhat_el_6/com/libedit-devel-3.0-1.20090722cvs.el6.x86_64.rpm.html
@@ -102,4 +102,6 @@ mkdir llvm_build
 cd llvm_build
 
 # http://llvm.org/docs/CMake.html
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release -DLLVM_BUILD_LLVM_DYLIB=ON -DLLVM_ENABLE_PIC=ON -DLLVM_ENABLE_FFI=ON ../llvm
+# find / -iname 'ffi.h'
+#cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release -DLLVM_BUILD_LLVM_DYLIB=ON -DLLVM_ENABLE_PIC=ON -DLLVM_ENABLE_FFI=ON -DFFI_INCLUDE_DIR=/usr/lib64/libffi-3.0.5/include  ../llvm
+../llvm/configure --enable-shared

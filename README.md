@@ -103,8 +103,6 @@ Change the default port by editing rserver.conf. The following will change to po
 
 - [ ] redhat7 toolchain script is under construction.
 
-- [ ] build Julia with system's llvm and shared libs.
-
 - [ ] add https support for Jupyter.
 
 - [ ] fix user authentication on Jupyter.
