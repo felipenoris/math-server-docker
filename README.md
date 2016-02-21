@@ -37,7 +37,7 @@ $ sudo su
 ```
 # cd
 # wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/main.sh
-# chmod +x main.sh
+# chmod u+x main.sh
 # ./main.sh 
 ```
 
