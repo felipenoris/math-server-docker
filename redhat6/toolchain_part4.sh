@@ -13,10 +13,16 @@ tar xf Python-2.7.11.tar.xz
 tar xf Python-3.5.1.tar.xz
 
 cd Python-2.7.11
-./configure --prefix=/usr/local #--enable-shared
+./configure --prefix=/usr/local --enable-shared
 make -j "$(nproc --all)"
 make altinstall # It is important to use altinstall instead of install, otherwise you will end up with two different versions of Python in the filesystem both named python.
 ln -s /usr/local/bin/python2.7 /usr/local/bin/python # this will override system's python if /usr/local/bin appears before /usr/bin on env variable PATH
+#ln -s /usr/local/lib/libpython2.7.so.1.0 /usr/lib64/libpython2.7.so.1.0 # FIXME: python can't find lib at /usr/local/lib.
+
+# Add new libraries to linker
+echo "/usr/local/lib" > /etc/ld.so.conf.d/usrLocalLib.conf
+ldconfig
+
 cd ..
 rm -f Python-2.7.11.tar.xz && rm -rf Python-2.7.11
 
@@ -27,11 +33,12 @@ wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
 /usr/local/bin/easy_install-2.7 pip
 
 cd Python-3.5.1
-./configure --prefix=/usr/local
+./configure --prefix=/usr/local --enable-shared
 make -j "$(nproc --all)"
 make altinstall
 ln -s /usr/local/bin/python3.5 /usr/local/bin/python3
 ln -s /usr/local/bin/pip3.5 /usr/local/bin/pip3
+ldconfig ## Add new libraries to linker
 cd ..
 rm -f Python-3.5.1.tar.xz && rm -rf Python-3.5.1
 
