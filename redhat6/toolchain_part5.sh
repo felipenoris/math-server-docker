@@ -1,42 +1,5 @@
 #!/bin/sh
 
-# Based on: http://llvm.org/docs/GettingStarted.html#getting-started-quickly-a-summary
-#cd ~/tmp
-#svn co http://llvm.org/svn/llvm-project/llvm/tags/RELEASE_371/final llvm
-#cd llvm/tools
-#svn co http://llvm.org/svn/llvm-project/cfe/tags/RELEASE_371/final clang # checkout clang svn
-#cd ../projects
-#svn co http://llvm.org/svn/llvm-project/compiler-rt/tags/RELEASE_371/final compiler-rt # Checkout Compiler-RT (required to build the sanitizers)
-#svn co http://llvm.org/svn/llvm-project/openmp/tags/RELEASE_371/final openmp # Checkout Libomp (required for OpenMP support)
-
-#cd ~/tmp
-#mkdir llvm_build
-#cd llvm_build
-#cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release -DLLVM_BUILD_LLVM_DYLIB=ON ../llvm
-
-
-
-
-###################
-
-## LLVM ##
-
-#LLVM_VER=3.7
-
-#LLVM_GIT_URL_BASE=http://llvm.org/git
-#LLVM_GIT_URL_LLVM=$(LLVM_GIT_URL_BASE)/llvm.git
-#LLVM_GIT_URL_CLANG=$(LLVM_GIT_URL_BASE)/clang.git
-#LLVM_GIT_URL_COMPILER_RT=$(LLVM_GIT_URL_BASE)/compiler-rt.git
-#LLVM_GIT_URL_LLDB=$(LLVM_GIT_URL_BASE)/lldb.git
-#LLVM_GIT_URL_LIBCXX=$(LLVM_GIT_URL_BASE)/libcxx.git
-#LLVM_GIT_URL_LIBCXXABI=$(LLVM_GIT_URL_BASE)/libcxxabi.git
-
-#LLVM_BUILDTYPE=Release
-
-#http://llvm.org/git/llvm.git
-
-# VER 3.7.1
-
 # dependencies
 yum -y install libedit-devel libffi-devel #swig libedit-devel
 # Centof7 http://rpm.pbone.net/index.php3/stat/4/idpl/31980484/dir/centos_7/com/libedit-devel-3.0-12.20121213cvs.el7.x86_64.rpm.html
@@ -62,19 +25,23 @@ rm -f swig-3.0.8.tar.gz SWIGMD5 && rm -rf swig-3.0.8
 
 cd ~/tmp
 
-# LLVM source code
+# LLVM 3.7.1
+# http://llvm.org/docs/GettingStarted.html#getting-started-quickly-a-summary
+# http://llvm.org/git/llvm.git
+
+# LLVM
 wget http://llvm.org/releases/3.7.1/llvm-3.7.1.src.tar.xz
 
-# Clang source code /tools/clang
+# Clang /tools/clang
 wget http://llvm.org/releases/3.7.1/cfe-3.7.1.src.tar.xz
 
-# CompilerRT source code /projects/compiler-rt
+# CompilerRT /projects/compiler-rt
 wget http://llvm.org/releases/3.7.1/compiler-rt-3.7.1.src.tar.xz
 
-# libc++ source code /projects/libcxx
+# libc++ /projects/libcxx
 wget http://llvm.org/releases/3.7.1/libcxx-3.7.1.src.tar.xz
 
-# libc++abi source code /projects/libcxxabi
+# libc++abi /projects/libcxxabi
 wget http://llvm.org/releases/3.7.1/libcxxabi-3.7.1.src.tar.xz
 
 # lldb /tools/lldb
@@ -98,10 +65,12 @@ tar xf libcxxabi-3.7.1.src.tar.xz -C llvm/projects/libcxxabi --strip-components=
 mkdir llvm/tools/lldb
 tar xf lldb-3.7.1.src.tar.xz -C llvm/tools/lldb --strip-components=1
 
+rm -f *tar.xz
+
 mkdir llvm_build
 cd llvm_build
 
 # http://llvm.org/docs/CMake.html
 # find / -iname 'ffi.h'
-#cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release -DLLVM_BUILD_LLVM_DYLIB=ON -DLLVM_ENABLE_PIC=ON -DLLVM_ENABLE_FFI=ON -DFFI_INCLUDE_DIR=/usr/lib64/libffi-3.0.5/include  ../llvm
+# cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release -DLLVM_BUILD_LLVM_DYLIB=ON -DLLVM_ENABLE_PIC=ON -DLLVM_ENABLE_FFI=ON -DFFI_INCLUDE_DIR=/usr/lib64/libffi-3.0.5/include  ../llvm
 ../llvm/configure --enable-shared
