@@ -26,13 +26,13 @@ rm -f binutils-2.26.tar.gz
 ### GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
 cd ~/tmp
-wget https://www.kernel.org/pub/software/scm/git/git-2.6.4.tar.gz
-tar xf git-2.6.4.tar.gz
-cd git-2.6.4
+wget https://www.kernel.org/pub/software/scm/git/git-2.7.1.tar.gz
+tar xf git-2.7.1.tar.gz
+cd git-2.7.1
 make -j "$(nproc --all)" prefix=/usr/local all
 make prefix=/usr/local install
 cd ..
-rm -f git-2.6.4.tar.gz && rm -rf git-2.6.4
+rm -f git-2.7.1.tar.gz && rm -rf git-2.7.1
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
