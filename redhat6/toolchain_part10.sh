@@ -25,6 +25,8 @@ pip3 install numpy pandas
 # https://github.com/JuliaLang/IJulia.jl
 julia -e 'Pkg.add("IJulia")'
 # https://github.com/JuliaLang/IJulia.jl/issues/341
+julia -e 'using IJulia' #precompilation
+cp -r ˜/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels # registers global kernel
 
 # R
 # http://irkernel.github.io/installation/
