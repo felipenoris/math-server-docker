@@ -53,7 +53,13 @@ echo "Checking llvm..."
 echo "Checking julia..."
 which julia
 julia --version
+julia -e 'println("LOAD_PATH = ", LOAD_PATH)'
+julia -e 'println("Pkg.dir = ", Pkg.dir())'
+ls -la /usr/local/julia/share/julia/site
 
 echo "Checking nodejs..."
 node --version
 npm --version
+
+echo "Checking jupyterhub..."
+jupyterhub --version
