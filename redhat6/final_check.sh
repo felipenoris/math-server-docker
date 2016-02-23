@@ -2,6 +2,9 @@
 
 echo "system path is ${PATH}"
 
+echo "system libs..."
+ldconfig -p
+
 echo "Checking R..."
 R --version
 
