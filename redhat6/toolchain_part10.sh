@@ -28,6 +28,11 @@ julia -e 'Pkg.add("IJulia")'
 julia -e 'using IJulia' #precompilation
 cp -r ˜/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels # registers global kernel
 
+# create symlink to julia library dir
+# See LOAD_PATH vs Pkg.dir()
+rmdir /usr/local/julia/share/julia/site/v0.4
+ln -s /usr/local/share/julia/v0.4 /usr/local/julia/share/julia/site/v0.4
+
 # R
 # http://irkernel.github.io/installation/
 yum -y install czmq-devel
