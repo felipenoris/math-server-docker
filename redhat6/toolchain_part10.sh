@@ -26,7 +26,7 @@ pip3 install numpy pandas
 julia -e 'Pkg.add("IJulia")'
 # https://github.com/JuliaLang/IJulia.jl/issues/341
 julia -e 'using IJulia' #precompilation
-cp -r ˜/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels # registers global kernel
+cp -r ~/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels # registers global kernel
 
 # create symlink to julia library dir
 # See LOAD_PATH vs Pkg.dir()
