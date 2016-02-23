@@ -114,3 +114,11 @@ Change the default port by editing rserver.conf. The following will change to po
 - [ ] Define user groups.
 
 - [ ] Precompilated packages default to /usr/local/share/julia/lib. This should be a per-user configuration. Current workaround: use a regular user to precompile packages.
+
+## References
+
+* Jupyter main website: http://jupyter.org/
+
+* Jupyterhub Docs: https://jupyterhub.readthedocs.org/en/latest/index.html
+
+* RStudio website: https://www.rstudio.com/
