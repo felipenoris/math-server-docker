@@ -17,7 +17,6 @@ cd Python-2.7.11
 make -j "$(nproc --all)"
 make altinstall # It is important to use altinstall instead of install, otherwise you will end up with two different versions of Python in the filesystem both named python.
 ln -s /usr/local/bin/python2.7 /usr/local/bin/python # this will override system's python if /usr/local/bin appears before /usr/bin on env variable PATH
-#ln -s /usr/local/lib/libpython2.7.so.1.0 /usr/lib64/libpython2.7.so.1.0 # FIXME: python can't find lib at /usr/local/lib.
 
 # Add new libraries to linker
 echo "/usr/local/lib" > /etc/ld.so.conf.d/usrLocalLib.conf
