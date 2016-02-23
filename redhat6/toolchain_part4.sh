@@ -1,4 +1,3 @@
-#!/bin/sh
 
 yum -y install sqlite sqlite-devel # needed by jupyterhub, used when compiling Python3
 

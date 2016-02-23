@@ -1,4 +1,3 @@
-#!/bin/sh
 
 # cleans gcc installation files
 cd ~/tmp

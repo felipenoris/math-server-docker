@@ -1,4 +1,3 @@
-#!/bin/sh
 
 # Jupyter
 # Add python2.7 kernel: https://github.com/jupyter/jupyter/issues/71

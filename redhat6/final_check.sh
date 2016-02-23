@@ -1,4 +1,3 @@
-#!/bin/sh
 
 echo "system path is ${PATH}"
 

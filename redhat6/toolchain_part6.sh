@@ -1,4 +1,3 @@
-#!/bin/sh
 
 cd ~/tmp/llvm_build
 make ENABLE_OPTIMIZED=1 DISABLE_ASSERTIONS=1 CXXFLAGS="-I/usr/local/include/python2.7 -L/usr/local/lib -lpython2.7" -j "$(nproc --all)"

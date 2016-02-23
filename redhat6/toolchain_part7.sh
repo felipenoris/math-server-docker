@@ -1,4 +1,3 @@
-#!/bin/sh
 
 ### JULIA
 cd ~/tmp

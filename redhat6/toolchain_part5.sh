@@ -1,4 +1,3 @@
-#!/bin/sh
 
 # dependencies
 yum -y install libedit-devel libffi-devel #swig libedit-devel

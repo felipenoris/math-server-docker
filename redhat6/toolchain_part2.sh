@@ -1,8 +1,6 @@
-#!/bin/sh
 
 # list gcc svn tags
 # svn ls svn://gcc.gnu.org/svn/gcc/tags
-
 
 # new gcc (cont.)
 cd ~/tmp
