@@ -16,6 +16,7 @@ rm -f XMLRPC_0.3-0.tar.gz
 
 R -e 'install.packages(c("data.table","XLConnect","reshape","ggplot2","vars","sqldf","shinyAce"))' # RODBC
 R -e 'install.packages(c("iterators","RQuantLib","fArma", "fAsianOptions", "fBasics", "fBonds", "timeDate", "fExoticOptions", "fExtremes", "fGarch", "fImport", "fNonlinear", "fOptions", "timeSeries", "Hmisc","roxygen2","fPortfolio","relaimpo"))' #Rsymphony, RQuantLib, Rglpk, fPortfolio
+R -e 'install.packages(c("plyr","gmp","Rmpfr","doParallel","foreach","DEoptim","pbivnorm","cubature"))'
 
 # RStudio
 yum -y install openssl098e # Required only for RedHat/CentOS 6 and 7
