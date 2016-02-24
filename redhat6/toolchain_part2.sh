@@ -2,9 +2,6 @@
 # list gcc svn tags
 # svn ls svn://gcc.gnu.org/svn/gcc/tags
 
-# new gcc (cont.)
-cd ~/tmp
-
 # GCC5 has new abi: http://allanmcrae.com/2015/06/the-case-of-gcc-5-1-and-the-two-c-abis/
 # svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_5_3_0_release/
 # cd gcc_5_3_0_release/
@@ -17,6 +14,7 @@ cd ~/tmp
 # make install
 
 # Going for last stable release before GCC5, so that clang compiled objects are compatible with gcc's
+cd ~/tmp
 svn co svn://gcc.gnu.org/svn/gcc/tags/gcc_4_9_3_release/
 cd gcc_4_9_3_release/
 ./contrib/download_prerequisites
@@ -24,8 +22,8 @@ cd ..
 mkdir gcc_build
 cd gcc_build
 ../gcc_4_9_3_release/configure --prefix=/usr # default is /usr/local, see https://gcc.gnu.org/install/configure.html
-make -j "$(nproc --all)"
-make install
+make -j"$(nproc --all)"
+make -j"$(nproc --all)" install
 
 #----------------------------------------------------------------------
 # Libraries have been installed in:

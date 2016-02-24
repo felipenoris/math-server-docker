@@ -17,8 +17,8 @@ echo ${RESULT} > ~/check-swig-md5.txt
 tar xf swig-3.0.8.tar.gz
 cd swig-3.0.8
 ./configure
-make -j "$(nproc --all)"
-make install
+make -j"$(nproc --all)"
+make -j"$(nproc --all)" install
 cd ..
 rm -f swig-3.0.8.tar.gz SWIGMD5 && rm -rf swig-3.0.8
 
