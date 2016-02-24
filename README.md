@@ -72,13 +72,27 @@ For a fresh *Redhat6* instance on Amazon's EC2, the default user is `ec2-user`.
 
 ### Jupyter
 
+Data files are at `/usr/local/share/jupyter/hub`.
+
 To start the server:
 
 ```
 # jupyterhub
 ```
 
-By default, Jupyterhub will be accessible on the following link: `http://localhost:8000`.
+By default, will be accessible on the following link: `http://localhost:8000`, and will create state files (`jupyterhub_cookie_secret`, `jupyterhub.sqlite`) on current directory, and use default configuration.
+
+You can generate a sample configuration file with:
+
+```
+# jupyterhub --generate-config
+```
+
+To start the server using a configuration file, use:
+
+```
+# jupyterhub -f jupyterhub_config.py
+```
 
 To set IP and port, use:
 
@@ -93,9 +107,32 @@ You may have to open port for external access:
 # /sbin/service iptables save
 ```
 
-The full list of supported kernels is at https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages.
+For `https` support, add the following lines to the config file:
+
+```python
+c.JupyterHub.port = 443
+c.JupyterHub.ssl_cert = '/root/.ssh/sample-cert.pem'
+c.JupyterHub.ssl_key = '/root/.ssh/sample-key.pem'
+```
+
+`443` is the default port for https. So the server will be accessible using https://localhost.
+
+`sample-cert.pem` is the signed certificate file, and `sample-key.pem` is the private ssl key.
+
+You can generate self signed certificate file with:
+
+```
+mkdir ~/.ssh
+openssl req -x509 -newkey rsa:2048 -keyout ~/.ssh/sample-key.pem -out ~/.ssh/sample-cert.pem -days 9999 -nodes -subj "/C=BR/ST=Rio de Janeiro/L=Rio de Janeiro/O=org/OU=unit/CN=website"
+chmod 400 sample*.pem
+
+```
+
+But be aware that your browser will not recognize the certificate as trusted.
 
 ### RStudio
+
+Configuration files are at `/etc/rstudio`.
 
 Default port is 8787.
 
@@ -110,23 +147,46 @@ Change the default port by editing rserver.conf. The following will change to po
 `auth-pam-sessions-profile` directive on /etc/rstudio.rserver.conf may not work. If that happens, RStudio will look at `/etc/pam.d/rstudio`.
 
 
-## TODO list
+## Packages
 
-- [ ] redhat7 toolchain script is under construction.
+**Python**
 
-- [ ] add https support for Jupyter.
+*root user* will add packages with `pip` or `pip3` command line. Packages will be stored on `/usr/local/lib/python2.7` or `/usr/local/lib/python3.5` directories.
 
-- [ ] Solve packages folder issue for python, julia and R.
+**R**
 
-- [ ] Define user groups.
+Check package locations with `$ R -e '.libPaths()'`.
 
-- [ ] Precompilated packages default to /usr/local/share/julia/lib. This should be a per-user configuration. Current workaround: use a regular user to precompile packages.
+System packages will be installed on `/usr/lib64/R/library`.
+
+Each user can have a local package dir, automatically created under `~/R`.
+
+*root user* will add packages with `R -e 'install.packages("pkg-name")' command.
+
+**Julia**
+
+The toolchain script will set package dir at `/usr/local/share/julia`.
+
+Each user can add new search directories by changing Julia's `LOAD_PATH` variable.
+
+```julia
+julia> LOAD_PATH
+2-element Array{ByteString,1}:
+ "/usr/local/julia/local/share/julia/site/v0.4"
+ "/usr/local/julia/share/julia/site/v0.4"
+```
+
+*root user* will add packages with `julia -e 'Pkg.add("pkg-name") && using pkg-name' command.
+
+It's important to use `using pkg-name` after installation to precompile the package.
 
 ## References
 
 * Jupyter main website: http://jupyter.org/
 
 * Jupyterhub Docs: https://jupyterhub.readthedocs.org/en/latest/index.html
+
+* Full list of supported kernels for Jupyter: https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
 
 * RStudio website: https://www.rstudio.com/
 
