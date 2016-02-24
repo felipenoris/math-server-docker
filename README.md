@@ -37,10 +37,16 @@ $ sudo su
 4 - Download and run the main script.
 
 ```
-# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/main.sh
 # cd
+# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/main.sh
 # chmod u+x main.sh
 # ./main.sh 
+```
+
+To let the server run que installation script by itself, do
+
+```
+# nohup ./main.sh &
 ```
 
 ## Requirements
