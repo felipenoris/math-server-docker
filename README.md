@@ -161,7 +161,7 @@ System packages will be installed on `/usr/lib64/R/library`.
 
 Each user can have a local package dir, automatically created under `~/R`.
 
-*root user* will add packages with `R -e 'install.packages("pkg-name")' command.
+*root user* will add packages with `R -e 'install.packages("pkg-name")'` command.
 
 **Julia**
 
@@ -176,9 +176,9 @@ julia> LOAD_PATH
  "/usr/local/julia/share/julia/site/v0.4"
 ```
 
-*root user* will add packages with `julia -e 'Pkg.add("pkg-name") && using pkg-name' command.
+*root user* will add packages with `julia -e 'Pkg.add("pkg-name") && using pkg-name` command.
 
-It's important to use `using pkg-name` after installation to precompile the package.
+It's important to run `using pkg-name` after installation to precompile the packages. This will store files on `/usr/local/share/julia/lib/v0.4/`.
 
 ## References
 
