@@ -31,7 +31,7 @@ yum -y install unixodbc-devel QuantLib QuantLib-devel boost boost-devel libxml2 
 yum -y install R
 
 # Set default CRAN Mirror
-echo 'options(repos = c(CRAN="http://cran.fiocruz.br/"))' >> /usr/lib64/R/library/base/R/Rprofile
+echo 'options(repos = c(CRAN="http://www.vps.fmvz.usp.br/CRAN/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
 echo "export CPATH=/usr/include/glpk" > /etc/profile.d/glpk-include.sh
 source /etc/profile 
