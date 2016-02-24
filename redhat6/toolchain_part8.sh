@@ -3,6 +3,8 @@
 ## APPS
 ###########################
 
+yum -y install libcurl libcurl-devel
+
 # R Packages
 cd ~/tmp
 
@@ -28,8 +30,6 @@ echo ${RESULT} > ~/check-rstudio-md5.txt
 yum -y install --nogpgcheck rstudio-server-rhel-0.99.879-x86_64.rpm
 rm -f rstudio-server-rhel-0.99.879-x86_64.rpm
 
-# Default port is 8787.
-# echo -e "www-port=80" | tee /etc/rstudio/rserver.conf
 rstudio-server restart
 rstudio-server verify-installation
 
@@ -39,39 +39,32 @@ rstudio-server verify-installation
 # http://www.r-bloggers.com/how-to-get-your-very-own-rstudio-server-and-shiny-server-with-digitalocean/
 # https://s3.amazonaws.com/rstudio-server/rstudio-server-pro-0.99.879-admin-guide.pdf
 
-#Importante: Veja que o processo do RStudio é configurado pelos arquivos contidos em /etc/rstudio (pasta padrão criada pela instalação do pacote), e gerenciado pelo comando rstudio-server.
+# Auth
+# auth-pam-sessions-profile directive on /etc/rstudio.rserver.conf may not work.
+# If that happens, RStudio will look at /etc/pam.d/rstudio
 
-#VERIFICAR SE HÁ OUTRA ESTRATÉGIA (USAR ARQUIVO rsession.conf)
-
-# Feitas as instalações necessárias e configurado o RStudio para responder na porta 80, devemos configurá-lo
-# para utilizar a autenticação integrada ao AD. Para isso, remetemos ao guia de administração do RStudio.
-# Infelizmente, durante a instalação do ambiente de laboratório, identificamos que a documentação, em sua seção 5.3,
-# indica a possibilidade de utilizar o parâmetro auth-pam-sessions-profile no arquivo de configuração do RStudio rserver.conf,
-# sendo que o sistema não o reconhece como válido. Diante do cenário, o sistema foi monitorado e identificamos
-# que as configurações do pam.d devem ser realizadas sobre o perfil /etc/pam.d /rstudio, incluindo-se neste as mesmas
-# diretivas encontradas no perfil /etc/pam.d/su:
-
-# cp -p /etc/rstudio/rserver.conf /etc/rstudio/rserver.conf.bak #faça um backup do arquivo de configuração do RStudio-server
-# sudo echo auth-pam-sessions-profile=rstudio-session >> /etc/rstudio/rserver.conf #inclua o parâmetro para um novo perfil do pam.d a ser utilizado
-
-# inclua os parâmetros do novo perfil (próximas X linhas)
-
-#$ sudo echo auth sufficient pam_rootok.so >> /etc/pam.d/rstudio-session
+# sudo echo auth sufficient pam_rootok.so >> /etc/pam.d/rstudio-session
 
 #LibreOffice
-#O pacote (RPM) do LibreOffice precisa ser baixado do site da fundação, neste caminho. Uma fez feito o download, transfira o arquivo para o servidor em que se deseja instalar, descompacte o arquivo e instale o produto:
+cd
+wget http://tdf.c3sl.ufpr.br/libreoffice/stable/5.0.5/rpm/x86_64/LibreOffice_5.0.5_Linux_x86-64_rpm.tar.gz
 
-#tar -xvf LibreOffice_4.3.3_Linux_x86-64_rpm.tar.gz cd LibreOffice_4.3.3.2_Linux_x86-64_rpm/
+echo "1e80150b20d85e930f9471926ed58599  LibreOffice_5.0.5_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5
+RESULT=$(md5sum -c LIBREOFFICEMD5)
+echo ${RESULT} > ~/check-libreoffice-md5.txt
 
-#cd RPMS/
-#yum install *.rpm
+tar xf LibreOffice_5.0.5_Linux_x86-64_rpm.tar.gz
+cd LibreOffice_5.0.5.2_Linux_x86-64_rpm/RPMS
+yum -y install *.rpm
 
-#O Shiny-server deve ser baixado do site do fornecedor, conforme instrui o documento. É necessário, no entanto, realizar a instalação do Package do Shiny no R antes de realizar a instalação do shiny-server. Os comandos abaixo permitem realizar estas operações:
-
-#$ sudo su - \
-#-c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""
-
-#$ wget http://download3.rstudio.org/centos-5.9/x86_64/shiny-server-1.2.3.368-x86_64.rpm
+# Shiny
+R -e 'install.packages("shiny")'
+cd
+wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-1.4.1.759-rh5-x86_64.rpm
+echo "f229d1eda060e7317245512a2013602a  shiny-server-1.4.1.759-rh5-x86_64.rpm" > SHINYSERVERMD5
+RESULT=$(md5sum -c SHINYSERVERMD5)
+echo ${RESULT} > ~/check-shiny-server-md5.txt
+yum -y install --nogpgcheck shiny-server-1.4.1.759-rh5-x86_64.rpm
 
 # lastest version for CentOS6 is:
 # wget http://download3.rstudio.org/centos6.3/x86_64/shiny-server-1.5.0.730-rh6-x86_64.rpm

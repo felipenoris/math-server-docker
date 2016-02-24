@@ -16,6 +16,8 @@ Toolchain script for Financial and Mathematical Programming on Amazon´s AWS EC2
 
 * RStudio Server [https://www.rstudio.com/]
 
+* Shiny Server [https://www.rstudio.com/products/shiny/shiny-server2/]
+
 ## Usage
 
 1 - Start a fresh server instance with a minimal installation of *redhat6* or *centos6*.
@@ -35,8 +37,8 @@ $ sudo su
 4 - Download and run the main script.
 
 ```
-# cd
 # wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/main.sh
+# cd
 # chmod u+x main.sh
 # ./main.sh 
 ```
@@ -99,15 +101,14 @@ Change the default port by editing rserver.conf. The following will change to po
 # rstudio-server verify-installation
 ```
 
+`auth-pam-sessions-profile` directive on /etc/rstudio.rserver.conf may not work. If that happens, RStudio will look at `/etc/pam.d/rstudio`.
+
+
 ## TODO list
 
 - [ ] redhat7 toolchain script is under construction.
 
 - [ ] add https support for Jupyter.
-
-- [ ] complete RStudio installation.
-
-- [ ] install Shiny for RStudio.
 
 - [ ] Solve packages folder issue for python, julia and R.
 
@@ -122,3 +123,9 @@ Change the default port by editing rserver.conf. The following will change to po
 * Jupyterhub Docs: https://jupyterhub.readthedocs.org/en/latest/index.html
 
 * RStudio website: https://www.rstudio.com/
+
+* RStudio Server download page: https://www.rstudio.com/products/rstudio/download-server/
+
+* RStudio Server Admin Guide: https://s3.amazonaws.com/rstudio-server/rstudio-server-pro-0.99.879-admin-guide.pdf
+
+* Shiny Server Admin Guide: http://rstudio.github.io/shiny-server/latest/
