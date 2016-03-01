@@ -2,7 +2,8 @@
 # docker build -t math-server .
 
 FROM centos:7
-MAINTAINER felipenoris <felipenoris@gmail.com>
+
+MAINTAINER felipenoris <felipenoris@users.noreply.github.com>
 
 RUN echo "export PATH=/usr/local/sbin:/usr/local/bin:${PATH}" > /etc/profile.d/local-bin.sh \
 	&& echo "export CPATH=/usr/include/glpk" > /etc/profile.d/glpk-include.sh \
