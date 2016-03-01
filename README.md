@@ -1,6 +1,6 @@
-# AWSFinance
+# math-server-docker
 
-Toolchain script for Financial and Mathematical Programming on Amazon´s AWS EC2 fresh instance.
+Dockerfile to build a server with Jupyterhub and RStudio, ready for Python, R and Julia languages.
 
 ## List of tools
 
@@ -20,53 +20,11 @@ Toolchain script for Financial and Mathematical Programming on Amazon´s AWS EC2
 
 ## Usage
 
-1 - Start a fresh server instance with a minimal installation of *redhat6* or *centos6*.
-
-2 - Access your system as root.
-
-```shell
-$ sudo su
-```
-
-3 - Install wget.
-
-```
-# yum -y install wget
-```
-
-4 - Download and run the main script.
-
-```
-# cd
-# wget https://raw.githubusercontent.com/felipenoris/AWSFinance/master/redhat6/main.sh
-# chmod u+x main.sh
-# ./main.sh 
-```
-
-To let the server run que installation script by itself, do
-
-```
-# nohup ./main.sh &
-```
+*pending...*
 
 ## Requirements
 
-*Redhat6* or *CentOS6*.
-
-## System specific notes
-
-### CentOS6
-
-For a fresh *CentOS6* Virtual Machine, you may need to configure network:
-
-```
-# dhclient eth0
-# yum -y install system-config-network-tui
-```
-
-### Redhat6
-
-For a fresh *Redhat6* instance on Amazon's EC2, the default user is `ec2-user`.
+Docker [https://www.docker.com/].
 
 ## Application specific notes
 
