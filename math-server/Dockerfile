@@ -1,9 +1,16 @@
 
 # docker build -t math-server .
 
+# 8787 for RStudio
+# 8000 for Jupyter
+
+# docker run -d -p 8787:8787 -p 8000:8000 --name ms1 math-server
+
 FROM centos:7
 
 MAINTAINER felipenoris <felipenoris@users.noreply.github.com>
+
+WORKDIR /root
 
 RUN echo "export PATH=/usr/local/sbin:/usr/local/bin:${PATH}" > /etc/profile.d/local-bin.sh \
 	&& echo "export CPATH=/usr/include/glpk" > /etc/profile.d/glpk-include.sh \
@@ -15,9 +22,9 @@ RUN wget http://mirror.globo.com/epel/7/x86_64/e/epel-release-7-5.noarch.rpm && 
 	rpm -ivh epel-release-7-5.noarch.rpm && \
 	rm -f epel-release-7-5.noarch.rpm
 
-RUN yum update && yum install -y \
-	bzip2 \
+RUN yum update -y && yum install -y \
 	bison \
+	bzip2 \
 	cmake \
 	curl-devel \
 	expat-devel \
@@ -29,18 +36,18 @@ RUN yum update && yum install -y \
 	glibc-devel \
 	java-1.8.0-openjdk-devel \
 	lynx \
-	libedit-devel libffi-devel \
 	libcurl \ 
 	libcurl-devel \
+	libedit-devel libffi-devel \
 	libgcc \
 	m4 \
-	man \
 	make \
+	man \
 	nano \
 	nload \
 	htop \
-	openssl-devel \
 	openssl098e \
+	openssl-devel \
 	patch \
 	perl-ExtUtils-MakeMaker \
 	svn \
@@ -53,35 +60,26 @@ RUN yum update && yum install -y \
 	zlib-devel \
 	zip
 
-# Binutils
-#RUN cd / && wget http://ftp.gnu.org/gnu/binutils/binutils-2.26.tar.gz \
-#	&& tar xf binutils-2.26.tar.gz && cd binutils-2.26 \
-#	&& ./configure && make -j "$(nproc --all)" && make install \
-#	# Make ld.gold, used by nodejs
-#	&& cd gold && ./configure && make -j "$(nproc --all)" && make install && \
-#	cd ../.. && rm -rf binutils-2.26 && rm -f binutils-2.26.tar.gz
-
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-RUN cd / && wget https://www.kernel.org/pub/software/scm/git/git-2.7.1.tar.gz \
-	&& tar xf git-2.7.1.tar.gz && cd git-2.7.1 \
-	&& make -j "$(nproc --all)" prefix=/usr/local all \
-	&& make prefix=/usr/local install \
-	&& cd .. && rm -f git-2.7.1.tar.gz && rm -rf git-2.7.1
+RUN wget https://www.kernel.org/pub/software/scm/git/git-2.7.2.tar.gz \
+	&& tar xf git-2.7.2.tar.gz && cd git-2.7.2 \
+	&& make -j"$(nproc --all)" prefix=/usr/local all \
+	&& make prefix=/usr/local -j"$(nproc --all)" install \
+	&& cd .. && rm -f git-2.7.2.tar.gz && rm -rf git-2.7.2
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-RUN cd / && wget https://cmake.org/files/v3.4/cmake-3.4.3.tar.gz \
+RUN wget https://cmake.org/files/v3.4/cmake-3.4.3.tar.gz \
 	&& tar xf cmake-3.4.3.tar.gz && cd cmake-3.4.3 \
-	&& ./bootstrap && make -j "$(nproc --all)" && make install \
+	&& ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
 	&& cd .. && rm -rf cmake-3.4.3 && rm -f cmake-3.4.3.tar.gz \
 	&& echo "export CMAKE_ROOT=/usr/local/share/cmake-3.4" > /etc/profile.d/cmake-root.sh \
 	&& source /etc/profile
 
 # Python 2.7
 # https://github.com/h2oai/h2o-2/wiki/Installing-python-2.7-on-centos-6.3.-Follow-this-sequence-exactly-for-centos-machine-only
-#&& ln -s /usr/local/bin/python2.7 /usr/local/bin/python \
-RUN cd && wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tar.xz \
+RUN wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tar.xz \
 	&& tar xf Python-2.7.11.tar.xz \
 	&& cd Python-2.7.11 \
 	&& ./configure --prefix=/usr/local/python2.7 --enable-shared \
@@ -92,13 +90,13 @@ RUN cd && wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tar.xz \
 	&& cd .. && rm -f Python-2.7.11.tar.xz && rm -rf Python-2.7.11
 
 # pip for python 2
-RUN cd && wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py \
+RUN wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py \
 	&& /usr/local/python2.7/bin/python2.7 ez_setup.py \
 	&& /usr/bin/easy_install-2.7 pip \
 	&& rm -f ez_setup.py && rm -f setuptools*
 
 # Python 3
-RUN cd && wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tar.xz \
+RUN wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tar.xz \
 	&& tar xf Python-3.5.1.tar.xz && cd Python-3.5.1 \
 	&& ./configure --prefix=/usr/local --enable-shared \
 	&& make -j"$(nproc --all)" \
@@ -111,7 +109,6 @@ RUN cd && wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tar.xz \
 # Upgrade pip
 # https://pip.pypa.io/en/stable/installing/#upgrading-pip
 RUN pip2 install -U pip
-
 RUN pip3 install -U pip
 
 # LLVM deps
@@ -123,8 +120,7 @@ RUN yum -y install libedit-devel libffi-devel swig python-devel
 # libc++ /projects/libcxx
 # libc++abi /projects/libcxxabi
 # lldb /tools/lldb
-RUN cd \
-	&& wget http://llvm.org/releases/3.7.1/llvm-3.7.1.src.tar.xz \
+RUN wget http://llvm.org/releases/3.7.1/llvm-3.7.1.src.tar.xz \
 	&& wget http://llvm.org/releases/3.7.1/cfe-3.7.1.src.tar.xz \
 	&& wget http://llvm.org/releases/3.7.1/compiler-rt-3.7.1.src.tar.xz \
 	&& wget http://llvm.org/releases/3.7.1/libcxx-3.7.1.src.tar.xz \
@@ -159,7 +155,7 @@ RUN cd ~/llvm_build \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
 # Julia
-RUN cd && wget https://github.com/JuliaLang/julia/releases/download/v0.4.3/julia-0.4.3.tar.gz \
+RUN wget https://github.com/JuliaLang/julia/releases/download/v0.4.3/julia-0.4.3.tar.gz \
 	&& tar xf julia-0.4.3.tar.gz && cd julia-0.4.3 \
 	&& echo "USE_SYSTEM_LLVM=1" >> Make.user \
 	&& echo "USE_LLVM_SHLIB=1" >> Make.user \
@@ -180,7 +176,7 @@ RUN mkdir /usr/local/share/julia \
 #	&& chmod a+w $JULIA_PKGDIR/lib
 
 # Node
-RUN cd && wget https://github.com/nodejs/node/archive/v5.6.0.tar.gz \
+RUN wget https://github.com/nodejs/node/archive/v5.6.0.tar.gz \
 	&& tar xf v5.6.0.tar.gz && cd node-5.6.0 \
 	&& ./configure \
 	&& make -j"$(nproc --all)" \
@@ -189,22 +185,12 @@ RUN cd && wget https://github.com/nodejs/node/archive/v5.6.0.tar.gz \
 
 # R
 # CentOS packages for R that are not available for Redhat6, but are compatible
-#RUN cd \
-#	&& wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/lapack-devel-3.2.1-4.el6.x86_64.rpm' \
-#	&& wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/blas-devel-3.2.1-4.el6.x86_64.rpm' \
-#	&& wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/libicu-devel-4.2.1-12.el6.x86_64.rpm' \
-#	&& wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/texinfo-tex-4.13a-8.el6.x86_64.rpm' \
-#	&& wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/glpk-4.40-1.1.el6.x86_64.rpm' \
-#	&& wget 'http://mirror.centos.org/centos/6/os/x86_64/Packages/glpk-devel-4.40-1.1.el6.x86_64.rpm'
-
-RUN cd \
-	&& wget 'http://mirror.centos.org/centos/7/os/x86_64/Packages/lapack-devel-3.4.2-5.el7.x86_64.rpm' \
+RUN wget 'http://mirror.centos.org/centos/7/os/x86_64/Packages/lapack-devel-3.4.2-5.el7.x86_64.rpm' \
 	&& wget 'http://mirror.centos.org/centos/7/os/x86_64/Packages/blas-devel-3.4.2-5.el7.x86_64.rpm' \
 	&& wget 'http://mirror.centos.org/centos/7/os/x86_64/Packages/libicu-devel-50.1.2-15.el7.x86_64.rpm' \
 	&& wget 'http://mirror.centos.org/centos/7/os/x86_64/Packages/texinfo-tex-5.1-4.el7.x86_64.rpm'
 
-RUN	cd \
-	&& yum -y localinstall *.rpm \
+RUN	yum -y localinstall *.rpm \
 	&& rm -f *.rpm
 
 RUN yum install -y \
@@ -221,18 +207,15 @@ RUN yum install -y \
 RUN echo 'options(repos = c(CRAN="http://www.vps.fmvz.usp.br/CRAN/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
 # RStudio
-RUN cd && wget https://download2.rstudio.org/rstudio-server-rhel-0.99.879-x86_64.rpm \
+RUN wget https://download2.rstudio.org/rstudio-server-rhel-0.99.879-x86_64.rpm \
 	&& echo "7a641c79a49bf60ea70a2c3244bdf074  rstudio-server-rhel-0.99.879-x86_64.rpm" > RSTUDIOMD5 \
 	&& RESULT=$(md5sum -c RSTUDIOMD5) \
 	&& echo ${RESULT} > ~/check-rstudio-md5.txt \
 	&& yum -y install --nogpgcheck rstudio-server-rhel-0.99.879-x86_64.rpm \
 	&& rm -f rstudio-server-rhel-0.99.879-x86_64.rpm
 
-#RUN rstudio-server restart && rstudio-server verify-installation
-#/usr/lib/rstudio-server/bin/rserver # to start the server
-
 # Libreoffice
-RUN cd && wget http://tdf.c3sl.ufpr.br/libreoffice/stable/5.0.5/rpm/x86_64/LibreOffice_5.0.5_Linux_x86-64_rpm.tar.gz \
+RUN wget http://tdf.c3sl.ufpr.br/libreoffice/stable/5.0.5/rpm/x86_64/LibreOffice_5.0.5_Linux_x86-64_rpm.tar.gz \
 	&& echo "1e80150b20d85e930f9471926ed58599  LibreOffice_5.0.5_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
 	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
 	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
@@ -244,7 +227,6 @@ RUN cd && wget http://tdf.c3sl.ufpr.br/libreoffice/stable/5.0.5/rpm/x86_64/Libre
 
 # Shiny
 RUN R -e 'install.packages("shiny")' \
-	&& cd \
 	&& wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-1.4.1.759-rh5-x86_64.rpm \
 	&& echo "f229d1eda060e7317245512a2013602a  shiny-server-1.4.1.759-rh5-x86_64.rpm" > SHINYSERVERMD5 \
 	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
@@ -259,12 +241,6 @@ RUN python3 -m ipykernel install
 RUN pip2 install IPython notebook ipykernel
 RUN /usr/local/python2.7/bin/python2.7 -m ipykernel install
 RUN npm install -g configurable-http-proxy
-
-# to start the server: jupyterhub
-# or: jupyterhub --ip=192.168.1.2 --port=443
-# you may have to open port for external access:
-# 	/sbin/iptables -I INPUT -p tcp -m tcp --dport 8000 -j ACCEPT
-# 	/sbin/service iptables save
 
 # Support for other languages
 # https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
@@ -298,3 +274,13 @@ RUN R -e 'IRkernel::installspec(user = FALSE)'
 
 RUN pip2 install numpy pandas
 RUN pip3 install numpy pandas
+
+####################
+## Services
+####################
+
+# 8787 for RStudio
+# 8000 for Jupyter
+EXPOSE 8787 8000
+
+CMD /usr/lib/rstudio-server/bin/rserver && jupyterhub

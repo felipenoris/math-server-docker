@@ -26,11 +26,18 @@ To build the image, run the following comand on `math-server` folder:
 # docker build -t math-server .
 ```
 
-To run an instance:
+To start the server, use:
 
 ```
-# docker run -it --rm math-server
+# docker run -d -p 8787:8787 -p 8000:8000 --name ms1 math-server
 ```
+
+The default ports are:
+
+	* 8787 for RStudio
+	
+	* 8000 for Jupyter
+
 
 ## Requirements
 
