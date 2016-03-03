@@ -109,6 +109,7 @@ RUN wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tar.xz \
 # Upgrade pip
 # https://pip.pypa.io/en/stable/installing/#upgrading-pip
 RUN pip2 install -U pip
+
 RUN pip3 install -U pip
 
 # LLVM deps
@@ -236,10 +237,19 @@ RUN R -e 'install.packages("shiny")' \
 
 # Jupyter
 # Add python2.7 kernel: https://github.com/jupyter/jupyter/issues/71
-RUN pip3 install IPython jupyterhub notebook ipykernel
-RUN python3 -m ipykernel install
-RUN pip2 install IPython notebook ipykernel
-RUN /usr/local/python2.7/bin/python2.7 -m ipykernel install
+RUN pip2 install \
+	IPython \
+	notebook \
+	ipykernel \
+	&& /usr/local/python2.7/bin/python2.7 -m ipykernel install
+
+RUN pip3 install \
+	IPython \
+	jupyterhub \
+	notebook \
+	ipykernel \
+	&& python3 -m ipykernel install
+
 RUN npm install -g configurable-http-proxy
 
 # Support for other languages
@@ -247,11 +257,9 @@ RUN npm install -g configurable-http-proxy
 
 # Add Julia kernel
 # https://github.com/JuliaLang/IJulia.jl
-RUN julia -e 'Pkg.add("IJulia")'
 # https://github.com/JuliaLang/IJulia.jl/issues/341
-
-# precompilation
-RUN julia -e 'using IJulia'
+RUN julia -e 'Pkg.add("IJulia")' \
+	&& RUN julia -e 'using IJulia'
 
 # registers global kernel
 RUN cp -r ~/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels 
@@ -264,16 +272,102 @@ RUN rmdir /usr/local/julia/share/julia/site/v0.4 \
 # R
 # http://irkernel.github.io/installation/
 RUN yum -y install czmq-devel
-RUN R -e 'install.packages(c("rzmq","repr","IRkernel","IRdisplay"), repos = c("http://irkernel.github.io/", getOption("repos")),type = "source")'
-# makes R kernel available for jupyter
-RUN R -e 'IRkernel::installspec(user = FALSE)'
+
+RUN R -e 'install.packages(c("rzmq","repr","IRkernel","IRdisplay"), repos = c("http://irkernel.github.io/", getOption("repos")),type = "source")' \
+	&& R -e 'IRkernel::installspec(user = FALSE)'
 
 #################
 ## LIBS
 #################
 
-RUN pip2 install numpy pandas
-RUN pip3 install numpy pandas
+# Python 2
+RUN pip2 install \
+	numpy \
+	pandas \
+	bitarray \
+	bokeh \
+	bz2file \
+	characteristic \
+	colander \
+	coverage \
+	cryptography \
+	csvkit \
+	cymem \
+	cython \
+	cytoolz \
+	sympy \
+	names \
+	rstr \
+	sqlparse \
+	jsonschema \
+	simplejson \
+	sphinx \
+	spyder \
+	sqlalchemy \
+	scipy
+
+# Python 3
+RUN pip3 install \
+	numpy \
+	pandas \
+	bitarray \
+	bokeh \
+	bz2file \
+	characteristic \
+	colander \
+	coverage \
+	cryptography \
+	csvkit \
+	cymem \
+	cython \
+	cytoolz \
+	sympy \
+	names \
+	rstr \
+	sqlparse \
+	jsonschema \
+	simplejson \
+	sphinx \
+	spyder \
+	sqlalchemy \
+	scipy
+
+# R
+RUN R -e 'install.packages("sqldf")' \
+	&& R -e 'install.packages("plyr")' \
+	&& R -e 'install.packages("gmp")' \
+	&& R -e 'install.packages("Rmpfr")' \
+	&& R -e 'install.packages("doParallel")' \
+	&& R -e 'install.packages("foreach")' \
+	&& R -e 'install.packages("DEoptim")' \
+	&& R -e 'install.packages("pbivnorm")' \
+	&& R -e 'install.packages("cubature")' \
+	&& R -e 'install.packages("ggplot2")' \
+	&& R -e 'install.packages("microbenchmark")' \
+	&& R -e 'install.packages("Rcpp")' \
+	&& R -e 'install.packages("RCurl")' \
+	&& R -e 'install.packages("roxygen2")' \
+	&& R -e 'install.packages("RQuantLib")' \
+	&& R -e 'install.packages("RSQLite")' \
+	&& R -e 'install.packages("devtools")' \
+	&& R -e 'devtools::install_github("armgong/rjulia", ref="master")'
+
+# Julia
+RUN julia -e 'Pkg.add("JuMP")' \
+	&& julia -e 'Pkg.add("Cbc")' \
+	&& julia -e 'Pkg.add("Gadfly")' \
+	&& julia -e 'Pkg.add("SQLite")' \
+	&& julia -e 'Pkg.add("BusinessDays")' \
+	&& julia -e 'Pkg.add("InterestRates")' \
+	&& julia -e 'Pkg.add("DataFrames")' \
+	&& julia -e 'Pkg.add("JSON")' \
+	&& julia -e 'Pkg.add("GZip")' \
+	&& julia -e 'Pkg.add("TimeZones")' \
+	&& julia -e 'Pkg.add("HttpParser")' \
+	&& julia -e 'Pkg.add("Optim")' \
+	&& julia -e 'Pkg.add("Calculus")' \
+	&& julia -e 'Pkg.add("ForwardDiff")'
+	#&& julia -e 'Pkg.add("RCall")'
 
 ####################
 ## Services
