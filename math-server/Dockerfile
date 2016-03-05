@@ -258,8 +258,7 @@ RUN npm install -g configurable-http-proxy
 # Add Julia kernel
 # https://github.com/JuliaLang/IJulia.jl
 # https://github.com/JuliaLang/IJulia.jl/issues/341
-RUN julia -e 'Pkg.add("IJulia")' \
-	&& RUN julia -e 'using IJulia'
+RUN julia -e 'Pkg.add("IJulia") ; using IJulia'
 
 # registers global kernel
 RUN cp -r ~/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels 
