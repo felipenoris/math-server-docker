@@ -177,12 +177,12 @@ RUN mkdir /usr/local/share/julia \
 #	&& chmod a+w $JULIA_PKGDIR/lib
 
 # Node
-RUN wget https://github.com/nodejs/node/archive/v5.6.0.tar.gz \
-	&& tar xf v5.6.0.tar.gz && cd node-5.6.0 \
+RUN wget https://github.com/nodejs/node/archive/v5.7.1.tar.gz \
+	&& tar xf v5.7.1.tar.gz && cd node-5.7.1 \
 	&& ./configure \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -f v5.6.0.tar.gz && rm -rf node-5.6.0
+	&& cd .. && rm -f v5.7.1.tar.gz && rm -rf node-5.7.1
 
 # R
 # CentOS packages for R that are not available for Redhat6, but are compatible
