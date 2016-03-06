@@ -330,7 +330,7 @@ RUN pip3 install \
 	spyder \
 	sqlalchemy
 
-RUN pip 3 install scipy
+RUN pip3 install scipy
 
 # R
 RUN R -e 'install.packages("sqldf")' \
