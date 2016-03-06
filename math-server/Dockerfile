@@ -302,8 +302,9 @@ RUN pip2 install \
 	simplejson \
 	sphinx \
 	spyder \
-	sqlalchemy \
-	scipy
+	sqlalchemy
+
+RUN pip2 install scipy
 
 # Python 3
 RUN pip3 install \
@@ -328,8 +329,9 @@ RUN pip3 install \
 	simplejson \
 	sphinx \
 	spyder \
-	sqlalchemy \
-	scipy
+	sqlalchemy
+
+RUN pip 3 install scipy
 
 # R
 RUN R -e 'install.packages("sqldf")' \
