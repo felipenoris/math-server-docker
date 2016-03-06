@@ -278,6 +278,8 @@ RUN R -e 'install.packages(c("rzmq","repr","IRkernel","IRdisplay"), repos = c("h
 ## LIBS
 #################
 
+RUN yum -y install libpng libpng-devel
+
 # Python 2
 RUN pip2 install \
 	numpy \
@@ -303,7 +305,7 @@ RUN pip2 install \
 	spyder \
 	sqlalchemy
 
-RUN pip2 install scipy
+RUN pip2 install scipy matplotlib nose
 
 # Python 3
 RUN pip3 install \
@@ -330,7 +332,7 @@ RUN pip3 install \
 	spyder \
 	sqlalchemy
 
-RUN pip3 install scipy
+RUN pip3 install scipy matplotlib nose
 
 # R
 RUN R -e 'install.packages("sqldf")' \
