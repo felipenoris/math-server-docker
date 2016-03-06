@@ -90,10 +90,9 @@ RUN wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tar.xz \
 	&& cd .. && rm -f Python-2.7.11.tar.xz && rm -rf Python-2.7.11
 
 # pip for python 2
-RUN wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py \
-	&& /usr/local/python2.7/bin/python2.7 ez_setup.py \
-	&& /usr/bin/easy_install-2.7 pip \
-	&& rm -f ez_setup.py && rm -f setuptools*
+RUN curl -O https://bootstrap.pypa.io/get-pip.py \
+	&& /usr/local/python2.7/bin/python2.7 get-pip.py \
+	&& rm -f get-pip.py
 
 # Python 3
 RUN wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tar.xz \
