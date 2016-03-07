@@ -159,6 +159,7 @@ RUN wget https://github.com/JuliaLang/julia/releases/download/v0.4.3/julia-0.4.3
 	&& tar xf julia-0.4.3.tar.gz && cd julia-0.4.3 \
 	&& echo "USE_SYSTEM_LLVM=1" >> Make.user \
 	&& echo "USE_LLVM_SHLIB=1" >> Make.user \
+	&& echo "MARCH=x86-64" >> Make.user \
 	&& echo "prefix=/usr/local/julia" >> Make.user
 
 RUN cd ~/julia-0.4.3 \
