@@ -151,7 +151,7 @@ julia> LOAD_PATH
  "/usr/local/julia/share/julia/site/v0.4"
 ```
 
-*root user* will add packages with `julia -e 'Pkg.add("pkg-name") && using pkg-name` command.
+*root user* will add packages with `julia -e 'Pkg.add("pkg-name") ; using pkg-name` command.
 
 It's important to run `using pkg-name` after installation to precompile the packages. This will store files on `/usr/local/share/julia/lib/v0.4/`.
 
