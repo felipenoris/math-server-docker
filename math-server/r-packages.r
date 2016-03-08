@@ -1,22 +1,29 @@
 
 pkgs <- c(
-	"sqldf",
-	"plyr",
-	"gmp",
-	"Rmpfr",
+	"cubature",
+	"DEoptim",
+	"data.table",
+	"DEoptim",
+	"devtools",
 	"doParallel",
 	"foreach",
-	"DEoptim",
-	"pbivnorm",
-	"cubature",
 	"ggplot2",
+	"gmp",
+	"lubridate",
 	"microbenchmark",
+	"NMOF",
+	"pbivnorm",
 	"Rcpp",
 	"RCurl",
+	"Rmpfr",
 	"roxygen2",
 	"RQuantLib",
 	"RSQLite",
-	"devtools"
+	"sqldf",
+	"stringr",
+	"plyr",
+	"XML",
+	"zoo"
 	)
 
 install.packages(pkgs)
