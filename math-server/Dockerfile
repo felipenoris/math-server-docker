@@ -156,7 +156,7 @@ RUN cd ~/llvm_build \
 
 # Julia
 RUN wget https://github.com/JuliaLang/julia/releases/download/v0.4.3/julia-0.4.3.tar.gz \
-	&& tar xf julia-0.4.3.tar.gz && cd julia-0.4.3 \
+	&& tar xf julia-0.4.3.tar.gz && cd julia-0.4.3
 
 ADD julia-Make.user julia-0.4.3/Make.user
 
