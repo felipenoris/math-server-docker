@@ -334,11 +334,11 @@ RUN pip3 install \
 RUN pip3 install scipy matplotlib nose
 
 # R
-ADD r-packages.r
+ADD r-packages.r .
 RUN Rscript r-packages.r
 
 # Julia
-ADD julia-packages.jl
+ADD julia-packages.jl .
 RUN julia julia-packages.jl
 
 ####################
