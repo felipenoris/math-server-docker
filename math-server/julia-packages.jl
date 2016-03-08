@@ -1,4 +1,6 @@
 
+Pkg.update()
+
 Pkg.add("JuMP")
 Pkg.add("Cbc")
 Pkg.add("Gadfly")
