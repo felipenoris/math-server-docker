@@ -15,7 +15,7 @@ Pkg.add("HttpParser")
 Pkg.add("Optim")
 Pkg.add("Calculus")
 Pkg.add("ForwardDiff")
-Pkg.add("RCall")
+#Pkg.add("RCall")
 
 using JuMP
 using Cbc
@@ -31,4 +31,4 @@ using HttpParser
 using Optim
 using Calculus
 using ForwardDiff
-using RCall
+#using RCall
