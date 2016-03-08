@@ -157,10 +157,8 @@ RUN cd ~/llvm_build \
 # Julia
 RUN wget https://github.com/JuliaLang/julia/releases/download/v0.4.3/julia-0.4.3.tar.gz \
 	&& tar xf julia-0.4.3.tar.gz && cd julia-0.4.3 \
-	&& echo "USE_SYSTEM_LLVM=1" >> Make.user \
-	&& echo "USE_LLVM_SHLIB=1" >> Make.user \
-	&& echo "MARCH=x86-64" >> Make.user \
-	&& echo "prefix=/usr/local/julia" >> Make.user
+
+ADD julia-Make.user julia-0.4.3/Make.user
 
 RUN cd ~/julia-0.4.3 \
 	&& make -j"$(nproc --all)" \
@@ -176,7 +174,7 @@ RUN mkdir /usr/local/share/julia \
 	&& mkdir $JULIA_PKGDIR/lib
 #	&& chmod a+w $JULIA_PKGDIR/lib
 
-# Node
+# node
 RUN wget https://github.com/nodejs/node/archive/v5.7.1.tar.gz \
 	&& tar xf v5.7.1.tar.gz && cd node-5.7.1 \
 	&& ./configure \
@@ -336,41 +334,12 @@ RUN pip3 install \
 RUN pip3 install scipy matplotlib nose
 
 # R
-RUN R -e 'install.packages("sqldf")' \
-	&& R -e 'install.packages("plyr")' \
-	&& R -e 'install.packages("gmp")' \
-	&& R -e 'install.packages("Rmpfr")' \
-	&& R -e 'install.packages("doParallel")' \
-	&& R -e 'install.packages("foreach")' \
-	&& R -e 'install.packages("DEoptim")' \
-	&& R -e 'install.packages("pbivnorm")' \
-	&& R -e 'install.packages("cubature")' \
-	&& R -e 'install.packages("ggplot2")' \
-	&& R -e 'install.packages("microbenchmark")' \
-	&& R -e 'install.packages("Rcpp")' \
-	&& R -e 'install.packages("RCurl")' \
-	&& R -e 'install.packages("roxygen2")' \
-	&& R -e 'install.packages("RQuantLib")' \
-	&& R -e 'install.packages("RSQLite")' \
-	&& R -e 'install.packages("devtools")' \
-	&& R -e 'devtools::install_github("armgong/rjulia", ref="master")'
+ADD r-packages.r
+RUN Rscript r-packages.r
 
 # Julia
-RUN julia -e 'Pkg.add("JuMP")' \
-	&& julia -e 'Pkg.add("Cbc")' \
-	&& julia -e 'Pkg.add("Gadfly")' \
-	&& julia -e 'Pkg.add("SQLite")' \
-	&& julia -e 'Pkg.add("BusinessDays")' \
-	&& julia -e 'Pkg.add("InterestRates")' \
-	&& julia -e 'Pkg.add("DataFrames")' \
-	&& julia -e 'Pkg.add("JSON")' \
-	&& julia -e 'Pkg.add("GZip")' \
-	&& julia -e 'Pkg.add("TimeZones")' \
-	&& julia -e 'Pkg.add("HttpParser")' \
-	&& julia -e 'Pkg.add("Optim")' \
-	&& julia -e 'Pkg.add("Calculus")' \
-	&& julia -e 'Pkg.add("ForwardDiff")'
-	#&& julia -e 'Pkg.add("RCall")'
+ADD julia-packages.jl
+RUN julia julia-packages.jl
 
 ####################
 ## Services
