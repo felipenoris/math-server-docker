@@ -168,9 +168,16 @@ RUN cd ~/julia-0.4.3 \
 
 # Set julia package dir
 RUN mkdir /usr/local/share/julia \
-	&& echo "export JULIA_PKGDIR=/usr/local/share/julia" > /etc/profile.d/julia-pkg.sh \
-	&& source /etc/profile \
-	&& julia -e 'Pkg.init()' \
+	&& echo "export JULIA_PKGDIR=/usr/local/share/julia" > /etc/profile.d/julia-pkg.sh
+
+ENV JULIA_PKGDIR /usr/local/share/julia
+
+# create symlink to julia library dir
+# See LOAD_PATH vs Pkg.dir()
+RUN rmdir /usr/local/julia/share/julia/site/v0.4 \
+	&& ln -s /usr/local/share/julia/v0.4 /usr/local/julia/share/julia/site/v0.4
+
+RUN julia -e 'Pkg.init()' \
 	&& mkdir $JULIA_PKGDIR/lib
 #	&& chmod a+w $JULIA_PKGDIR/lib
 
@@ -260,11 +267,6 @@ RUN julia -e 'Pkg.add("IJulia") ; using IJulia'
 
 # registers global kernel
 RUN cp -r ~/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels 
-
-# create symlink to julia library dir
-# See LOAD_PATH vs Pkg.dir()
-RUN rmdir /usr/local/julia/share/julia/site/v0.4 \
-	&& ln -s /usr/local/share/julia/v0.4 /usr/local/julia/share/julia/site/v0.4
 
 # R
 # http://irkernel.github.io/installation/
