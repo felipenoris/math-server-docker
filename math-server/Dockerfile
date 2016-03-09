@@ -351,4 +351,4 @@ RUN julia julia-packages.jl
 # 8000 for Jupyter
 EXPOSE 8787 8000
 
-CMD /usr/lib/rstudio-server/bin/rserver && jupyterhub
+CMD /usr/lib/rstudio-server/bin/rserver && jupyterhub --no-ssl
