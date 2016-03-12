@@ -140,7 +140,7 @@ Each user can have a local package dir, automatically created under `~/R`.
 
 **Julia**
 
-The toolchain script will set package dir at `/usr/local/share/julia`.
+System packages will be installed to `/usr/local/julia/share/julia/site`.
 
 Each user can add new search directories by changing Julia's `LOAD_PATH` variable.
 
@@ -151,7 +151,7 @@ julia> LOAD_PATH
  "/usr/local/julia/share/julia/site/v0.4"
 ```
 
-*root user* will add packages with `julia -e 'Pkg.add("pkg-name") ; using pkg-name'` command.
+*root user* will add packages with `julia -e 'Pkg.add("pkg-name")'` command.
 
 It's important to run `using pkg-name` after installation to precompile the packages. This will store files on `/usr/local/share/julia/lib/v0.4/`.
 

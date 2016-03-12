@@ -89,7 +89,7 @@ RUN wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tar.xz \
 	&& ldconfig \
 	&& cd .. && rm -f Python-2.7.11.tar.xz && rm -rf Python-2.7.11
 
-# pip for python 2
+# pip for Python 2
 RUN curl -O https://bootstrap.pypa.io/get-pip.py \
 	&& /usr/local/python2.7/bin/python2.7 get-pip.py \
 	&& rm -f get-pip.py
@@ -154,33 +154,6 @@ RUN cd ~/llvm_build \
 	&& ldconfig \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
-# Julia
-RUN wget https://github.com/JuliaLang/julia/releases/download/v0.4.3/julia-0.4.3.tar.gz \
-	&& tar xf julia-0.4.3.tar.gz && cd julia-0.4.3
-
-ADD julia-Make.user julia-0.4.3/Make.user
-
-RUN cd ~/julia-0.4.3 \
-	&& make -j"$(nproc --all)" \
-	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf julia-0.4.3 && rm -f julia-0.4.3.tar.gz \
-	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
-
-# Set julia package dir
-RUN mkdir /usr/local/share/julia \
-	&& echo "export JULIA_PKGDIR=/usr/local/share/julia" > /etc/profile.d/julia-pkg.sh
-
-ENV JULIA_PKGDIR /usr/local/share/julia
-
-# create symlink to julia library dir
-# See LOAD_PATH vs Pkg.dir()
-RUN rmdir /usr/local/julia/share/julia/site/v0.4 \
-	&& ln -s /usr/local/share/julia/v0.4 /usr/local/julia/share/julia/site/v0.4
-
-RUN julia -e 'Pkg.init()' \
-	&& mkdir $JULIA_PKGDIR/lib
-#	&& chmod a+w $JULIA_PKGDIR/lib
-
 # node
 RUN wget https://github.com/nodejs/node/archive/v5.7.1.tar.gz \
 	&& tar xf v5.7.1.tar.gz && cd node-5.7.1 \
@@ -240,6 +213,21 @@ RUN R -e 'install.packages("shiny")' \
 	&& yum -y install --nogpgcheck shiny-server-1.4.1.759-rh5-x86_64.rpm \
 	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-1.4.1.759-rh5-x86_64.rpm
 
+# Julia
+RUN wget https://github.com/JuliaLang/julia/releases/download/v0.4.3/julia-0.4.3.tar.gz \
+	&& tar xf julia-0.4.3.tar.gz && cd julia-0.4.3
+
+ADD julia-Make.user julia-0.4.3/Make.user
+
+RUN cd ~/julia-0.4.3 \
+	&& make -j"$(nproc --all)" \
+	&& make -j"$(nproc --all)" install \
+	&& cd .. && rm -rf julia-0.4.3 && rm -f julia-0.4.3.tar.gz \
+	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
+
+# Init package folder on root's home folder
+RUN julia -e 'Pkg.init()'
+
 # Jupyter
 # Add python2.7 kernel: https://github.com/jupyter/jupyter/issues/71
 RUN pip2 install \
@@ -263,7 +251,7 @@ RUN npm install -g configurable-http-proxy
 # Add Julia kernel
 # https://github.com/JuliaLang/IJulia.jl
 # https://github.com/JuliaLang/IJulia.jl/issues/341
-RUN julia -e 'Pkg.add("IJulia") ; using IJulia'
+RUN julia -e 'Pkg.add("IJulia")'
 
 # registers global kernel
 RUN cp -r ~/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels 
@@ -342,6 +330,7 @@ RUN Rscript r-packages.r
 # Julia
 ADD julia-packages.jl .
 RUN julia julia-packages.jl
+RUN cp -rf ~/.julia/v0.4 /usr/local/julia/share/julia/site/v0.4
 
 ####################
 ## Services
@@ -349,6 +338,6 @@ RUN julia julia-packages.jl
 
 # 8787 for RStudio
 # 8000 for Jupyter
-EXPOSE 8787 8000
+EXPOSE 8787 8000 447
 
 CMD /usr/lib/rstudio-server/bin/rserver && jupyterhub --no-ssl
