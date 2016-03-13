@@ -330,7 +330,7 @@ RUN Rscript r-packages.r
 # Julia
 ADD julia-packages.jl .
 RUN julia julia-packages.jl
-RUN cp -rf ~/.julia/v0.4 /usr/local/julia/share/julia/site/v0.4
+RUN cp -rf ~/.julia/v0.4 /usr/local/julia/share/julia/site
 
 ####################
 ## Services
