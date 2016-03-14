@@ -29,7 +29,7 @@ To build the image, run the following comand on `math-server` folder:
 To start the server, use:
 
 ```
-# docker run -d -p 8787:8787 -p 8000:8000 --name ms1 math-server
+# docker run -d -p 8787:8787 -p 8000:8000 -p 447:447 --name ms1 math-server
 ```
 
 The default ports are:
@@ -38,6 +38,7 @@ The default ports are:
 	
 	* 8000 for Jupyter
 
+	* 447 for secure https access to Jupyter
 
 ## Requirements
 
