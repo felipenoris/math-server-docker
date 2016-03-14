@@ -256,6 +256,9 @@ RUN julia -e 'Pkg.add("IJulia")'
 # registers global kernel
 RUN cp -r ~/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels 
 
+# rewrite julia's kernel configuration
+ADD julia-kernel.json /usr/local/share/jupyter/kernels/julia-0.4/kernel.json
+
 # R
 # http://irkernel.github.io/installation/
 RUN yum -y install czmq-devel
