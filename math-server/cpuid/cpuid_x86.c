@@ -1942,4 +1942,6 @@ int main() {
     default:
       printf("");
   }
+
+  return 0;
 }
