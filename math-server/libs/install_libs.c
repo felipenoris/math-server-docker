@@ -17,7 +17,7 @@ void *libs_python2(void *x)
   int tid;
   tid = *((int *) x);
   printf("Thread %d: installing Python2 libs...\n", tid);
-  python2_result = system("source libs_python2.sh");
+  python2_result = system("source ./libs_python2.sh");
   return NULL;
 }
 
@@ -26,7 +26,7 @@ void *libs_python3(void *x)
   int tid;
   tid = *((int *) x);
   printf("Thread %d: installing Python3 libs...\n", tid);
-  python3_result = system("source libs_python3.sh");
+  python3_result = system("source ./libs_python3.sh");
   return NULL;
 }
 
@@ -35,7 +35,7 @@ void *libs_julia(void *x)
   int tid;
   tid = *((int *) x);
   printf("Thread %d: installing Julia libs...\n", tid);
-  julia_result = system("source libs_julia.sh");
+  julia_result = system("source ./libs_julia.sh");
   return NULL;
 }
 
@@ -44,7 +44,7 @@ void *libs_R(void *x)
   int tid;
   tid = *((int *) x);
   printf("Thread %d: installing R libs...\n", tid);
-  R_result = system("source libs_R.sh");
+  R_result = system("source ./libs_R.sh");
   return NULL;
 }
 
