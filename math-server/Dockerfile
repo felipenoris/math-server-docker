@@ -281,67 +281,9 @@ RUN R -e 'install.packages(c("rzmq","repr","IRkernel","IRdisplay"), repos = c("h
 
 RUN yum -y install libpng libpng-devel
 
-# Python 2
-RUN pip2 install \
-	numpy \
-	pandas \
-	bitarray \
-	bokeh \
-	bz2file \
-	characteristic \
-	colander \
-	coverage \
-	cryptography \
-	csvkit \
-	cymem \
-	cython \
-	cytoolz \
-	sympy \
-	names \
-	rstr \
-	sqlparse \
-	jsonschema \
-	simplejson \
-	sphinx \
-	spyder \
-	sqlalchemy
+ADD libs libs
 
-RUN pip2 install scipy matplotlib nose
-
-# Python 3
-RUN pip3 install \
-	numpy \
-	pandas \
-	bitarray \
-	bokeh \
-	bz2file \
-	characteristic \
-	colander \
-	coverage \
-	cryptography \
-	csvkit \
-	cymem \
-	cython \
-	cytoolz \
-	sympy \
-	names \
-	rstr \
-	sqlparse \
-	jsonschema \
-	simplejson \
-	sphinx \
-	spyder \
-	sqlalchemy
-
-RUN pip3 install scipy matplotlib nose
-
-# R
-ADD r-packages.r .
-RUN Rscript r-packages.r
-
-# Julia
-ADD julia-packages.jl .
-RUN julia julia-packages.jl
+RUN cd libs && make && ./install_libs
 
 ####################
 ## Services
