@@ -197,8 +197,8 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-0.99.879-x86_64.rpm \
 	&& rm -f rstudio-server-rhel-0.99.879-x86_64.rpm
 
 # Libreoffice
-RUN wget http://tdf.c3sl.ufpr.br/libreoffice/stable/5.0.5/rpm/x86_64/LibreOffice_5.0.5_Linux_x86-64_rpm.tar.gz \
-	&& echo "1e80150b20d85e930f9471926ed58599  LibreOffice_5.0.5_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
+RUN wget http://ftp.utexas.edu/libreoffice/libreoffice/stable/5.1.1/rpm/x86_64/LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz \
+	&& echo "27f5028c54ea8400d11db5654ddc53d5  LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
 	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
 	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
 	&& tar xf LibreOffice_5.0.5_Linux_x86-64_rpm.tar.gz \
