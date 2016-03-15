@@ -1932,11 +1932,11 @@ int main() {
   switch (cpu)
   {
     case CPUTYPE_NEHALEM:
-      printf("OPENBLAS_TARGET_ARCH=NEHALEM");
+      printf("\nOPENBLAS_TARGET_ARCH=NEHALEM\n");
       break;
 
     case CPUTYPE_BARCELONA:
-      printf("OPENBLAS_TARGET_ARCH=BARCELONA");
+      printf("\nOPENBLAS_TARGET_ARCH=BARCELONA\n");
       break;
 
     default:
