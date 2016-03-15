@@ -3,14 +3,17 @@
 
 # 8787 for RStudio
 # 8000 for Jupyter
+# 445 for secure Jupyter
 
-# docker run -d -p 8787:8787 -p 8000:8000 --name ms1 math-server
+# docker run -d -p 8787:8787 -p 8000:8000 -p 447:447 --name ms1 math-server
 
 FROM centos:7
 
 MAINTAINER felipenoris <felipenoris@users.noreply.github.com>
 
 WORKDIR /root
+
+ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
 
 RUN echo "export PATH=/usr/local/sbin:/usr/local/bin:${PATH}" > /etc/profile.d/local-bin.sh \
 	&& echo "export CPATH=/usr/include/glpk" > /etc/profile.d/glpk-include.sh \
@@ -215,11 +218,17 @@ RUN R -e 'install.packages("shiny")' \
 
 # Julia
 RUN wget https://github.com/JuliaLang/julia/releases/download/v0.4.3/julia-0.4.3.tar.gz \
-	&& tar xf julia-0.4.3.tar.gz && cd julia-0.4.3
+        && tar xf julia-0.4.3.tar.gz
 
 ADD julia-Make.user julia-0.4.3/Make.user
 
-RUN cd ~/julia-0.4.3 \
+ADD cpuid cpuid
+
+RUN cd cpuid && make
+
+RUN cpuid/cpuid >> julia-0.4.3/Make.user
+
+RUN cd julia-0.4.3 \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
 	&& cd .. && rm -rf julia-0.4.3 && rm -f julia-0.4.3.tar.gz \
@@ -251,7 +260,7 @@ RUN npm install -g configurable-http-proxy
 # Add Julia kernel
 # https://github.com/JuliaLang/IJulia.jl
 # https://github.com/JuliaLang/IJulia.jl/issues/341
-RUN julia -e 'Pkg.add("IJulia")'
+RUN julia -e 'Pkg.add("IJulia"); using IJulia'
 
 # registers global kernel
 RUN cp -r ~/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels 
@@ -333,7 +342,6 @@ RUN Rscript r-packages.r
 # Julia
 ADD julia-packages.jl .
 RUN julia julia-packages.jl
-RUN cp -rf ~/.julia/v0.4 /usr/local/julia/share/julia/site
 
 ####################
 ## Services
