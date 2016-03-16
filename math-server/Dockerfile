@@ -285,6 +285,9 @@ ADD libs libs
 
 RUN cd libs && make && ./install_libs
 
+# http://ipyparallel.readthedocs.org/en/latest/
+RUN ipcluster nbextension enable
+
 ####################
 ## Services
 ####################

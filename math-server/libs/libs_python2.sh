@@ -1,8 +1,6 @@
 #!/bin/sh
 
 pip2 install \
-	numpy \
-	pandas \
 	bitarray \
 	bokeh \
 	bz2file \
@@ -14,14 +12,17 @@ pip2 install \
 	cymem \
 	cython \
 	cytoolz \
-	sympy \
-	names \
-	rstr \
-	sqlparse \
+	ipyparallel \
 	jsonschema \
+	names \
+	numpy \
+	pandas \
+	rstr \
 	simplejson \
 	sphinx \
 	spyder \
-	sqlalchemy
+	sqlalchemy \
+	sympy \
+	sqlparse
 
 pip2 install scipy matplotlib nose
