@@ -65,19 +65,19 @@ RUN yum update -y && yum install -y \
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-RUN wget https://www.kernel.org/pub/software/scm/git/git-2.7.2.tar.gz \
-	&& tar xf git-2.7.2.tar.gz && cd git-2.7.2 \
+RUN wget https://www.kernel.org/pub/software/scm/git/git-2.7.4.tar.gz \
+	&& tar xf git-2.7.4.tar.gz && cd git-2.7.4 \
 	&& make -j"$(nproc --all)" prefix=/usr/local all \
 	&& make prefix=/usr/local -j"$(nproc --all)" install \
-	&& cd .. && rm -f git-2.7.2.tar.gz && rm -rf git-2.7.2
+	&& cd .. && rm -f git-2.7.4.tar.gz && rm -rf git-2.7.4
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-RUN wget https://cmake.org/files/v3.4/cmake-3.4.3.tar.gz \
-	&& tar xf cmake-3.4.3.tar.gz && cd cmake-3.4.3 \
+RUN wget https://cmake.org/files/v3.5/cmake-3.5.0.tar.gz \
+	&& tar xf cmake-3.5.0.tar.gz && cd cmake-3.5.0 \
 	&& ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf cmake-3.4.3 && rm -f cmake-3.4.3.tar.gz \
-	&& echo "export CMAKE_ROOT=/usr/local/share/cmake-3.4" > /etc/profile.d/cmake-root.sh \
+	&& cd .. && rm -rf cmake-3.5.0 && rm -f cmake-3.5.0.tar.gz \
+	&& echo "export CMAKE_ROOT=/usr/local/share/cmake-3.5" > /etc/profile.d/cmake-root.sh \
 	&& source /etc/profile
 
 # Python 2.7
@@ -158,12 +158,12 @@ RUN cd ~/llvm_build \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
 # node
-RUN wget https://github.com/nodejs/node/archive/v5.7.1.tar.gz \
-	&& tar xf v5.7.1.tar.gz && cd node-5.7.1 \
+RUN wget https://github.com/nodejs/node/archive/v5.9.0.tar.gz \
+	&& tar xf v5.9.0.tar.gz && cd node-5.9.0 \
 	&& ./configure \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -f v5.7.1.tar.gz && rm -rf node-5.7.1
+	&& cd .. && rm -f v5.9.0.tar.gz && rm -rf node-5.9.0
 
 # R
 # CentOS packages for R that are not available for Redhat6, but are compatible
@@ -217,21 +217,21 @@ RUN R -e 'install.packages("shiny")' \
 	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-1.4.1.759-rh5-x86_64.rpm
 
 # Julia
-RUN wget https://github.com/JuliaLang/julia/releases/download/v0.4.3/julia-0.4.3.tar.gz \
-        && tar xf julia-0.4.3.tar.gz
+RUN wget https://github.com/JuliaLang/julia/archive/v0.4.5.tar.gz \
+        && tar xf v0.4.5.tar.gz
 
-ADD julia-Make.user julia-0.4.3/Make.user
+ADD julia-Make.user julia-0.4.5/Make.user
 
 ADD cpuid cpuid
 
 RUN cd cpuid && make
 
-RUN cpuid/cpuid >> julia-0.4.3/Make.user
+RUN cpuid/cpuid >> julia-0.4.5/Make.user
 
-RUN cd julia-0.4.3 \
+RUN cd julia-0.4.5 \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf julia-0.4.3 && rm -f julia-0.4.3.tar.gz \
+	&& cd .. && rm -rf julia-0.4.5 && rm -f v0.4.5.tar.gz \
 	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
 
 # Init package folder on root's home folder
