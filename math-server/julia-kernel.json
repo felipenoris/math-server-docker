@@ -1,5 +1,5 @@
 {
-  "display_name": "Julia 0.4.3",
+  "display_name": "Julia 0.4",
   "argv": [
     "/usr/local/julia/bin/julia",
     "-i",
