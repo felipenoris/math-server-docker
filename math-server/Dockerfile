@@ -294,6 +294,6 @@ RUN ipcluster nbextension enable
 
 # 8787 for RStudio
 # 8000 for Jupyter
-EXPOSE 8787 8000 447
+EXPOSE 8787 8000
 
 CMD /usr/lib/rstudio-server/bin/rserver && jupyterhub --no-ssl
