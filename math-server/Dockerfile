@@ -3,9 +3,8 @@
 
 # 8787 for RStudio
 # 8000 for Jupyter
-# 445 for secure Jupyter
 
-# docker run -d -p 8787:8787 -p 8000:8000 -p 447:447 --name ms1 math-server
+# docker run -d -p 8787:8787 -p 8000:8000 --name ms1 math-server
 
 FROM centos:7
 
