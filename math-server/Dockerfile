@@ -193,7 +193,7 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-0.99.879-x86_64.rpm \
 	&& RESULT=$(md5sum -c RSTUDIOMD5) \
 	&& echo ${RESULT} > ~/check-rstudio-md5.txt \
 	&& yum -y install --nogpgcheck rstudio-server-rhel-0.99.879-x86_64.rpm \
-	&& rm -f rstudio-server-rhel-0.99.879-x86_64.rpm
+	&& rm -f rstudio-server-rhel-0.99.879-x86_64.rpm && rm -f RSTUDIOMD5
 
 # Libreoffice
 RUN wget http://ftp.utexas.edu/libreoffice/libreoffice/stable/5.1.1/rpm/x86_64/LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz \
@@ -204,7 +204,7 @@ RUN wget http://ftp.utexas.edu/libreoffice/libreoffice/stable/5.1.1/rpm/x86_64/L
 	&& cd LibreOffice_5.1.1.3_Linux_x86-64_rpm/RPMS \
 	&& yum -y install *.rpm \
 	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz \
-	&& rm -rf LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz
+	&& rm -rf LibreOffice_5.1.1.3_Linux_x86-64_rpm
 
 # Shiny
 RUN R -e 'install.packages("shiny")' \
