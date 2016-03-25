@@ -278,7 +278,7 @@ RUN R -e 'install.packages(c("rzmq","repr","IRkernel","IRdisplay"), repos = c("h
 ## LIBS
 #################
 
-RUN yum -y install libpng libpng-devel
+RUN yum -y install libpng libpng-devel libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel libxslt-devel libxml2-devel pandoc
 
 ADD libs libs
 

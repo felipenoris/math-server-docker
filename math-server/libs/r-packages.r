@@ -9,6 +9,7 @@ pkgs <- c(
 	"foreach",
 	"ggplot2",
 	"gmp",
+	"Hmisc",
 	"lubridate",
 	"microbenchmark",
 	"NMOF",

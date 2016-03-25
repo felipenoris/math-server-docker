@@ -12,11 +12,15 @@ pip3 install \
 	cymem \
 	cython \
 	cytoolz \
+	datetime \
+	deap \
+	docx \
 	ipyparallel \
 	jsonschema \
 	names \
 	numpy \
 	pandas \
+	pypandoc \
 	rstr \
 	simplejson \
 	sphinx \
