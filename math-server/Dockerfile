@@ -284,6 +284,8 @@ ADD libs libs
 
 RUN cd libs && make && ./install_libs
 
+RUN cd libs && source ./install_numba.sh
+
 # http://ipyparallel.readthedocs.org/en/latest/
 RUN ipcluster nbextension enable
 
