@@ -45,7 +45,11 @@ pkgs <- c(
 	"sqldf",
 	"stringr",
 	"plyr",
+	"TSA",
+	"x12",
+	"xlsx",
 	"XML",
+	"xts",
 	"zoo"
 	)
 

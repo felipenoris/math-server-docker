@@ -51,7 +51,7 @@ void *libs_R(void *x)
 int main(int argc, char *argv[])
 {
   pthread_t threads[NTHREADS];
-  int thread_args[NTHREADS] = { 1, 2, 3, 4};
+  int thread_args[NTHREADS] = {1, 2, 3, 4};
   int rc, i;
 
   rc = pthread_create(&threads[0], NULL, libs_python2, (void *) &thread_args[0]);
