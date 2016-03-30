@@ -1,6 +1,5 @@
 
 pkgs <- c(
-
 	"alabama",
 	"base64enc",
 	"caret",
