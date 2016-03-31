@@ -1,5 +1,5 @@
 
-# docker build -t math-server .
+# docker build --no-cache -t math-server:latest .
 
 # 8787 for RStudio
 # 8000 for Jupyter
@@ -99,8 +99,8 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py \
 # Python 3
 RUN wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tar.xz \
 	&& tar xf Python-3.5.1.tar.xz && cd Python-3.5.1 \
-	&& echo "zlib zlibmodule.c -I\$(prefix)/include -L\$(exec_prefix)/lib -lz" >> ./Modules/Setup \
 	&& ./configure --prefix=/usr/local --enable-shared \
+	&& echo "zlib zlibmodule.c -I\$(prefix)/include -L\$(exec_prefix)/lib -lz" >> ./Modules/Setup \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" altinstall \
 	&& ln -s /usr/local/bin/python3.5 /usr/local/bin/python3 \
