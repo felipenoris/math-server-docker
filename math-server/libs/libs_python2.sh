@@ -1,8 +1,16 @@
 #!/bin/sh
 
 pip2 install \
+	astroid \
+	atom \
+	attrs \
+	bcolz \
+	bcrypt \
+	beautifulsoup4 \
 	bitarray \
+	blaze \
 	bokeh \
+	BTrees \
 	bz2file \
 	characteristic \
 	colander \
@@ -12,6 +20,7 @@ pip2 install \
 	cymem \
 	cython \
 	cytoolz \
+	dask \
 	datetime \
 	deap \
 	docx \
@@ -27,6 +36,8 @@ pip2 install \
 	spyder \
 	sqlalchemy \
 	sympy \
-	sqlparse
+	sqlparse \
+	virtualenv \
+	xlsxwriter
 
 pip2 install scipy matplotlib nose
