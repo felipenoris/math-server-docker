@@ -99,6 +99,7 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py \
 # Python 3
 RUN wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tar.xz \
 	&& tar xf Python-3.5.1.tar.xz && cd Python-3.5.1 \
+	&& echo "zlib zlibmodule.c -I\$(prefix)/include -L\$(exec_prefix)/lib -lz" >> ./Modules/Setup \
 	&& ./configure --prefix=/usr/local --enable-shared \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" altinstall \
