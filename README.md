@@ -125,7 +125,7 @@ Change the default port by editing rserver.conf. The following will change to po
 
 **Python**
 
-*root user* will add packages with `pip` or `pip3` command line. Packages will be stored on `/usr/local/lib/python2.7` or `/usr/local/lib/python3.5` directories.
+*root user* will add packages with `pip2` or `pip3` command line. Packages will be stored on `/usr/local/lib/python2.7` or `/usr/local/lib/python3.5` directories.
 
 **R**
 
