@@ -72,10 +72,10 @@ RUN wget https://www.kernel.org/pub/software/scm/git/git-2.8.0.tar.xz \
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-RUN wget https://cmake.org/files/v3.5/cmake-3.5.0.tar.gz \
-	&& tar xf cmake-3.5.0.tar.gz && cd cmake-3.5.0 \
+RUN wget https://cmake.org/files/v3.5/cmake-3.5.1.tar.gz \
+	&& tar xf cmake-3.5.1.tar.gz && cd cmake-3.5.1 \
 	&& ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf cmake-3.5.0 && rm -f cmake-3.5.0.tar.gz \
+	&& cd .. && rm -rf cmake-3.5.1 && rm -f cmake-3.5.1.tar.gz \
 	&& echo "export CMAKE_ROOT=/usr/local/share/cmake-3.5" > /etc/profile.d/cmake-root.sh \
 	&& source /etc/profile
 
@@ -189,12 +189,12 @@ RUN yum install -y \
 RUN echo 'options(repos = c(CRAN="http://www.vps.fmvz.usp.br/CRAN/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
 # RStudio
-RUN wget https://download2.rstudio.org/rstudio-server-rhel-0.99.879-x86_64.rpm \
-	&& echo "7a641c79a49bf60ea70a2c3244bdf074  rstudio-server-rhel-0.99.879-x86_64.rpm" > RSTUDIOMD5 \
+RUN wget https://download2.rstudio.org/rstudio-server-rhel-0.99.893-x86_64.rpm \
+	&& echo "4f3b104e7fd84073c351b008da68272a  rstudio-server-rhel-0.99.893-x86_64.rpm" > RSTUDIOMD5 \
 	&& RESULT=$(md5sum -c RSTUDIOMD5) \
 	&& echo ${RESULT} > ~/check-rstudio-md5.txt \
-	&& yum -y install --nogpgcheck rstudio-server-rhel-0.99.879-x86_64.rpm \
-	&& rm -f rstudio-server-rhel-0.99.879-x86_64.rpm && rm -f RSTUDIOMD5
+	&& yum -y install --nogpgcheck rstudio-server-rhel-0.99.893-x86_64.rpm \
+	&& rm -f rstudio-server-rhel-0.99.893-x86_64.rpm && rm -f RSTUDIOMD5
 
 # Libreoffice
 RUN wget http://ftp.utexas.edu/libreoffice/libreoffice/stable/5.1.1/rpm/x86_64/LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz \
@@ -209,12 +209,12 @@ RUN wget http://ftp.utexas.edu/libreoffice/libreoffice/stable/5.1.1/rpm/x86_64/L
 
 # Shiny
 RUN R -e 'install.packages("shiny")' \
-	&& wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-1.4.1.759-rh5-x86_64.rpm \
-	&& echo "f229d1eda060e7317245512a2013602a  shiny-server-1.4.1.759-rh5-x86_64.rpm" > SHINYSERVERMD5 \
+	&& wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-1.4.2.786-rh5-x86_64.rpm \
+	&& echo "45160b08eed65c89e0a9d03c58eba595  shiny-server-1.4.2.786-rh5-x86_64.rpm" > SHINYSERVERMD5 \
 	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
 	&& echo ${RESULT} > ~/check-shiny-server-md5.txt \
-	&& yum -y install --nogpgcheck shiny-server-1.4.1.759-rh5-x86_64.rpm \
-	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-1.4.1.759-rh5-x86_64.rpm
+	&& yum -y install --nogpgcheck shiny-server-1.4.2.786-rh5-x86_64.rpm \
+	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-1.4.2.786-rh5-x86_64.rpm
 
 # Julia
 RUN wget https://github.com/JuliaLang/julia/archive/v0.4.5.tar.gz \
