@@ -7,9 +7,11 @@ pip2 install \
 	bcolz \
 	bcrypt \
 	beautifulsoup4 \
+	blist \
 	bitarray \
 	blaze \
 	bokeh \
+	bottleneck \
 	BTrees \
 	bz2file \
 	characteristic \
@@ -29,8 +31,12 @@ pip2 install \
 	names \
 	numpy \
 	pandas \
+	pymc \
 	pypandoc \
+	python-daemon \
+	pyyaml \
 	rstr \
+	seaborn \
 	simplejson \
 	sphinx \
 	spyder \
