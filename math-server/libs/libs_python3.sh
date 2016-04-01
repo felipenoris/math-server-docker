@@ -25,6 +25,7 @@ pip3 install \
 	datetime \
 	deap \
 	docx \
+	enum34 \
 	ipyparallel \
 	jsonschema \
 	names \
