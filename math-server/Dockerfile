@@ -275,11 +275,23 @@ RUN yum -y install czmq-devel
 RUN R -e 'install.packages(c("rzmq","repr","IRkernel","IRdisplay"), repos = c("http://irkernel.github.io/", getOption("repos")),type = "source")' \
 	&& R -e 'IRkernel::installspec(user = FALSE)'
 
+# coin SYMPHONY
+# https://projects.coin-or.org/SYMPHONY
+git clone --branch=stable/5.6 https://github.com/coin-or/SYMPHONY SYMPHONY-5.6
+cd SYMPHONY-5.6
+git clone --branch=stable/0.8 https://github.com/coin-or-tools/BuildTools/
+chmod u+x ./BuildTools/get.dependencies.sh
+./BuildTools/get.dependencies.sh fetch
+./configure
+make -j"$(nproc --all)"
+make -j"$(nproc --all)" install
+cd .. && rm -rf SYMPHONY-5.6
+
 #################
 ## LIBS
 #################
 
-RUN yum -y install libpng libpng-devel libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel libxslt-devel libxml2-devel pandoc
+RUN yum -y install libpng libpng-devel libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel libxslt-devel libxml2-devel pandoc glpk-devel
 
 RUN yum -y install texlive-*
 
