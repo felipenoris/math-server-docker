@@ -277,15 +277,15 @@ RUN R -e 'install.packages(c("rzmq","repr","IRkernel","IRdisplay"), repos = c("h
 
 # coin SYMPHONY
 # https://projects.coin-or.org/SYMPHONY
-git clone --branch=stable/5.6 https://github.com/coin-or/SYMPHONY SYMPHONY-5.6
-cd SYMPHONY-5.6
-git clone --branch=stable/0.8 https://github.com/coin-or-tools/BuildTools/
-chmod u+x ./BuildTools/get.dependencies.sh
-./BuildTools/get.dependencies.sh fetch
-./configure
-make -j"$(nproc --all)"
-make -j"$(nproc --all)" install
-cd .. && rm -rf SYMPHONY-5.6
+RUN git clone --branch=stable/5.6 https://github.com/coin-or/SYMPHONY SYMPHONY-5.6 \
+	&& cd SYMPHONY-5.6 \
+	&& git clone --branch=stable/0.8 https://github.com/coin-or-tools/BuildTools/ \
+	&& chmod u+x ./BuildTools/get.dependencies.sh \
+	&& ./BuildTools/get.dependencies.sh fetch \
+	&& ./configure \
+	&& make -j"$(nproc --all)" \
+	&& make -j"$(nproc --all)" install \
+	&& cd .. && rm -rf SYMPHONY-5.6
 
 #################
 ## LIBS
