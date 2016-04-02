@@ -26,8 +26,6 @@ pip2 install \
 	datetime \
 	deap \
 	docx \
-	enum34 \
-	ipyparallel \
 	jsonschema \
 	names \
 	numpy \

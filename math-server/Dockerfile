@@ -243,6 +243,8 @@ RUN pip2 install \
 	IPython \
 	notebook \
 	ipykernel \
+	ipyparallel \
+	enum34 \
 	&& /usr/local/python2.7/bin/python2.7 -m ipykernel install
 
 RUN pip3 install \
@@ -250,6 +252,8 @@ RUN pip3 install \
 	jupyterhub \
 	notebook \
 	ipykernel \
+	ipyparallel \
+	enum34 \
 	&& python3 -m ipykernel install
 
 RUN npm install -g configurable-http-proxy
