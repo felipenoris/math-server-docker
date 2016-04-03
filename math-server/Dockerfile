@@ -64,11 +64,11 @@ RUN yum update -y && yum install -y \
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-RUN wget https://www.kernel.org/pub/software/scm/git/git-2.8.0.tar.xz \
-	&& tar xf git-2.8.0.tar.xz && cd git-2.8.0 \
+RUN wget https://www.kernel.org/pub/software/scm/git/git-2.8.1.tar.xz \
+	&& tar xf git-2.8.1.tar.xz && cd git-2.8.1 \
 	&& make -j"$(nproc --all)" prefix=/usr/local all \
 	&& make prefix=/usr/local -j"$(nproc --all)" install \
-	&& cd .. && rm -f git-2.8.0.tar.xz && rm -rf git-2.8.0
+	&& cd .. && rm -f git-2.8.1.tar.xz && rm -rf git-2.8.1
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
@@ -158,12 +158,12 @@ RUN cd ~/llvm_build \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
 # node
-RUN wget https://github.com/nodejs/node/archive/v5.9.1.tar.gz \
-	&& tar xf v5.9.1.tar.gz && cd node-5.9.1 \
+RUN wget https://github.com/nodejs/node/archive/v5.10.0.tar.gz \
+	&& tar xf v5.10.0.tar.gz && cd node-5.10.0 \
 	&& ./configure \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -f v5.9.1.tar.gz && rm -rf node-5.9.1
+	&& cd .. && rm -f v5.10.0.tar.gz && rm -rf node-5.10.0
 
 # R
 # CentOS packages for R that are not available for Redhat6, but are compatible
