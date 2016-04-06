@@ -258,6 +258,24 @@ RUN pip3 install \
 
 RUN npm install -g configurable-http-proxy
 
+# ipywidgets
+# https://ipywidgets.readthedocs.org/en/latest/dev_install.html
+
+RUN git clone https://github.com/ipython/ipywidgets
+
+RUN cd ipywidgets \
+	&& pip2 install -v -e . \
+	&& pip3 install -v -e . \
+	&& cd jupyter-js-widgets \
+ 	&& npm install \
+ 	&& cd ../widgetsnbextension \
+ 	&& npm install \
+ 	&& npm run update:widgets \
+ 	&& pip2 install -v -e . \
+ 	&& pip3 install -v -e .
+ 
+ RUN rm -rf ipywidgets
+
 # Support for other languages
 # https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
 
