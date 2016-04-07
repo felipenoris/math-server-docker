@@ -20,7 +20,7 @@ Dockerfile to build a server with Jupyterhub and RStudio, ready for Python, R an
 
 ## Usage
 
-To build the image, run the following comand on `math-server` folder:
+To build the image, run the following comand:
 
 ```
 # docker build -t math-server .
