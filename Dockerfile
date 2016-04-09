@@ -165,6 +165,9 @@ RUN wget https://github.com/nodejs/node/archive/v5.10.0.tar.gz \
 	&& make -j"$(nproc --all)" install \
 	&& cd .. && rm -f v5.10.0.tar.gz && rm -rf node-5.10.0
 
+# update npm
+RUN npm update npm -g
+
 # R
 # CentOS packages for R that are not available for Redhat6, but are compatible
 RUN wget 'http://mirror.centos.org/centos/7/os/x86_64/Packages/lapack-devel-3.4.2-5.el7.x86_64.rpm' \
@@ -263,8 +266,10 @@ RUN npm install -g configurable-http-proxy
 # https://ipywidgets.readthedocs.org/en/latest/dev_install.html
 
 #RUN git clone https://github.com/ipython/ipywidgets
+#RUN wget https://github.com/ipython/ipywidgets/archive/4.1.1.tar.gz \
+#	&& tar xf 4.1.1.tar.gz
 
-#RUN cd ipywidgets \
+#RUN cd ipywidgets-4.1.1 \
 #	&& pip2 install -v -e . \
 #	&& pip3 install -v -e . \
 #	&& cd jupyter-js-widgets \
@@ -275,7 +280,7 @@ RUN npm install -g configurable-http-proxy
 # 	&& pip2 install -v -e . \
 # 	&& pip3 install -v -e .
  
-# RUN rm -rf ipywidgets
+# RUN rm -rf ipywidgets-4.1.1 && rm -f 4.1.1.tar.gz
 
 # Support for other languages
 # https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
