@@ -158,12 +158,12 @@ RUN cd ~/llvm_build \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
 # node
-RUN wget https://github.com/nodejs/node/archive/v5.10.0.tar.gz \
-	&& tar xf v5.10.0.tar.gz && cd node-5.10.0 \
+RUN wget https://github.com/nodejs/node/archive/v5.10.1.tar.gz \
+	&& tar xf v5.10.1.tar.gz && cd node-5.10.1 \
 	&& ./configure \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -f v5.10.0.tar.gz && rm -rf node-5.10.0
+	&& cd .. && rm -f v5.10.1.tar.gz && rm -rf node-5.10.1
 
 # update npm
 RUN npm update npm -g
