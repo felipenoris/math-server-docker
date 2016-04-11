@@ -169,16 +169,12 @@ RUN wget https://github.com/nodejs/node/archive/v5.10.1.tar.gz \
 RUN npm update npm -g
 
 # R
-# CentOS packages for R that are not available for Redhat6, but are compatible
-RUN wget 'http://mirror.centos.org/centos/7/os/x86_64/Packages/lapack-devel-3.4.2-5.el7.x86_64.rpm' \
-	&& wget 'http://mirror.centos.org/centos/7/os/x86_64/Packages/blas-devel-3.4.2-5.el7.x86_64.rpm' \
-	&& wget 'http://mirror.centos.org/centos/7/os/x86_64/Packages/libicu-devel-50.1.2-15.el7.x86_64.rpm' \
-	&& wget 'http://mirror.centos.org/centos/7/os/x86_64/Packages/texinfo-tex-5.1-4.el7.x86_64.rpm'
+RUN yum -y install \
+	lapack-devel \
+	blas-devel \
+	libicu-devel
 
-RUN	yum -y localinstall *.rpm \
-	&& rm -f *.rpm
-
-RUN yum install -y \
+RUN yum -y install \
 	unixodbc-devel \
 	QuantLib \
 	QuantLib-devel \
