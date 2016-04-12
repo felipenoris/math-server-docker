@@ -167,6 +167,18 @@ RUN wget https://github.com/nodejs/node/archive/v5.10.1.tar.gz \
 # update npm
 RUN npm update npm -g
 
+# TeX
+RUN yum -y install perl-Tk perl-Digest-MD5
+
+ADD texlive.profile texlive.profile
+
+# non-interactive http://www.tug.org/pipermail/tex-live/2008-June/016323.html
+RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
+	&& mkdir install-tl \
+	&& tar xf install-tl-unx.tar.gz -C install-tl --strip-components=1 \
+	&& ./install-tl/install-tl -profile ./texlive.profile \
+	&& rm -rf install-tl && rm -f install-tl-unx.tar.gz
+
 # R
 RUN yum -y install \
 	lapack-devel \
