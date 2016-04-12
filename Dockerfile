@@ -55,7 +55,6 @@ RUN yum update -y && yum install -y \
 	svn \
 	unzip \
 	valgrind \
-	texinfo-tex \
 	sqlite \
 	sqlite-devel \
 	vim \
@@ -316,8 +315,6 @@ RUN git clone --branch=stable/5.6 https://github.com/coin-or/SYMPHONY SYMPHONY-5
 #################
 
 RUN yum -y install libpng libpng-devel libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel libxslt-devel libxml2-devel pandoc glpk-devel
-
-RUN yum -y install texlive-*
 
 ADD libs libs
 
