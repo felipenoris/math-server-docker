@@ -20,7 +20,6 @@ pip2 install \
 	cryptography \
 	csvkit \
 	cymem \
-	cython \
 	cytoolz \
 	dask \
 	datetime \
@@ -29,7 +28,6 @@ pip2 install \
 	jsonschema \
 	names \
 	numpy \
-	pandas \
 	pymc \
 	pypandoc \
 	python-daemon \
@@ -46,3 +44,5 @@ pip2 install \
 	xlsxwriter
 
 pip2 install scipy matplotlib nose
+
+pip2 install arch Cython pandas

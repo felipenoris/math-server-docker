@@ -19,7 +19,6 @@ pip3 install \
 	cryptography \
 	csvkit \
 	cymem \
-	cython \
 	cytoolz \
 	dask \
 	datetime \
@@ -28,7 +27,6 @@ pip3 install \
 	jsonschema \
 	names \
 	numpy \
-	pandas \
 	pypandoc \
 	python-daemon \
 	pyyaml \
@@ -44,3 +42,5 @@ pip3 install \
 	xlsxwriter
 
 pip3 install scipy matplotlib nose
+
+pip3 install arch Cython pandas
