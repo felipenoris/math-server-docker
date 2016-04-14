@@ -83,7 +83,7 @@ RUN wget https://cmake.org/files/v3.5/cmake-3.5.1.tar.gz \
 RUN wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tar.xz \
 	&& tar xf Python-2.7.11.tar.xz \
 	&& cd Python-2.7.11 \
-	&& ./configure --prefix=/usr/local/python2.7 --enable-shared \
+	&& ./configure --prefix=/usr/local/python2.7 --enable-shared --with-cxx-main=/usr/bin/g++ \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" altinstall \
 	&& echo "/usr/local/lib" > /etc/ld.so.conf.d/usrLocalLib.conf \
@@ -98,7 +98,7 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py \
 # Python 3
 RUN wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tar.xz \
 	&& tar xf Python-3.5.1.tar.xz && cd Python-3.5.1 \
-	&& ./configure --prefix=/usr/local --enable-shared \
+	&& ./configure --prefix=/usr/local --enable-shared --with-cxx-main=/usr/bin/g++ \
 	&& echo "zlib zlibmodule.c -I\$(prefix)/include -L\$(exec_prefix)/lib -lz" >> ./Modules/Setup \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" altinstall \
