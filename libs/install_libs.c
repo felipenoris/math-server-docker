@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-// gcc -o go go.c -lpthread
+// gcc -o install_libs install_libs.c -lpthread
 // http://gribblelab.org/CBootcamp/A2_Parallel_Programming_in_C.html
 
 #define NTHREADS 4
