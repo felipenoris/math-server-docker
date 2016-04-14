@@ -20,9 +20,9 @@ RUN echo "export PATH=/usr/local/sbin:/usr/local/bin:${PATH}" > /etc/profile.d/l
 
 RUN yum install -y wget
 
-RUN wget http://mirror.globo.com/epel/7/x86_64/e/epel-release-7-5.noarch.rpm && \
-	rpm -ivh epel-release-7-5.noarch.rpm && \
-	rm -f epel-release-7-5.noarch.rpm
+RUN wget http://mirror.globo.com/epel/7/x86_64/e/epel-release-7-5.noarch.rpm \
+	&& rpm -ivh epel-release-7-5.noarch.rpm \
+	&& rm -f epel-release-7-5.noarch.rpm
 
 RUN yum update -y && yum install -y \
 	bison \
@@ -326,7 +326,21 @@ RUN git clone --branch=stable/5.6 https://github.com/coin-or/SYMPHONY SYMPHONY-5
 ## LIBS
 #################
 
-RUN yum -y install libpng libpng-devel libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel libxslt-devel libxml2-devel pandoc glpk-devel
+RUN yum -y install \
+	freetype-devel \
+	glpk-devel \
+	lcms2-devel \
+	libjpeg-devel \
+	libpng \
+	libpng-devel \
+	libtiff-devel \
+	libwebp-devel \
+	libxslt-devel \
+	libxml2-devel \
+	libzip-devel \
+	pandoc \
+	tcl-devel \
+	tk-devel
 
 ADD libs libs
 
