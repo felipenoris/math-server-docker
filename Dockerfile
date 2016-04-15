@@ -27,6 +27,7 @@ RUN wget http://mirror.globo.com/epel/7/x86_64/e/epel-release-7-5.noarch.rpm \
 RUN yum update -y && yum install -y \
 	bison \
 	bzip2 \
+	bzip2-devel \
 	cmake \
 	curl-devel \
 	expat-devel \
@@ -48,6 +49,7 @@ RUN yum update -y && yum install -y \
 	nano \
 	nload \
 	htop \
+	openssl \
 	openssl098e \
 	openssl-devel \
 	patch \
@@ -58,6 +60,7 @@ RUN yum update -y && yum install -y \
 	sqlite \
 	sqlite-devel \
 	vim \
+	zlib \
 	zlib-devel \
 	zip
 
