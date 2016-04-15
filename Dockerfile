@@ -210,15 +210,15 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-0.99.893-x86_64.rpm \
 	&& rm -f rstudio-server-rhel-0.99.893-x86_64.rpm && rm -f RSTUDIOMD5
 
 # Libreoffice
-RUN wget http://download.documentfoundation.org/libreoffice/stable/5.1.1/rpm/x86_64/LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz \
-	&& echo "27f5028c54ea8400d11db5654ddc53d5  LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
+RUN wget http://download.documentfoundation.org/libreoffice/stable/5.1.2/rpm/x86_64/LibreOffice_5.1.2_Linux_x86-64_rpm.tar.gz \
+	&& echo "63de4fc4cf42594721ad4aa1e980849a  LibreOffice_5.1.2_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
 	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
 	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
-	&& tar xf LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz \
-	&& cd LibreOffice_5.1.1.3_Linux_x86-64_rpm/RPMS \
+	&& tar xf LibreOffice_5.1.2_Linux_x86-64_rpm.tar.gz \
+	&& cd LibreOffice_5.1.2.2_Linux_x86-64_rpm/RPMS \
 	&& yum -y install *.rpm \
-	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz \
-	&& rm -rf LibreOffice_5.1.1.3_Linux_x86-64_rpm
+	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_5.1.2_Linux_x86-64_rpm.tar.gz \
+	&& rm -rf LibreOffice_5.1.2.2_Linux_x86-64_rpm
 
 # Shiny
 RUN R -e 'install.packages("shiny")' \
