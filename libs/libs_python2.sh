@@ -43,6 +43,13 @@ pip2 install \
 	virtualenv \
 	xlsxwriter
 
-pip2 install scipy matplotlib nose
+pip2 install \
+	Cython \
+	matplotlib \
+	nose \
+	scipy
 
-pip2 install arch Cython pandas
+pip2 install \
+	arch \
+	pandas
+
