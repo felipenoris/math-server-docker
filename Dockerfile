@@ -18,11 +18,7 @@ RUN echo "export PATH=/usr/local/sbin:/usr/local/bin:${PATH}" > /etc/profile.d/l
 	&& echo "export CPATH=/usr/include/glpk" > /etc/profile.d/glpk-include.sh \
 	&& source /etc/profile
 
-RUN yum install -y wget
-
-RUN wget http://mirror.globo.com/epel/7/x86_64/e/epel-release-7-5.noarch.rpm \
-	&& rpm -ivh epel-release-7-5.noarch.rpm \
-	&& rm -f epel-release-7-5.noarch.rpm
+RUN yum install -y wget epel-release
 
 RUN yum update -y && yum install -y \
 	bison \
