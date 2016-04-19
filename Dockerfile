@@ -325,6 +325,8 @@ RUN cd libs && make && ./install_libs
 
 RUN cd libs && source ./install_numba.sh
 
+RUN cd libs && source ./install_JSAnimation.sh
+
 # http://ipyparallel.readthedocs.org/en/latest/
 RUN ipcluster nbextension enable
 
