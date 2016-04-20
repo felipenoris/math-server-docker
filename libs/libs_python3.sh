@@ -41,6 +41,12 @@ pip3 install \
 	virtualenv \
 	xlsxwriter
 
-pip3 install scipy matplotlib nose
+pip3 install \
+	Cython \
+	matplotlib \
+	nose \
+	scipy
 
-pip3 install arch Cython pandas
+pip3 install \
+	arch \
+	pandas

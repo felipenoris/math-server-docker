@@ -18,15 +18,12 @@ RUN echo "export PATH=/usr/local/sbin:/usr/local/bin:${PATH}" > /etc/profile.d/l
 	&& echo "export CPATH=/usr/include/glpk" > /etc/profile.d/glpk-include.sh \
 	&& source /etc/profile
 
-RUN yum install -y wget
-
-RUN wget http://mirror.globo.com/epel/7/x86_64/e/epel-release-7-5.noarch.rpm && \
-	rpm -ivh epel-release-7-5.noarch.rpm && \
-	rm -f epel-release-7-5.noarch.rpm
+RUN yum install -y wget epel-release
 
 RUN yum update -y && yum install -y \
 	bison \
 	bzip2 \
+	bzip2-devel \
 	cmake \
 	curl-devel \
 	expat-devel \
@@ -48,6 +45,7 @@ RUN yum update -y && yum install -y \
 	nano \
 	nload \
 	htop \
+	openssl \
 	openssl098e \
 	openssl-devel \
 	patch \
@@ -55,10 +53,10 @@ RUN yum update -y && yum install -y \
 	svn \
 	unzip \
 	valgrind \
-	texinfo-tex \
 	sqlite \
 	sqlite-devel \
 	vim \
+	zlib \
 	zlib-devel \
 	zip
 
@@ -84,7 +82,7 @@ RUN wget https://cmake.org/files/v3.5/cmake-3.5.1.tar.gz \
 RUN wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tar.xz \
 	&& tar xf Python-2.7.11.tar.xz \
 	&& cd Python-2.7.11 \
-	&& ./configure --prefix=/usr/local/python2.7 --enable-shared \
+	&& ./configure --prefix=/usr/local/python2.7 --enable-shared --with-cxx-main=/usr/bin/g++ \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" altinstall \
 	&& echo "/usr/local/lib" > /etc/ld.so.conf.d/usrLocalLib.conf \
@@ -99,7 +97,7 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py \
 # Python 3
 RUN wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tar.xz \
 	&& tar xf Python-3.5.1.tar.xz && cd Python-3.5.1 \
-	&& ./configure --prefix=/usr/local --enable-shared \
+	&& ./configure --prefix=/usr/local --enable-shared --with-cxx-main=/usr/bin/g++ \
 	&& echo "zlib zlibmodule.c -I\$(prefix)/include -L\$(exec_prefix)/lib -lz" >> ./Modules/Setup \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" altinstall \
@@ -168,6 +166,18 @@ RUN wget https://github.com/nodejs/node/archive/v5.10.1.tar.gz \
 # update npm
 RUN npm update npm -g
 
+# TeX
+RUN yum -y install perl-Tk perl-Digest-MD5
+
+ADD texlive.profile texlive.profile
+
+# non-interactive http://www.tug.org/pipermail/tex-live/2008-June/016323.html
+RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
+	&& mkdir install-tl \
+	&& tar xf install-tl-unx.tar.gz -C install-tl --strip-components=1 \
+	&& ./install-tl/install-tl -profile ./texlive.profile \
+	&& rm -rf install-tl && rm -f install-tl-unx.tar.gz
+
 # R
 RUN yum -y install \
 	lapack-devel \
@@ -196,15 +206,15 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-0.99.893-x86_64.rpm \
 	&& rm -f rstudio-server-rhel-0.99.893-x86_64.rpm && rm -f RSTUDIOMD5
 
 # Libreoffice
-RUN wget http://download.documentfoundation.org/libreoffice/stable/5.1.1/rpm/x86_64/LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz \
-	&& echo "27f5028c54ea8400d11db5654ddc53d5  LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
+RUN wget http://download.documentfoundation.org/libreoffice/stable/5.1.2/rpm/x86_64/LibreOffice_5.1.2_Linux_x86-64_rpm.tar.gz \
+	&& echo "63de4fc4cf42594721ad4aa1e980849a  LibreOffice_5.1.2_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
 	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
 	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
-	&& tar xf LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz \
-	&& cd LibreOffice_5.1.1.3_Linux_x86-64_rpm/RPMS \
+	&& tar xf LibreOffice_5.1.2_Linux_x86-64_rpm.tar.gz \
+	&& cd LibreOffice_5.1.2.2_Linux_x86-64_rpm/RPMS \
 	&& yum -y install *.rpm \
-	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_5.1.1_Linux_x86-64_rpm.tar.gz \
-	&& rm -rf LibreOffice_5.1.1.3_Linux_x86-64_rpm
+	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_5.1.2_Linux_x86-64_rpm.tar.gz \
+	&& rm -rf LibreOffice_5.1.2.2_Linux_x86-64_rpm
 
 # Shiny
 RUN R -e 'install.packages("shiny")' \
@@ -315,9 +325,21 @@ RUN git clone --branch=stable/5.6 https://github.com/coin-or/SYMPHONY SYMPHONY-5
 ## LIBS
 #################
 
-RUN yum -y install libpng libpng-devel libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel libxslt-devel libxml2-devel pandoc glpk-devel
-
-RUN yum -y install texlive-*
+RUN yum -y install \
+	freetype-devel \
+	glpk-devel \
+	lcms2-devel \
+	libjpeg-devel \
+	libpng \
+	libpng-devel \
+	libtiff-devel \
+	libwebp-devel \
+	libxslt-devel \
+	libxml2-devel \
+	libzip-devel \
+	pandoc \
+	tcl-devel \
+	tk-devel
 
 ADD libs libs
 
