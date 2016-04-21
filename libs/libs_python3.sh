@@ -38,6 +38,7 @@ pip3 install \
 	sqlalchemy \
 	sympy \
 	sqlparse \
+	statistics \
 	virtualenv \
 	xlsxwriter
 
