@@ -178,6 +178,9 @@ RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
 	&& ./install-tl/install-tl -profile ./texlive.profile \
 	&& rm -rf install-tl && rm -f install-tl-unx.tar.gz
 
+RUN echo "export PATH=/usr/local/texlive/2015/bin/x86_64-linux:${PATH}" > /etc/profile.d/local-bin.sh \
+	&& source /etc/profile
+
 # R
 RUN yum -y install \
 	lapack-devel \
