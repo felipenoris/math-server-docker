@@ -38,7 +38,6 @@ pip3 install \
 	sqlalchemy \
 	sympy \
 	sqlparse \
-	statistics \
 	virtualenv \
 	xlsxwriter
 
@@ -50,4 +49,5 @@ pip3 install \
 
 pip3 install \
 	arch \
-	pandas
+	pandas \
+	statistics

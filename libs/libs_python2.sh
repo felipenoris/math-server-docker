@@ -40,7 +40,6 @@ pip2 install \
 	sqlalchemy \
 	sympy \
 	sqlparse \
-	statistics \
 	virtualenv \
 	xlsxwriter
 
@@ -52,5 +51,5 @@ pip2 install \
 
 pip2 install \
 	arch \
-	pandas
-
+	pandas \
+	statistics
