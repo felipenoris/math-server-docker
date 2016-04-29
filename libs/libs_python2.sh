@@ -40,6 +40,7 @@ pip2 install \
 	sqlalchemy \
 	sympy \
 	sqlparse \
+	suds-jurko \
 	virtualenv \
 	xlsxwriter
 
