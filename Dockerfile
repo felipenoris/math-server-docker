@@ -70,10 +70,10 @@ RUN wget https://www.kernel.org/pub/software/scm/git/git-2.8.2.tar.xz \
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-RUN wget https://cmake.org/files/v3.5/cmake-3.5.1.tar.gz \
-	&& tar xf cmake-3.5.1.tar.gz && cd cmake-3.5.1 \
+RUN wget https://cmake.org/files/v3.5/cmake-3.5.2.tar.gz \
+	&& tar xf cmake-3.5.2.tar.gz && cd cmake-3.5.2 \
 	&& ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf cmake-3.5.1 && rm -f cmake-3.5.1.tar.gz \
+	&& cd .. && rm -rf cmake-3.5.2 && rm -f cmake-3.5.2.tar.gz \
 	&& echo "export CMAKE_ROOT=/usr/local/share/cmake-3.5" > /etc/profile.d/cmake-root.sh \
 	&& source /etc/profile
 
@@ -201,12 +201,12 @@ RUN yum -y install \
 RUN echo 'options(repos = c(CRAN="http://www.vps.fmvz.usp.br/CRAN/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
 # RStudio
-RUN wget https://download2.rstudio.org/rstudio-server-rhel-0.99.893-x86_64.rpm \
-	&& echo "4f3b104e7fd84073c351b008da68272a  rstudio-server-rhel-0.99.893-x86_64.rpm" > RSTUDIOMD5 \
+RUN wget https://download2.rstudio.org/rstudio-server-rhel-0.99.896-x86_64.rpm \
+	&& echo "18c9bf7093ebaaa47883899dddb0dc56  rstudio-server-rhel-0.99.896-x86_64.rpm" > RSTUDIOMD5 \
 	&& RESULT=$(md5sum -c RSTUDIOMD5) \
 	&& echo ${RESULT} > ~/check-rstudio-md5.txt \
-	&& yum -y install --nogpgcheck rstudio-server-rhel-0.99.893-x86_64.rpm \
-	&& rm -f rstudio-server-rhel-0.99.893-x86_64.rpm && rm -f RSTUDIOMD5
+	&& yum -y install --nogpgcheck rstudio-server-rhel-0.99.896-x86_64.rpm \
+	&& rm -f rstudio-server-rhel-0.99.896-x86_64.rpm && rm -f RSTUDIOMD5
 
 # Libreoffice
 RUN wget http://download.documentfoundation.org/libreoffice/stable/5.1.2/rpm/x86_64/LibreOffice_5.1.2_Linux_x86-64_rpm.tar.gz \
