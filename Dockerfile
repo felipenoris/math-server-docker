@@ -62,11 +62,11 @@ RUN yum update -y && yum install -y \
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-RUN wget https://www.kernel.org/pub/software/scm/git/git-2.8.1.tar.xz \
-	&& tar xf git-2.8.1.tar.xz && cd git-2.8.1 \
+RUN wget https://www.kernel.org/pub/software/scm/git/git-2.8.2.tar.xz \
+	&& tar xf git-2.8.2.tar.xz && cd git-2.8.2 \
 	&& make -j"$(nproc --all)" prefix=/usr/local all \
 	&& make prefix=/usr/local -j"$(nproc --all)" install \
-	&& cd .. && rm -f git-2.8.1.tar.xz && rm -rf git-2.8.1
+	&& cd .. && rm -f git-2.8.2.tar.xz && rm -rf git-2.8.2
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
