@@ -70,6 +70,7 @@ pkgs <- c(
 	"x12",
 	"xlsx",
 	"XML",
+	"xml2",
 	"xts",
 	"zoo"
 	)
