@@ -300,7 +300,7 @@ RUN npm install -g configurable-http-proxy
 RUN julia -e 'Pkg.add("IJulia"); using IJulia'
 
 # registers global kernel
-RUN cp -r ~/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels 
+RUN cp -r ~/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels
 
 # rewrite julia's kernel configuration
 ADD julia-kernel.json /usr/local/share/jupyter/kernels/julia-0.4/kernel.json
@@ -331,6 +331,7 @@ RUN git clone --branch=stable/5.6 https://github.com/coin-or/SYMPHONY SYMPHONY-5
 RUN yum -y install \
 	freetype-devel \
 	glpk-devel \
+	hdf5 \
 	lcms2-devel \
 	libjpeg-devel \
 	libpng \
