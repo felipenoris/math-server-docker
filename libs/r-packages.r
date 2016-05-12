@@ -49,6 +49,7 @@ pkgs <- c(
 	"openxlsx",
 	"parcor",
 	"pbivnorm",
+	"PythonInR",
 	"quantmod",
 	"R.cache",
 	"Rcpp",
