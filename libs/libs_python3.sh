@@ -32,6 +32,7 @@ pip3 install \
 	pyyaml \
 	rstr \
 	seaborn \
+	scikit-learn \
 	simplejson \
 	sphinx \
 	spyder \
