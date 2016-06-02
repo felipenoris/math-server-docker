@@ -27,11 +27,15 @@ pip3 install \
 	jsonschema \
 	names \
 	numpy \
+	pytest-cov \
+	pytest-html \
 	pypandoc \
 	python-daemon \
+	python-docx \
 	pyyaml \
 	rstr \
 	seaborn \
+	schedule \
 	scikit-learn \
 	simplejson \
 	sphinx \

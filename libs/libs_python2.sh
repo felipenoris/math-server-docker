@@ -28,12 +28,16 @@ pip2 install \
 	jsonschema \
 	names \
 	numpy \
+	pytest-cov \
+	pytest-html \
 	pymc \
 	pypandoc \
 	python-daemon \
+	python-docx \
 	pyyaml \
 	rstr \
 	seaborn \
+	schedule \
 	scikit-learn \
 	simplejson \
 	sphinx \
