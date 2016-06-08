@@ -62,11 +62,11 @@ RUN yum update -y && yum install -y \
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-RUN wget https://www.kernel.org/pub/software/scm/git/git-2.8.3.tar.xz \
-	&& tar xf git-2.8.3.tar.xz && cd git-2.8.3 \
+RUN wget https://www.kernel.org/pub/software/scm/git/git-2.8.4.tar.xz \
+	&& tar xf git-2.8.4.tar.xz && cd git-2.8.4 \
 	&& make -j"$(nproc --all)" prefix=/usr/local all \
 	&& make prefix=/usr/local -j"$(nproc --all)" install \
-	&& cd .. && rm -f git-2.8.3.tar.xz && rm -rf git-2.8.3
+	&& cd .. && rm -f git-2.8.4.tar.xz && rm -rf git-2.8.4
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
@@ -156,12 +156,12 @@ RUN cd ~/llvm_build \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
 # node
-RUN wget https://github.com/nodejs/node/archive/v6.1.0.tar.gz \
-	&& tar xf v6.1.0.tar.gz && cd node-6.1.0 \
+RUN wget https://github.com/nodejs/node/archive/v6.2.1.tar.gz \
+	&& tar xf v6.2.1.tar.gz && cd node-6.2.1 \
 	&& ./configure \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -f v6.1.0.tar.gz && rm -rf node-6.1.0
+	&& cd .. && rm -f v6.2.1.tar.gz && rm -rf node-6.2.1
 
 # update npm
 RUN npm update npm -g
