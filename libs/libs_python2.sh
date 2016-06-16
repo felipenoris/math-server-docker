@@ -26,6 +26,7 @@ pip2 install \
 	deap \
 	docx \
 	jsonschema \
+	ldap3 \
 	names \
 	numpy \
 	pytest-cov \

@@ -51,7 +51,9 @@ pkgs <- c(
 	"NMOF",
 	"openxlsx",
 	"parcor",
+	"party",
 	"pbivnorm",
+	"plm",
 	"plotly",
 	"PythonInR",
 	"quantmod",
@@ -59,6 +61,7 @@ pkgs <- c(
 	"Rcpp",
 	"RCurl",
 	"readr",
+	"randomForest",
 	"Rmpfr",
 	"rjson",
 	"roxygen2",
@@ -69,6 +72,7 @@ pkgs <- c(
 	"scales",
 	"sqldf",
 	"stringr",
+	"Synth",
 	"plyr",
 	"TSA",
 	"tikzDevice",
@@ -84,3 +88,7 @@ install.packages(pkgs)
 
 # rjulia
 devtools::install_github("armgong/rjulia", ref="master")
+
+# http://bioconductor.org/packages/release/bioc/html/rhdf5.html
+source("https://bioconductor.org/biocLite.R")
+biocLite("rhdf5", ask=F) # HDF5 interface to R
