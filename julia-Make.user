@@ -1,4 +1,2 @@
-USE_SYSTEM_LLVM=1
-USE_LLVM_SHLIB=1
 MARCH=x86-64
 prefix=/usr/local/julia

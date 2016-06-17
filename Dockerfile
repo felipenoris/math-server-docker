@@ -229,8 +229,8 @@ RUN R -e 'install.packages("shiny")' \
 	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-1.4.2.786-rh5-x86_64.rpm
 
 # Julia
-RUN wget https://github.com/JuliaLang/julia/archive/v0.4.5.tar.gz \
-        && tar xf v0.4.5.tar.gz
+RUN wget https://github.com/JuliaLang/julia/releases/download/v0.4.5/julia-0.4.5-full.tar.gz \
+        && tar xf julia-0.4.5-full.tar.gz
 
 ADD julia-Make.user julia-0.4.5/Make.user
 
@@ -243,7 +243,7 @@ RUN cpuid/cpuid >> julia-0.4.5/Make.user
 RUN cd julia-0.4.5 \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf julia-0.4.5 && rm -f v0.4.5.tar.gz \
+	&& cd .. && rm -rf julia-0.4.5 && rm -f julia-0.4.5-full.tar.gz \
 	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
 
 # Init package folder on root's home folder
