@@ -376,6 +376,7 @@ RUN yum -y install \
 
 RUN /usr/bin/chmod 600 /etc/sssd/sssd.conf
 
+#Massia: arquivo PAM de login do RStudio
 ADD rootfs/etc/pam.d/rstudio /etc/pam.d/rstudio
 
 RUN mkdir /rhome
