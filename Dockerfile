@@ -1,10 +1,9 @@
-
-# docker build --no-cache -t math-server:latest .
+# docker build --no-cache -t math-server:latest --build-arg http_proxy="http://proxy:8080" --build-arg https_proxy="http://proxy:8080" .
 
 # 8787 for RStudio
 # 8000 for Jupyter
 
-# docker run -d -p 8787:8787 -p 8000:8000 --name ms1 math-server
+# docker run -d -p 18787:8787 -p 18000:8000 -v /var/lib/sss/pipes:/var/lib/sss/pipes:ro -v /rhome:/rhome --name math-server-1 math-server:latest
 
 FROM centos:7
 
@@ -18,7 +17,7 @@ RUN echo "export PATH=/usr/local/sbin:/usr/local/bin:${PATH}" >> /etc/profile.d/
 	&& echo "export CPATH=/usr/include/glpk" >> /etc/profile.d/glpk-include.sh \
 	&& source /etc/profile
 
-RUN yum install -y wget epel-release
+RUN yum update -y && yum install -y epel-release && yum clean all
 
 RUN yum update -y && yum install -y \
 	bison \
@@ -56,9 +55,11 @@ RUN yum update -y && yum install -y \
 	sqlite \
 	sqlite-devel \
 	vim \
+    wget \
 	zlib \
 	zlib-devel \
-	zip
+	zip \
+    && yum clean all
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
@@ -113,7 +114,7 @@ RUN pip2 install -U pip
 RUN pip3 install -U pip
 
 # LLVM deps
-RUN yum -y install libedit-devel libffi-devel swig python-devel
+RUN yum -y install libedit-devel libffi-devel swig python-devel && yum clean all
 
 # LLVM
 # Clang /tools/clang
@@ -163,11 +164,14 @@ RUN wget https://github.com/nodejs/node/archive/v6.2.1.tar.gz \
 	&& make -j"$(nproc --all)" install \
 	&& cd .. && rm -f v6.2.1.tar.gz && rm -rf node-6.2.1
 
+#Adolfo: para funcionar atrás de um proxy
+RUN npm config set proxy ${http_proxy} && npm config set https-proxy ${https_proxy} && npm config set registry http://registry.npmjs.org/ && npm set strict-ssl false
+
 # update npm
 RUN npm update npm -g
 
 # TeX
-RUN yum -y install perl-Tk perl-Digest-MD5
+RUN yum -y install perl-Tk perl-Digest-MD5 && yum clean all
 
 ADD texlive.profile texlive.profile
 
@@ -185,9 +189,7 @@ RUN echo "export PATH=/usr/local/texlive/2015/bin/x86_64-linux:${PATH}" >> /etc/
 RUN yum -y install \
 	lapack-devel \
 	blas-devel \
-	libicu-devel
-
-RUN yum -y install \
+	libicu-devel \
 	unixodbc-devel \
 	QuantLib \
 	QuantLib-devel \
@@ -195,7 +197,8 @@ RUN yum -y install \
 	boost-devel \
 	libxml2 \
 	libxml2-devel \
-	R
+	R \
+    && yum clean all
 
 # Set default CRAN Mirror
 RUN echo 'options(repos = c(CRAN="http://www.vps.fmvz.usp.br/CRAN/"))' >> /usr/lib64/R/library/base/R/Rprofile
@@ -206,6 +209,7 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-0.99.902-x86_64.rpm \
 	&& RESULT=$(md5sum -c RSTUDIOMD5) \
 	&& echo ${RESULT} > ~/check-rstudio-md5.txt \
 	&& yum -y install --nogpgcheck rstudio-server-rhel-0.99.902-x86_64.rpm \
+    && yum clean all \
 	&& rm -f rstudio-server-rhel-0.99.902-x86_64.rpm && rm -f RSTUDIOMD5
 
 # Libreoffice
@@ -216,6 +220,7 @@ RUN wget http://download.documentfoundation.org/libreoffice/stable/5.1.3/rpm/x86
 	&& tar xf LibreOffice_5.1.3_Linux_x86-64_rpm.tar.gz \
 	&& cd LibreOffice_5.1.3.2_Linux_x86-64_rpm/RPMS \
 	&& yum -y install *.rpm \
+    && yum clean all \
 	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_5.1.3_Linux_x86-64_rpm.tar.gz \
 	&& rm -rf LibreOffice_5.1.3.2_Linux_x86-64_rpm
 
@@ -226,6 +231,7 @@ RUN R -e 'install.packages("shiny")' \
 	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
 	&& echo ${RESULT} > ~/check-shiny-server-md5.txt \
 	&& yum -y install --nogpgcheck shiny-server-1.4.2.786-rh5-x86_64.rpm \
+    && yum clean all \
 	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-1.4.2.786-rh5-x86_64.rpm
 
 # Julia
@@ -245,6 +251,9 @@ RUN cd julia-0.4.5 \
 	&& make -j"$(nproc --all)" install \
 	&& cd .. && rm -rf julia-0.4.5 && rm -f v0.4.5.tar.gz \
 	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
+
+#Adolfo: usar https
+RUN git config --global url."https://".insteadOf git://
 
 # Init package folder on root's home folder
 RUN julia -e 'Pkg.init()'
@@ -307,10 +316,13 @@ ADD julia-kernel.json /usr/local/share/jupyter/kernels/julia-0.4/kernel.json
 
 # R
 # http://irkernel.github.io/installation/
-RUN yum -y install czmq-devel
+RUN yum -y install czmq-devel && yum clean all
 
 RUN R -e 'install.packages(c("rzmq","repr","IRkernel","IRdisplay"), repos = c("http://irkernel.github.io/", getOption("repos")),type = "source")' \
 	&& R -e 'IRkernel::installspec(user = FALSE)'
+
+#Adolfo: para funcionar atrás de um proxy
+ADD svn-servers /etc/subversion/servers
 
 # coin SYMPHONY
 # https://projects.coin-or.org/SYMPHONY
@@ -343,7 +355,8 @@ RUN yum -y install \
 	libzip-devel \
 	pandoc \
 	tcl-devel \
-	tk-devel
+	tk-devel \
+    && yum clean all
 
 ADD libs libs
 
@@ -356,6 +369,20 @@ RUN cd libs && source ./install_JSAnimation.sh
 # http://ipyparallel.readthedocs.org/en/latest/
 RUN ipcluster nbextension enable
 
+#Massia: Integracao com o LDAP via SSSD
+RUN yum -y install \
+        sssd \
+        && yum clean all
+
+RUN /usr/bin/chmod 600 /etc/sssd/sssd.conf
+
+ADD rootfs/etc/pam.d/rstudio /etc/pam.d/rstudio
+
+RUN mkdir /rhome
+
+#Adolfo: 
+VOLUME ["/var/lib/sss/pipes", "/rhome"]
+
 ####################
 ## Services
 ####################
@@ -364,4 +391,4 @@ RUN ipcluster nbextension enable
 # 8000 for Jupyter
 EXPOSE 8787 8000
 
-CMD /usr/lib/rstudio-server/bin/rserver && jupyterhub --no-ssl
+CMD /usr/sbin/sssd && /usr/lib/rstudio-server/bin/rserver && jupyterhub --no-ssl
