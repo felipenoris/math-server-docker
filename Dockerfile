@@ -1,3 +1,4 @@
+
 # docker build --no-cache -t math-server:latest --build-arg http_proxy="http://proxy:8080" --build-arg https_proxy="http://proxy:8080" .
 
 # 8787 for RStudio
@@ -68,6 +69,9 @@ RUN wget https://www.kernel.org/pub/software/scm/git/git-2.9.0.tar.gz \
 	&& make -j"$(nproc --all)" prefix=/usr/local all \
 	&& make prefix=/usr/local -j"$(nproc --all)" install \
 	&& cd .. && rm -f git-2.9.0.tar.xz && rm -rf git-2.9.0
+
+#Adolfo: usar https
+RUN git config --global url."https://".insteadOf git://
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
@@ -251,9 +255,6 @@ RUN cd julia-0.4.5 \
 	&& make -j"$(nproc --all)" install \
 	&& cd .. && rm -rf julia-0.4.5 && rm -f julia-0.4.5-full.tar.gz \
 	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
-
-#Adolfo: usar https
-RUN git config --global url."https://".insteadOf git://
 
 # Init package folder on root's home folder
 RUN julia -e 'Pkg.init()'
