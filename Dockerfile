@@ -323,7 +323,7 @@ RUN R -e 'install.packages(c("rzmq","repr","IRkernel","IRdisplay"), repos = c("h
 	&& R -e 'IRkernel::installspec(user = FALSE)'
 
 #Adolfo: para funcionar atrás de um proxy
-ADD svn-servers /etc/subversion/servers
+#ADD svn-servers /etc/subversion/servers
 
 # coin SYMPHONY
 # https://projects.coin-or.org/SYMPHONY
