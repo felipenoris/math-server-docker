@@ -161,12 +161,12 @@ RUN cd ~/llvm_build \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
 # node
-RUN wget https://github.com/nodejs/node/archive/v6.2.1.tar.gz \
-	&& tar xf v6.2.1.tar.gz && cd node-6.2.1 \
+RUN wget https://github.com/nodejs/node/archive/v6.2.2.tar.gz \
+	&& tar xf v6.2.2.tar.gz && cd node-6.2.2 \
 	&& ./configure \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -f v6.2.1.tar.gz && rm -rf node-6.2.1
+	&& cd .. && rm -f v6.2.2.tar.gz && rm -rf node-6.2.2
 
 #Adolfo: para funcionar atrás de um proxy
 RUN npm config set proxy ${http_proxy} && npm config set https-proxy ${https_proxy} && npm config set registry http://registry.npmjs.org/ && npm set strict-ssl false
@@ -239,21 +239,21 @@ RUN R -e 'install.packages("shiny")' \
 	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-1.4.2.786-rh5-x86_64.rpm
 
 # Julia
-RUN wget https://github.com/JuliaLang/julia/releases/download/v0.4.5/julia-0.4.5-full.tar.gz \
-        && tar xf julia-0.4.5-full.tar.gz
+RUN wget https://github.com/JuliaLang/julia/releases/download/v0.4.6/julia-0.4.6-full.tar.gz \
+        && tar xf julia-0.4.6-full.tar.gz
 
-ADD julia-Make.user julia-0.4.5/Make.user
+ADD julia-Make.user julia-0.4.6/Make.user
 
 ADD cpuid cpuid
 
 RUN cd cpuid && make
 
-RUN cpuid/cpuid >> julia-0.4.5/Make.user
+RUN cpuid/cpuid >> julia-0.4.6/Make.user
 
-RUN cd julia-0.4.5 \
+RUN cd julia-0.4.6 \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf julia-0.4.5 && rm -f julia-0.4.5-full.tar.gz \
+	&& cd .. && rm -rf julia-0.4.6 && rm -f julia-0.4.6-full.tar.gz \
 	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
 
 # Init package folder on root's home folder
