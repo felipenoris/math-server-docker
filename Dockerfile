@@ -68,7 +68,7 @@ RUN wget https://www.kernel.org/pub/software/scm/git/git-2.9.0.tar.gz \
 	&& tar xf git-2.9.0.tar.gz && cd git-2.9.0 \
 	&& make -j"$(nproc --all)" prefix=/usr/local all \
 	&& make prefix=/usr/local -j"$(nproc --all)" install \
-	&& cd .. && rm -f git-2.9.0.tar.xz && rm -rf git-2.9.0
+	&& cd .. && rm -f git-2.9.0.tar.gz && rm -rf git-2.9.0
 
 #Adolfo: usar https
 RUN git config --global url."https://".insteadOf git://
