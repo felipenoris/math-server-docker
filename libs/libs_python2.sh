@@ -25,6 +25,7 @@ pip2 install \
 	datetime \
 	deap \
 	docx \
+	feather \
 	jsonschema \
 	ldap3 \
 	names \

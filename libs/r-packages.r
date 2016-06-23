@@ -13,6 +13,7 @@ pkgs <- c(
 	"dyn",
 	"dynlm",
 	"extrafont",
+	"feather",
 	"fAsianOptions",
 	"fAssets",
 	"fBasics",
