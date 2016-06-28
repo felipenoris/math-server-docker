@@ -1,0 +1,16 @@
+#auth           sufficient      pam_rootok.so
+#auth           required        pam_deny.so
+#auth           optional        pam_exec.so /tmp/pam.sh
+
+auth        required      pam_env.so
+auth        sufficient    pam_succeed_if.so uid = 498 quiet
+auth        sufficient    pam_unix.so nullok try_first_pass
+auth        requisite     pam_succeed_if.so uid >= 500 quiet
+auth        sufficient    pam_sss.so use_first_pass
+auth        required      pam_deny.so
+
+
+account         sufficient      pam_succeed_if.so uid = 0 use_uid quiet
+account         include         system-auth
+password        include         system-auth
+session         include         system-auth
