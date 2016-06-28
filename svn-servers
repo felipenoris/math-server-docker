@@ -1,0 +1,3 @@
+[Global]
+http-proxy-host=proxy01.bndes.net
+http-proxy-port=8080
