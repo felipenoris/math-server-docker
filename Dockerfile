@@ -1,10 +1,13 @@
 
 # docker build --no-cache -t math-server:latest --build-arg http_proxy="http://proxy:8080" --build-arg https_proxy="http://proxy:8080" .
 
+# In case you're building the image behind a proxy, use
+# docker build --no-cache -t math-server:latest --build-arg http_proxy="http://proxy:8080" --build-arg https_proxy="http://proxy:8080" .
+
 # 8787 for RStudio
 # 8000 for Jupyter
 
-# docker run -d -p 18787:8787 -p 18000:8000 -v /var/lib/sss/pipes:/var/lib/sss/pipes:ro -v /rhome:/rhome --name math-server-1 math-server:latest
+# # docker run -d -p 8787:8787 -p 8000:8000 --name ms1 math-server
 
 FROM centos:7
 
@@ -70,7 +73,7 @@ RUN wget https://www.kernel.org/pub/software/scm/git/git-2.9.0.tar.gz \
 	&& make prefix=/usr/local -j"$(nproc --all)" install \
 	&& cd .. && rm -f git-2.9.0.tar.gz && rm -rf git-2.9.0
 
-#Adolfo: usar https
+# Makes git use https by default
 RUN git config --global url."https://".insteadOf git://
 
 # llvm needs CMake 2.8.12.2 or higher
@@ -168,7 +171,7 @@ RUN wget https://github.com/nodejs/node/archive/v6.2.2.tar.gz \
 	&& make -j"$(nproc --all)" install \
 	&& cd .. && rm -f v6.2.2.tar.gz && rm -rf node-6.2.2
 
-#Adolfo: para funcionar atrás de um proxy
+# Makes npm work behind proxy if http_proxy variable is set
 RUN npm config set proxy ${http_proxy} && npm config set https-proxy ${https_proxy} && npm config set registry http://registry.npmjs.org/ && npm set strict-ssl false
 
 # update npm
@@ -322,8 +325,8 @@ RUN yum -y install czmq-devel && yum clean all
 RUN R -e 'install.packages(c("rzmq","repr","IRkernel","IRdisplay"), repos = c("http://irkernel.github.io/", getOption("repos")),type = "source")' \
 	&& R -e 'IRkernel::installspec(user = FALSE)'
 
-#Adolfo: para funcionar atrás de um proxy
-#ADD svn-servers /etc/subversion/servers
+# Optional configuration file for svn
+ADD svn-servers /etc/subversion/servers
 
 # coin SYMPHONY
 # https://projects.coin-or.org/SYMPHONY
@@ -369,22 +372,6 @@ RUN cd libs && source ./install_JSAnimation.sh
 
 # http://ipyparallel.readthedocs.org/en/latest/
 RUN ipcluster nbextension enable
-
-#Massia: Integracao com o LDAP via SSSD
-RUN yum -y install \
-        sssd \
-        && yum clean all
-
-# TODO: arquivo sssd.conf não encontrado
-#RUN /usr/bin/chmod 600 /etc/sssd/sssd.conf
-
-#Massia: arquivo PAM de login do RStudio
-#ADD rootfs/etc/pam.d/rstudio /etc/pam.d/rstudio
-
-RUN mkdir /rhome
-
-#Adolfo: 
-VOLUME ["/var/lib/sss/pipes", "/rhome"]
 
 ####################
 ## Services
