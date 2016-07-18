@@ -67,22 +67,22 @@ RUN yum update -y && yum install -y \
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-RUN wget https://www.kernel.org/pub/software/scm/git/git-2.9.0.tar.gz \
-	&& tar xf git-2.9.0.tar.gz && cd git-2.9.0 \
+RUN wget https://www.kernel.org/pub/software/scm/git/git-2.9.2.tar.gz \
+	&& tar xf git-2.9.2.tar.gz && cd git-2.9.2 \
 	&& make -j"$(nproc --all)" prefix=/usr/local all \
 	&& make prefix=/usr/local -j"$(nproc --all)" install \
-	&& cd .. && rm -f git-2.9.0.tar.gz && rm -rf git-2.9.0
+	&& cd .. && rm -f git-2.9.2.tar.gz && rm -rf git-2.9.2
 
 # Makes git use https by default
 RUN git config --global url."https://".insteadOf git://
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-RUN wget https://cmake.org/files/v3.5/cmake-3.5.2.tar.gz \
-	&& tar xf cmake-3.5.2.tar.gz && cd cmake-3.5.2 \
+RUN wget https://cmake.org/files/v3.6/cmake-3.6.0.tar.gz \
+	&& tar xf cmake-3.6.0.tar.gz && cd cmake-3.6.0 \
 	&& ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf cmake-3.5.2 && rm -f cmake-3.5.2.tar.gz \
-	&& echo "export CMAKE_ROOT=/usr/local/share/cmake-3.5" > /etc/profile.d/cmake-root.sh \
+	&& cd .. && rm -rf cmake-3.6.0 && rm -f cmake-3.6.0.tar.gz \
+	&& echo "export CMAKE_ROOT=/usr/local/share/cmake-3.6" > /etc/profile.d/cmake-root.sh \
 	&& source /etc/profile
 
 # Python 2.7
@@ -129,24 +129,24 @@ RUN yum -y install libedit-devel libffi-devel swig python-devel && yum clean all
 # libc++ /projects/libcxx
 # libc++abi /projects/libcxxabi
 # lldb /tools/lldb
-RUN wget http://llvm.org/releases/3.7.1/llvm-3.7.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.7.1/cfe-3.7.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.7.1/compiler-rt-3.7.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.7.1/libcxx-3.7.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.7.1/libcxxabi-3.7.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.7.1/lldb-3.7.1.src.tar.xz \
+RUN wget http://llvm.org/releases/3.8.1/llvm-3.8.1.src.tar.xz \
+	&& wget http://llvm.org/releases/3.8.1/cfe-3.8.1.src.tar.xz \
+	&& wget http://llvm.org/releases/3.8.1/compiler-rt-3.8.1.src.tar.xz \
+	&& wget http://llvm.org/releases/3.8.1/libcxx-3.8.1.src.tar.xz \
+	&& wget http://llvm.org/releases/3.8.1/libcxxabi-3.8.1.src.tar.xz \
+	&& wget http://llvm.org/releases/3.8.1/lldb-3.8.1.src.tar.xz \
 	&& mkdir llvm \
-	&& tar xf llvm-3.7.1.src.tar.xz -C llvm --strip-components=1 \
+	&& tar xf llvm-3.8.1.src.tar.xz -C llvm --strip-components=1 \
 	&& mkdir llvm/tools/clang \
-	&& tar xf cfe-3.7.1.src.tar.xz -C llvm/tools/clang --strip-components=1 \
+	&& tar xf cfe-3.8.1.src.tar.xz -C llvm/tools/clang --strip-components=1 \
 	&& mkdir llvm/projects/compiler-rt \
-	&& tar xf compiler-rt-3.7.1.src.tar.xz -C llvm/projects/compiler-rt --strip-components=1 \
+	&& tar xf compiler-rt-3.8.1.src.tar.xz -C llvm/projects/compiler-rt --strip-components=1 \
 	&& mkdir llvm/projects/libcxx \
-	&& tar xf libcxx-3.7.1.src.tar.xz -C llvm/projects/libcxx --strip-components=1 \
+	&& tar xf libcxx-3.8.1.src.tar.xz -C llvm/projects/libcxx --strip-components=1 \
 	&& mkdir llvm/projects/libcxxabi \
-	&& tar xf libcxxabi-3.7.1.src.tar.xz -C llvm/projects/libcxxabi --strip-components=1 \
+	&& tar xf libcxxabi-3.8.1.src.tar.xz -C llvm/projects/libcxxabi --strip-components=1 \
 	&& mkdir llvm/tools/lldb \
-	&& tar xf lldb-3.7.1.src.tar.xz -C llvm/tools/lldb --strip-components=1 \
+	&& tar xf lldb-3.8.1.src.tar.xz -C llvm/tools/lldb --strip-components=1 \
 	&& rm -f *tar.xz
 
 # http://llvm.org/docs/CMake.html
@@ -159,7 +159,7 @@ RUN mkdir ~/llvm_build \
 RUN cd ~/llvm_build \
 	&& make ENABLE_OPTIMIZED=1 DISABLE_ASSERTIONS=1 -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& ln -s /usr/local/lib/libLLVM-3.7.1.so /usr/local/lib/libLLVM.so \
+	&& ln -s /usr/local/lib/libLLVM-3.8.1.so /usr/local/lib/libLLVM.so \
 	&& ldconfig \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
@@ -366,7 +366,7 @@ ADD libs libs
 
 RUN cd libs && make && ./install_libs
 
-RUN cd libs && source ./install_numba.sh
+#RUN cd libs && source ./install_numba.sh
 
 RUN cd libs && source ./install_JSAnimation.sh
 
