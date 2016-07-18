@@ -24,6 +24,8 @@ RUN echo "export PATH=/usr/local/sbin:/usr/local/bin:${PATH}" >> /etc/profile.d/
 RUN yum update -y && yum install -y epel-release && yum clean all
 
 RUN yum update -y && yum install -y \
+	p7zip \
+	p7zip-plugins \
 	bison \
 	bzip2 \
 	bzip2-devel \
