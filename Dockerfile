@@ -131,24 +131,50 @@ RUN yum -y install libedit-devel libffi-devel swig python-devel && yum clean all
 # libc++ /projects/libcxx
 # libc++abi /projects/libcxxabi
 # lldb /tools/lldb
-RUN wget http://llvm.org/releases/3.8.1/llvm-3.8.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.8.1/cfe-3.8.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.8.1/compiler-rt-3.8.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.8.1/libcxx-3.8.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.8.1/libcxxabi-3.8.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.8.1/lldb-3.8.1.src.tar.xz \
+#RUN wget http://llvm.org/releases/3.8.1/llvm-3.8.1.src.tar.xz \
+#	&& wget http://llvm.org/releases/3.8.1/cfe-3.8.1.src.tar.xz \
+#	&& wget http://llvm.org/releases/3.8.1/compiler-rt-3.8.1.src.tar.xz \
+#	&& wget http://llvm.org/releases/3.8.1/libcxx-3.8.1.src.tar.xz \
+#	&& wget http://llvm.org/releases/3.8.1/libcxxabi-3.8.1.src.tar.xz \
+#	&& wget http://llvm.org/releases/3.8.1/lldb-3.8.1.src.tar.xz \
+#	&& mkdir llvm \
+#	&& tar xf llvm-3.8.1.src.tar.xz -C llvm --strip-components=1 \
+#	&& mkdir llvm/tools/clang \
+#	&& tar xf cfe-3.8.1.src.tar.xz -C llvm/tools/clang --strip-components=1 \
+#	&& mkdir llvm/projects/compiler-rt \
+#	&& tar xf compiler-rt-3.8.1.src.tar.xz -C llvm/projects/compiler-rt --strip-components=1 \
+#	&& mkdir llvm/projects/libcxx \
+#	&& tar xf libcxx-3.8.1.src.tar.xz -C llvm/projects/libcxx --strip-components=1 \
+#	&& mkdir llvm/projects/libcxxabi \
+#	&& tar xf libcxxabi-3.8.1.src.tar.xz -C llvm/projects/libcxxabi --strip-components=1 \
+#	&& mkdir llvm/tools/lldb \
+#	&& tar xf lldb-3.8.1.src.tar.xz -C llvm/tools/lldb --strip-components=1 \
+#	&& rm -f *tar.xz
+
+# LLVM
+# Clang /tools/clang
+# CompilerRT /projects/compiler-rt
+# libc++ /projects/libcxx
+# libc++abi /projects/libcxxabi
+# lldb /tools/lldb
+RUN wget http://llvm.org/releases/3.7.1/llvm-3.7.1.src.tar.xz \
+	&& wget http://llvm.org/releases/3.7.1/cfe-3.7.1.src.tar.xz \
+	&& wget http://llvm.org/releases/3.7.1/compiler-rt-3.7.1.src.tar.xz \
+	&& wget http://llvm.org/releases/3.7.1/libcxx-3.7.1.src.tar.xz \
+	&& wget http://llvm.org/releases/3.7.1/libcxxabi-3.7.1.src.tar.xz \
+	&& wget http://llvm.org/releases/3.7.1/lldb-3.7.1.src.tar.xz \
 	&& mkdir llvm \
-	&& tar xf llvm-3.8.1.src.tar.xz -C llvm --strip-components=1 \
+	&& tar xf llvm-3.7.1.src.tar.xz -C llvm --strip-components=1 \
 	&& mkdir llvm/tools/clang \
-	&& tar xf cfe-3.8.1.src.tar.xz -C llvm/tools/clang --strip-components=1 \
+	&& tar xf cfe-3.7.1.src.tar.xz -C llvm/tools/clang --strip-components=1 \
 	&& mkdir llvm/projects/compiler-rt \
-	&& tar xf compiler-rt-3.8.1.src.tar.xz -C llvm/projects/compiler-rt --strip-components=1 \
+	&& tar xf compiler-rt-3.7.1.src.tar.xz -C llvm/projects/compiler-rt --strip-components=1 \
 	&& mkdir llvm/projects/libcxx \
-	&& tar xf libcxx-3.8.1.src.tar.xz -C llvm/projects/libcxx --strip-components=1 \
+	&& tar xf libcxx-3.7.1.src.tar.xz -C llvm/projects/libcxx --strip-components=1 \
 	&& mkdir llvm/projects/libcxxabi \
-	&& tar xf libcxxabi-3.8.1.src.tar.xz -C llvm/projects/libcxxabi --strip-components=1 \
+	&& tar xf libcxxabi-3.7.1.src.tar.xz -C llvm/projects/libcxxabi --strip-components=1 \
 	&& mkdir llvm/tools/lldb \
-	&& tar xf lldb-3.8.1.src.tar.xz -C llvm/tools/lldb --strip-components=1 \
+	&& tar xf lldb-3.7.1.src.tar.xz -C llvm/tools/lldb --strip-components=1 \
 	&& rm -f *tar.xz
 
 # http://llvm.org/docs/CMake.html
