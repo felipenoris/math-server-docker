@@ -187,7 +187,7 @@ RUN mkdir ~/llvm_build \
 RUN cd ~/llvm_build \
 	&& make ENABLE_OPTIMIZED=1 DISABLE_ASSERTIONS=1 -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& ln -s /usr/local/lib/libLLVM-3.8.1.so /usr/local/lib/libLLVM.so \
+	&& ln -s /usr/local/lib/libLLVM-3.7.1.so /usr/local/lib/libLLVM.so \
 	&& ldconfig \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
