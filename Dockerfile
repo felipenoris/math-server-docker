@@ -192,12 +192,12 @@ RUN cd ~/llvm_build \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
 # node
-RUN wget https://github.com/nodejs/node/archive/v6.2.2.tar.gz \
-	&& tar xf v6.2.2.tar.gz && cd node-6.2.2 \
+RUN wget https://github.com/nodejs/node/archive/v6.3.1.tar.gz \
+	&& tar xf v6.3.1.tar.gz && cd node-6.3.1 \
 	&& ./configure \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -f v6.2.2.tar.gz && rm -rf node-6.2.2
+	&& cd .. && rm -f v6.3.1.tar.gz && rm -rf node-6.3.1
 
 # Makes npm work behind proxy if http_proxy variable is set
 RUN npm config set proxy ${http_proxy} && npm config set https-proxy ${https_proxy} && npm config set registry http://registry.npmjs.org/ && npm set strict-ssl false
