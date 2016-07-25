@@ -80,10 +80,10 @@ RUN git config --global url."https://".insteadOf git://
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-RUN wget https://cmake.org/files/v3.6/cmake-3.6.0.tar.gz \
-	&& tar xf cmake-3.6.0.tar.gz && cd cmake-3.6.0 \
+RUN wget https://cmake.org/files/v3.6/cmake-3.6.1.tar.gz \
+	&& tar xf cmake-3.6.1.tar.gz && cd cmake-3.6.1 \
 	&& ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf cmake-3.6.0 && rm -f cmake-3.6.0.tar.gz \
+	&& cd .. && rm -rf cmake-3.6.1 && rm -f cmake-3.6.1.tar.gz \
 	&& echo "export CMAKE_ROOT=/usr/local/share/cmake-3.6" > /etc/profile.d/cmake-root.sh \
 	&& source /etc/profile
 
