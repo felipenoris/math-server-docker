@@ -57,3 +57,5 @@ pip3 install \
 	arch \
 	pandas \
 	statistics
+
+pip3 install numba

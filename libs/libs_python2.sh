@@ -61,3 +61,6 @@ pip2 install \
 	arch \
 	pandas \
 	statistics
+
+pip2 install numba
+

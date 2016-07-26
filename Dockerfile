@@ -44,6 +44,7 @@ RUN yum update -y && yum install -y \
 	libcurl-devel \
 	libedit-devel libffi-devel \
 	libgcc \
+	libstdc++-static \
 	m4 \
 	make \
 	man \
@@ -393,8 +394,6 @@ RUN yum -y install \
 ADD libs libs
 
 RUN cd libs && make && ./install_libs
-
-#RUN cd libs && source ./install_numba.sh
 
 RUN cd libs && source ./install_JSAnimation.sh
 
