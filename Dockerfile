@@ -257,7 +257,7 @@ RUN wget http://download.documentfoundation.org/libreoffice/stable/5.1.4/rpm/x86
 	&& yum -y install *.rpm \
     && yum clean all \
 	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_5.1.4_Linux_x86-64_rpm.tar.gz \
-	&& rm -rf LibreOffice_5.1.4.2_Linux_x86-64_rpm/RPMS
+	&& rm -rf LibreOffice_5.1.4.2_Linux_x86-64_rpm
 
 # Shiny
 RUN R -e 'install.packages("shiny")' \
