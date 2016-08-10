@@ -204,7 +204,8 @@ RUN wget https://github.com/nodejs/node/archive/v6.3.1.tar.gz \
 RUN npm config set proxy ${http_proxy} && npm config set https-proxy ${https_proxy} && npm config set registry http://registry.npmjs.org/ && npm set strict-ssl false
 
 # update npm
-RUN npm update npm -g
+RUN npm cache clean \
+	&& curl -L https://npmjs.org/install.sh | sh
 
 # TeX
 RUN yum -y install perl-Tk perl-Digest-MD5 && yum clean all
