@@ -352,8 +352,8 @@ ADD julia-kernel.json /usr/local/share/jupyter/kernels/julia-0.4/kernel.json
 # http://irkernel.github.io/installation/
 RUN yum -y install czmq-devel && yum clean all
 
-RUN R -e 'install.packages(c("rzmq","repr","IRkernel","IRdisplay"), repos = c("http://irkernel.github.io/", getOption("repos")),type = "source")' \
-	&& R -e 'IRkernel::installspec(user = FALSE)'
+RUN R -e 'install.packages(c("pbdZMQ", "devtools"))' \
+	&& R -e 'devtools::install_github(paste0("IRkernel/", c("repr", "IRdisplay", "IRkernel")))'
 
 # Optional configuration file for svn
 ADD svn-servers /etc/subversion/servers
