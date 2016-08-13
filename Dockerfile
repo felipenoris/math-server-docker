@@ -83,41 +83,53 @@ RUN git config --global url."https://".insteadOf git://
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-RUN wget https://cmake.org/files/v3.6/cmake-3.6.1.tar.gz \
-	&& tar xf cmake-3.6.1.tar.gz && cd cmake-3.6.1 \
+ENV CMAKE_VER_MAJ 3.6
+ENV CMAKE_VER_MIN .1
+ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
+
+RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
+	&& tar xf cmake-$CMAKE_VER.tar.gz && cd cmake-$CMAKE_VER \
 	&& ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf cmake-3.6.1 && rm -f cmake-3.6.1.tar.gz \
-	&& echo "export CMAKE_ROOT=/usr/local/share/cmake-3.6" > /etc/profile.d/cmake-root.sh \
+	&& cd .. && rm -rf cmake-$CMAKE_VER && rm -f cmake-$CMAKE_VER.tar.gz \
+	&& echo "export CMAKE_ROOT=/usr/local/share/cmake-$CMAKE_VER_MAJ" > /etc/profile.d/cmake-root.sh \
 	&& source /etc/profile
 
-# Python 2.7
+# Python 2
 # https://github.com/h2oai/h2o-2/wiki/Installing-python-2.7-on-centos-6.3.-Follow-this-sequence-exactly-for-centos-machine-only
-RUN wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tar.xz \
-	&& tar xf Python-2.7.11.tar.xz \
-	&& cd Python-2.7.11 \
-	&& ./configure --prefix=/usr/local/python2.7 --enable-shared --with-cxx-main=/usr/bin/g++ \
+ENV PYTHON2_VER_MAJ 2.7
+ENV PYTHON2_VER_MIN .11
+ENV PYTHON2_VER $PYTHON2_VER_MAJ$PYTHON2_VER_MIN
+
+RUN wget https://www.python.org/ftp/python/$PYTHON2_VER/Python-$PYTHON2_VER.tar.xz \
+	&& tar xf Python-$PYTHON2_VER.tar.xz \
+	&& cd Python-$PYTHON2_VER \
+	&& ./configure --prefix=/usr/local/python$PYTHON2_VER_MAJ --enable-shared --with-cxx-main=/usr/bin/g++ \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" altinstall \
 	&& echo "/usr/local/lib" > /etc/ld.so.conf.d/usrLocalLib.conf \
 	&& ldconfig \
-	&& cd .. && rm -f Python-2.7.11.tar.xz && rm -rf Python-2.7.11
+	&& cd .. && rm -f Python-$PYTHON2_VER.tar.xz && rm -rf Python-$PYTHON2_VER
 
 # pip for Python 2
 RUN curl -O https://bootstrap.pypa.io/get-pip.py \
-	&& /usr/local/python2.7/bin/python2.7 get-pip.py \
+	&& /usr/local/python$PYTHON2_VER_MAJ/bin/python$PYTHON2_VER_MAJ get-pip.py \
 	&& rm -f get-pip.py
 
 # Python 3
-RUN wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tar.xz \
-	&& tar xf Python-3.5.1.tar.xz && cd Python-3.5.1 \
+ENV PYTHON3_VER_MAJ 3.5
+ENV PYTHON3_VER_MIN .1
+ENV PYTHON3_VER $PYTHON3_VER_MAJ$PYTHON3_VER_MIN
+
+RUN wget https://www.python.org/ftp/python/$PYTHON3_VER/Python-$PYTHON3_VER.tar.xz \
+	&& tar xf Python-$PYTHON3_VER.tar.xz && cd Python-$PYTHON3_VER \
 	&& ./configure --prefix=/usr/local --enable-shared --with-cxx-main=/usr/bin/g++ \
 	&& echo "zlib zlibmodule.c -I\$(prefix)/include -L\$(exec_prefix)/lib -lz" >> ./Modules/Setup \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" altinstall \
-	&& ln -s /usr/local/bin/python3.5 /usr/local/bin/python3 \
-	&& ln -s /usr/local/bin/pip3.5 /usr/local/bin/pip3 \
+	&& ln -s /usr/local/bin/python$PYTHON3_VER_MAJ /usr/local/bin/python3 \
+	&& ln -s /usr/local/bin/pip$PYTHON3_VER_MAJ /usr/local/bin/pip3 \
 	&& ldconfig \
-	&& cd .. && rm -f Python-3.5.1.tar.xz && rm -rf Python-3.5.1
+	&& cd .. && rm -f Python-$PYTHON3_VER.tar.xz && rm -rf Python-$PYTHON3_VER
 
 # Upgrade pip
 # https://pip.pypa.io/en/stable/installing/#upgrading-pip
@@ -126,7 +138,13 @@ RUN pip2 install -U pip
 RUN pip3 install -U pip
 
 # LLVM deps
-RUN yum -y install libedit-devel libffi-devel swig python-devel && yum clean all
+# TODO: check if python-devel is needed
+RUN yum -y install \
+	libedit-devel \
+	libffi-devel \
+	swig \
+	python-devel \
+	&& yum clean all
 
 # LLVM
 # Clang /tools/clang
@@ -134,50 +152,27 @@ RUN yum -y install libedit-devel libffi-devel swig python-devel && yum clean all
 # libc++ /projects/libcxx
 # libc++abi /projects/libcxxabi
 # lldb /tools/lldb
-#RUN wget http://llvm.org/releases/3.8.1/llvm-3.8.1.src.tar.xz \
-#	&& wget http://llvm.org/releases/3.8.1/cfe-3.8.1.src.tar.xz \
-#	&& wget http://llvm.org/releases/3.8.1/compiler-rt-3.8.1.src.tar.xz \
-#	&& wget http://llvm.org/releases/3.8.1/libcxx-3.8.1.src.tar.xz \
-#	&& wget http://llvm.org/releases/3.8.1/libcxxabi-3.8.1.src.tar.xz \
-#	&& wget http://llvm.org/releases/3.8.1/lldb-3.8.1.src.tar.xz \
-#	&& mkdir llvm \
-#	&& tar xf llvm-3.8.1.src.tar.xz -C llvm --strip-components=1 \
-#	&& mkdir llvm/tools/clang \
-#	&& tar xf cfe-3.8.1.src.tar.xz -C llvm/tools/clang --strip-components=1 \
-#	&& mkdir llvm/projects/compiler-rt \
-#	&& tar xf compiler-rt-3.8.1.src.tar.xz -C llvm/projects/compiler-rt --strip-components=1 \
-#	&& mkdir llvm/projects/libcxx \
-#	&& tar xf libcxx-3.8.1.src.tar.xz -C llvm/projects/libcxx --strip-components=1 \
-#	&& mkdir llvm/projects/libcxxabi \
-#	&& tar xf libcxxabi-3.8.1.src.tar.xz -C llvm/projects/libcxxabi --strip-components=1 \
-#	&& mkdir llvm/tools/lldb \
-#	&& tar xf lldb-3.8.1.src.tar.xz -C llvm/tools/lldb --strip-components=1 \
-#	&& rm -f *tar.xz
 
-# LLVM
-# Clang /tools/clang
-# CompilerRT /projects/compiler-rt
-# libc++ /projects/libcxx
-# libc++abi /projects/libcxxabi
-# lldb /tools/lldb
-RUN wget http://llvm.org/releases/3.7.1/llvm-3.7.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.7.1/cfe-3.7.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.7.1/compiler-rt-3.7.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.7.1/libcxx-3.7.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.7.1/libcxxabi-3.7.1.src.tar.xz \
-	&& wget http://llvm.org/releases/3.7.1/lldb-3.7.1.src.tar.xz \
+ENV LLVM_VER 3.7.1
+
+RUN wget http://llvm.org/releases/$LLVM_VER/llvm-$LLVM_VER.src.tar.xz \
+	&& wget http://llvm.org/releases/$LLVM_VER/cfe-$LLVM_VER.src.tar.xz \
+	&& wget http://llvm.org/releases/$LLVM_VER/compiler-rt-$LLVM_VER.src.tar.xz \
+	&& wget http://llvm.org/releases/$LLVM_VER/libcxx-$LLVM_VER.src.tar.xz \
+	&& wget http://llvm.org/releases/$LLVM_VER/libcxxabi-$LLVM_VER.src.tar.xz \
+	&& wget http://llvm.org/releases/$LLVM_VER/lldb-$LLVM_VER.src.tar.xz \
 	&& mkdir llvm \
-	&& tar xf llvm-3.7.1.src.tar.xz -C llvm --strip-components=1 \
+	&& tar xf llvm-$LLVM_VER.src.tar.xz -C llvm --strip-components=1 \
 	&& mkdir llvm/tools/clang \
-	&& tar xf cfe-3.7.1.src.tar.xz -C llvm/tools/clang --strip-components=1 \
+	&& tar xf cfe-$LLVM_VER.src.tar.xz -C llvm/tools/clang --strip-components=1 \
 	&& mkdir llvm/projects/compiler-rt \
-	&& tar xf compiler-rt-3.7.1.src.tar.xz -C llvm/projects/compiler-rt --strip-components=1 \
+	&& tar xf compiler-rt-$LLVM_VER.src.tar.xz -C llvm/projects/compiler-rt --strip-components=1 \
 	&& mkdir llvm/projects/libcxx \
-	&& tar xf libcxx-3.7.1.src.tar.xz -C llvm/projects/libcxx --strip-components=1 \
+	&& tar xf libcxx-$LLVM_VER.src.tar.xz -C llvm/projects/libcxx --strip-components=1 \
 	&& mkdir llvm/projects/libcxxabi \
-	&& tar xf libcxxabi-3.7.1.src.tar.xz -C llvm/projects/libcxxabi --strip-components=1 \
+	&& tar xf libcxxabi-$LLVM_VER.src.tar.xz -C llvm/projects/libcxxabi --strip-components=1 \
 	&& mkdir llvm/tools/lldb \
-	&& tar xf lldb-3.7.1.src.tar.xz -C llvm/tools/lldb --strip-components=1 \
+	&& tar xf lldb-$LLVM_VER.src.tar.xz -C llvm/tools/lldb --strip-components=1 \
 	&& rm -f *tar.xz
 
 # http://llvm.org/docs/CMake.html
@@ -190,17 +185,19 @@ RUN mkdir ~/llvm_build \
 RUN cd ~/llvm_build \
 	&& make ENABLE_OPTIMIZED=1 DISABLE_ASSERTIONS=1 -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& ln -s /usr/local/lib/libLLVM-3.7.1.so /usr/local/lib/libLLVM.so \
+	&& ln -s /usr/local/lib/libLLVM-$LLVM_VER.so /usr/local/lib/libLLVM.so \
 	&& ldconfig \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
 # node
-RUN wget https://github.com/nodejs/node/archive/v6.3.1.tar.gz \
-	&& tar xf v6.3.1.tar.gz && cd node-6.3.1 \
+ENV NODE_VER 6.3.1
+
+RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
+	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
 	&& ./configure \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -f v6.3.1.tar.gz && rm -rf node-6.3.1
+	&& cd .. && rm -f v$NODE_VER.tar.gz && rm -rf node-$NODE_VER
 
 # reinstall npm with the lastest version
 RUN npm cache clean \
@@ -224,6 +221,7 @@ RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
 	&& ./install-tl/install-tl -profile ./texlive.profile \
 	&& rm -rf install-tl && rm -f install-tl-unx.tar.gz
 
+# TODO: replace hardcoded 2015
 RUN echo "export PATH=/usr/local/texlive/2015/bin/x86_64-linux:${PATH}" >> /etc/profile.d/local-bin.sh \
 	&& source /etc/profile
 
@@ -246,52 +244,63 @@ RUN yum -y install \
 RUN echo 'options(repos = c(CRAN="http://www.vps.fmvz.usp.br/CRAN/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
 # RStudio
-RUN wget https://download2.rstudio.org/rstudio-server-rhel-0.99.902-x86_64.rpm \
-	&& echo "aa018deb6c93501caa60e61d0339b338  rstudio-server-rhel-0.99.902-x86_64.rpm" > RSTUDIOMD5 \
+ENV RSTUDIO_VER 0.99.902
+
+RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
+	&& echo "aa018deb6c93501caa60e61d0339b338  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
 	&& RESULT=$(md5sum -c RSTUDIOMD5) \
 	&& echo ${RESULT} > ~/check-rstudio-md5.txt \
-	&& yum -y install --nogpgcheck rstudio-server-rhel-0.99.902-x86_64.rpm \
+	&& yum -y install --nogpgcheck rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
     && yum clean all \
-	&& rm -f rstudio-server-rhel-0.99.902-x86_64.rpm && rm -f RSTUDIOMD5
+	&& rm -f rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm && rm -f RSTUDIOMD5
 
 # Libreoffice
-RUN wget http://download.documentfoundation.org/libreoffice/stable/5.1.4/rpm/x86_64/LibreOffice_5.1.4_Linux_x86-64_rpm.tar.gz \
-	&& echo "7c6037441c0eb11cce13bc1a9382ba13  LibreOffice_5.1.4_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
+ENV LIBREOFFICE_VER 5.1.4
+ENV LIBREOFFICE_VER_MINOR .2
+
+RUN wget http://download.documentfoundation.org/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_$LIBREOFFICE_VER_Linux_x86-64_rpm.tar.gz \
+	&& echo "7c6037441c0eb11cce13bc1a9382ba13  LibreOffice_$LIBREOFFICE_VER_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
 	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
 	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
-	&& tar xf LibreOffice_5.1.4_Linux_x86-64_rpm.tar.gz \
-	&& cd LibreOffice_5.1.4.2_Linux_x86-64_rpm/RPMS \
+	&& tar xf LibreOffice_$LIBREOFFICE_VER_Linux_x86-64_rpm.tar.gz \
+	&& cd LibreOffice_$LIBREOFFICE_VER$LIBREOFFICE_VER_MINOR_Linux_x86-64_rpm/RPMS \
 	&& yum -y install *.rpm \
     && yum clean all \
-	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_5.1.4_Linux_x86-64_rpm.tar.gz \
-	&& rm -rf LibreOffice_5.1.4.2_Linux_x86-64_rpm
+	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_$LIBREOFFICE_VER_Linux_x86-64_rpm.tar.gz \
+	&& rm -rf LibreOffice_$LIBREOFFICE_VER$LIBREOFFICE_VER_MINOR_Linux_x86-64_rpm
 
 # Shiny
+ENV SHINY_VER 1.4.2.786
+
 RUN R -e 'install.packages("shiny")' \
-	&& wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-1.4.2.786-rh5-x86_64.rpm \
-	&& echo "45160b08eed65c89e0a9d03c58eba595  shiny-server-1.4.2.786-rh5-x86_64.rpm" > SHINYSERVERMD5 \
+	&& wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-$SHINY_VER-rh5-x86_64.rpm \
+	&& echo "45160b08eed65c89e0a9d03c58eba595  shiny-server-$SHINY_VER-rh5-x86_64.rpm" > SHINYSERVERMD5 \
 	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
 	&& echo ${RESULT} > ~/check-shiny-server-md5.txt \
-	&& yum -y install --nogpgcheck shiny-server-1.4.2.786-rh5-x86_64.rpm \
+	&& yum -y install --nogpgcheck shiny-server-$SHINY_VER-rh5-x86_64.rpm \
     && yum clean all \
-	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-1.4.2.786-rh5-x86_64.rpm
+	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-$SHINY_VER-rh5-x86_64.rpm
 
 # Julia
-RUN wget https://github.com/JuliaLang/julia/releases/download/v0.4.6/julia-0.4.6-full.tar.gz \
-        && tar xf julia-0.4.6-full.tar.gz
+ENV JULIA_VER_MAJ 0.4
+ENV JULIA_VER_MIN .6
+ENV JULIA_VER $JULIA_VER_MAJ$JULIA_VER_MIN
 
-ADD julia-Make.user julia-0.4.6/Make.user
+RUN wget https://github.com/JuliaLang/julia/releases/download/v$JULIA_VER/julia-$JULIA_VER-full.tar.gz \
+        && tar xf julia-$JULIA_VER-full.tar.gz
+
+ADD julia-Make.user julia-$JULIA_VER/Make.user
 
 ADD cpuid cpuid
 
 RUN cd cpuid && make
 
-RUN cpuid/cpuid >> julia-0.4.6/Make.user
+RUN cpuid/cpuid >> julia-$JULIA_VER/Make.user
 
-RUN cd julia-0.4.6 \
+RUN cd julia-$JULIA_VER \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf julia-0.4.6 && rm -f julia-0.4.6-full.tar.gz \
+	&& cd .. && rm -rf julia-$JULIA_VER && rm -f julia-$JULIA_VER-full.tar.gz \
 	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
 
 # Init package folder on root's home folder
@@ -348,10 +357,10 @@ RUN npm install -g configurable-http-proxy
 RUN julia -e 'Pkg.add("IJulia"); using IJulia'
 
 # registers global kernel
-RUN cp -r ~/.local/share/jupyter/kernels/julia-0.4 /usr/local/share/jupyter/kernels
+RUN cp -r ~/.local/share/jupyter/kernels/julia-$JULIA_VER_MAJ /usr/local/share/jupyter/kernels
 
 # rewrite julia's kernel configuration
-ADD julia-kernel.json /usr/local/share/jupyter/kernels/julia-0.4/kernel.json
+ADD julia-kernel.json /usr/local/share/jupyter/kernels/julia-$JULIA_VER_MAJ/kernel.json
 
 # R
 # http://irkernel.github.io/installation/
@@ -365,15 +374,17 @@ ADD svn-servers /etc/subversion/servers
 
 # coin SYMPHONY
 # https://projects.coin-or.org/SYMPHONY
-RUN git clone --branch=stable/5.6 https://github.com/coin-or/SYMPHONY SYMPHONY-5.6 \
-	&& cd SYMPHONY-5.6 \
+ENV SYMPHONY_VER 5.6
+
+RUN git clone --branch=stable/$SYMPHONY_VER https://github.com/coin-or/SYMPHONY SYMPHONY-$SYMPHONY_VER \
+	&& cd SYMPHONY-$SYMPHONY_VER \
 	&& git clone --branch=stable/0.8 https://github.com/coin-or-tools/BuildTools/ \
 	&& chmod u+x ./BuildTools/get.dependencies.sh \
 	&& ./BuildTools/get.dependencies.sh fetch --no-third-party \
 	&& ./configure \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf SYMPHONY-5.6
+	&& cd .. && rm -rf SYMPHONY-$SYMPHONY_VER
 
 #################
 ## LIBS
