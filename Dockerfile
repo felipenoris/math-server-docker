@@ -70,11 +70,13 @@ RUN yum update -y && yum install -y \
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-RUN wget https://www.kernel.org/pub/software/scm/git/git-2.9.2.tar.gz \
-	&& tar xf git-2.9.2.tar.gz && cd git-2.9.2 \
+ENV GIT_VER 2.9.3
+
+RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
+	&& tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
 	&& make -j"$(nproc --all)" prefix=/usr/local all \
 	&& make prefix=/usr/local -j"$(nproc --all)" install \
-	&& cd .. && rm -f git-2.9.2.tar.gz && rm -rf git-2.9.2
+	&& cd .. && rm -f git-$GIT_VER.tar.gz && rm -rf git-$GIT_VER
 
 # Makes git use https by default
 RUN git config --global url."https://".insteadOf git://
