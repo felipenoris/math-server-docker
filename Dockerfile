@@ -403,6 +403,8 @@ RUN cd libs && make && ./install_libs
 
 RUN cd libs && source ./install_JSAnimation.sh
 
+RUN cd libs && source ./install_excel_readers.sh
+
 # http://ipyparallel.readthedocs.org/en/latest/
 RUN ipcluster nbextension enable
 
