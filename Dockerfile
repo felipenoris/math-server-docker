@@ -363,6 +363,8 @@ RUN yum -y install czmq-devel && yum clean all
 RUN R -e 'install.packages(c("pbdZMQ", "devtools"))' \
 	&& R -e 'devtools::install_github(paste0("IRkernel/", c("repr", "IRdisplay", "IRkernel")))'
 
+RUN cp -r /usr/lib64/R/library/IRkernel/kernelspec /usr/local/share/jupyter/kernels/R
+
 # Optional configuration file for svn
 ADD svn-servers /etc/subversion/servers
 
