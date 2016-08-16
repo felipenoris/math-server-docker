@@ -10,7 +10,7 @@ Dockerfile to build a server with Jupyterhub and RStudio, ready for Python, R an
 
 	* Python 3.5
 
-	* R 3.2.3
+	* R 3.3.1
 
 	* Julia 0.4
 
