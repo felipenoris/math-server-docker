@@ -17,9 +17,12 @@ WORKDIR /root
 
 ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
 
-RUN echo "export PATH=/usr/local/sbin:/usr/local/bin:${PATH}" >> /etc/profile.d/local-bin.sh \
-	&& echo "export CPATH=/usr/include/glpk" >> /etc/profile.d/glpk-include.sh \
-	&& source /etc/profile
+#RUN echo "export PATH=/usr/local/sbin:/usr/local/bin:${PATH}" >> /etc/profile.d/local-bin.sh \
+#	&& echo "export CPATH=/usr/include/glpk" >> /etc/profile.d/glpk-include.sh \
+#	&& source /etc/profile
+
+ENV PATH /usr/local/sbin:/usr/local/bin:$PATH
+ENV CPATH /usr/include/glpk
 
 RUN yum update -y && yum install -y epel-release && yum clean all
 
@@ -94,9 +97,11 @@ ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 	&& tar xf cmake-$CMAKE_VER.tar.gz && cd cmake-$CMAKE_VER \
 	&& ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf cmake-$CMAKE_VER && rm -f cmake-$CMAKE_VER.tar.gz \
-	&& echo "export CMAKE_ROOT=/usr/local/share/cmake-$CMAKE_VER_MAJ" > /etc/profile.d/cmake-root.sh \
-	&& source /etc/profile
+	&& cd .. && rm -rf cmake-$CMAKE_VER && rm -f cmake-$CMAKE_VER.tar.gz
+
+#RUN echo "export CMAKE_ROOT=/usr/local/share/cmake-$CMAKE_VER_MAJ" > /etc/profile.d/cmake-root.sh \
+#	&& source /etc/profile
+ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
 # Python 2
 # https://github.com/h2oai/h2o-2/wiki/Installing-python-2.7-on-centos-6.3.-Follow-this-sequence-exactly-for-centos-machine-only
@@ -226,8 +231,10 @@ RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
 	&& rm -rf install-tl && rm -f install-tl-unx.tar.gz
 
 # TODO: replace hardcoded 2015
-RUN echo "export PATH=/usr/local/texlive/2015/bin/x86_64-linux:${PATH}" >> /etc/profile.d/local-bin.sh \
-	&& source /etc/profile
+#RUN echo "export PATH=/usr/local/texlive/2015/bin/x86_64-linux:${PATH}" >> /etc/profile.d/local-bin.sh \
+#	&& source /etc/profile
+
+ENV PATH /usr/local/texlive/2015/bin/x86_64-linux:$PATH
 
 # R
 RUN yum -y install \
