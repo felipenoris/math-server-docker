@@ -33,6 +33,7 @@ pip2 install \
 	pytest-cov \
 	pytest-html \
 	pymc \
+	pymemcache \
 	pypandoc \
 	python-daemon \
 	python-docx \

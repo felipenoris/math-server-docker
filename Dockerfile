@@ -48,6 +48,7 @@ RUN yum update -y && yum install -y \
 	m4 \
 	make \
 	man \
+	memcached \
 	nano \
 	nload \
 	htop \
@@ -327,26 +328,9 @@ RUN pip3 install \
 
 RUN npm install -g configurable-http-proxy
 
-# ipywidgets not working for now...
-# ipywidgets
-# https://ipywidgets.readthedocs.org/en/latest/dev_install.html
-
-#RUN git clone https://github.com/ipython/ipywidgets
-#RUN wget https://github.com/ipython/ipywidgets/archive/4.1.1.tar.gz \
-#	&& tar xf 4.1.1.tar.gz
-
-#RUN cd ipywidgets-4.1.1 \
-#	&& pip2 install -v -e . \
-#	&& pip3 install -v -e . \
-#	&& cd jupyter-js-widgets \
-# 	&& npm install \
-# 	&& cd ../widgetsnbextension \
-# 	&& npm install \
-# 	&& npm run update:widgets \
-# 	&& pip2 install -v -e . \
-# 	&& pip3 install -v -e .
- 
-# RUN rm -rf ipywidgets-4.1.1 && rm -f 4.1.1.tar.gz
+# ipywidgets: https://github.com/ipython/ipywidgets
+RUN pip3 install ipywidgets \
+	&& jupyter nbextension enable --py widgetsnbextension
 
 # Support for other languages
 # https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
@@ -427,4 +411,4 @@ RUN ipcluster nbextension enable
 # 8000 for Jupyter
 EXPOSE 8787 8000
 
-CMD /usr/sbin/sssd && /usr/lib/rstudio-server/bin/rserver && jupyterhub --no-ssl
+CMD /usr/sbin/sssd && memcached -d -u memcached /usr/lib/rstudio-server/bin/rserver && jupyterhub --no-ssl

@@ -27,6 +27,7 @@ pip3 install \
 	jsonschema \
 	names \
 	numpy \
+	pymemcache \
 	pytest-cov \
 	pytest-html \
 	pypandoc \
