@@ -411,13 +411,15 @@ RUN ipcluster nbextension enable
 ## Services
 ####################
 
+# Memcached parameters
 ENV MEMCACHE_MAXSIZE_MB 100
+ENV MEMCACHE_MIN_ALLOC_SIZE 10
 
 # 8787 for RStudio
 # 8000 for Jupyter
 EXPOSE 8787 8000
 
 CMD /usr/sbin/sssd \
-	&& memcached -d -u memcached -m $MEMCACHE_MAXSIZE_MB \
+	&& memcached -d -u memcached -m $MEMCACHE_MAXSIZE_MB -n $MEMCACHE_MIN_ALLOC_SIZE \
 	&& /usr/lib/rstudio-server/bin/rserver \
 	&& jupyterhub --no-ssl
