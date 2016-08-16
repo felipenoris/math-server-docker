@@ -62,6 +62,7 @@ RUN yum update -y && yum install -y \
 	valgrind \
 	sqlite \
 	sqlite-devel \
+	telnet \
 	vim \
     wget \
 	zlib \
