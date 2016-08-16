@@ -66,11 +66,11 @@ RUN yum update -y && yum install -y \
 	sqlite-devel \
 	telnet \
 	vim \
-    wget \
+	wget \
 	zlib \
 	zlib-devel \
 	zip \
-    && yum clean all
+	&& yum clean all
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
@@ -242,7 +242,7 @@ RUN yum -y install \
 	libxml2 \
 	libxml2-devel \
 	R \
-    && yum clean all
+	&& yum clean all
 
 # Set default CRAN Mirror
 RUN echo 'options(repos = c(CRAN="http://www.vps.fmvz.usp.br/CRAN/"))' >> /usr/lib64/R/library/base/R/Rprofile
@@ -255,7 +255,7 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.r
 	&& RESULT=$(md5sum -c RSTUDIOMD5) \
 	&& echo ${RESULT} > ~/check-rstudio-md5.txt \
 	&& yum -y install --nogpgcheck rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
-    && yum clean all \
+	&& yum clean all \
 	&& rm -f rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm && rm -f RSTUDIOMD5
 
 # Libreoffice
@@ -269,7 +269,7 @@ RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/
 	&& tar xf LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
 	&& cd LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm/RPMS \
 	&& yum -y install *.rpm \
-    && yum clean all \
+	&& yum clean all \
 	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
 	&& rm -rf LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm
 
@@ -282,7 +282,7 @@ RUN R -e 'install.packages("shiny")' \
 	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
 	&& echo ${RESULT} > ~/check-shiny-server-md5.txt \
 	&& yum -y install --nogpgcheck shiny-server-$SHINY_VER-rh5-x86_64.rpm \
-    && yum clean all \
+	&& yum clean all \
 	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-$SHINY_VER-rh5-x86_64.rpm
 
 # Julia
@@ -291,7 +291,7 @@ ENV JULIA_VER_MIN .6
 ENV JULIA_VER $JULIA_VER_MAJ$JULIA_VER_MIN
 
 RUN wget https://github.com/JuliaLang/julia/releases/download/v$JULIA_VER/julia-$JULIA_VER-full.tar.gz \
-        && tar xf julia-$JULIA_VER-full.tar.gz
+		&& tar xf julia-$JULIA_VER-full.tar.gz
 
 ADD julia-Make.user julia-$JULIA_VER/Make.user
 
@@ -394,7 +394,7 @@ RUN yum -y install \
 	pandoc \
 	tcl-devel \
 	tk-devel \
-    && yum clean all
+	&& yum clean all
 
 ADD libs libs
 
