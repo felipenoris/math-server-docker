@@ -255,19 +255,19 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.r
 	&& rm -f rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm && rm -f RSTUDIOMD5
 
 # Libreoffice
-ENV LIBREOFFICE_VER 5.1.4
-ENV LIBREOFFICE_VER_MINOR .2
+ENV LIBREOFFICE_VER 5.2.0
+ENV LIBREOFFICE_VER_MINOR .4
 
-RUN wget http://download.documentfoundation.org/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_$LIBREOFFICE_VER_Linux_x86-64_rpm.tar.gz \
-	&& echo "7c6037441c0eb11cce13bc1a9382ba13  LibreOffice_$LIBREOFFICE_VER_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
+RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
+	&& echo "90c9b7b8aa6799ca1140a8d06c874838  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
 	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
 	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
-	&& tar xf LibreOffice_$LIBREOFFICE_VER_Linux_x86-64_rpm.tar.gz \
-	&& cd LibreOffice_$LIBREOFFICE_VER$LIBREOFFICE_VER_MINOR_Linux_x86-64_rpm/RPMS \
+	&& tar xf LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
+	&& cd LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm/RPMS \
 	&& yum -y install *.rpm \
     && yum clean all \
-	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_$LIBREOFFICE_VER_Linux_x86-64_rpm.tar.gz \
-	&& rm -rf LibreOffice_$LIBREOFFICE_VER$LIBREOFFICE_VER_MINOR_Linux_x86-64_rpm
+	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
+	&& rm -rf LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm
 
 # Shiny
 ENV SHINY_VER 1.4.2.786
