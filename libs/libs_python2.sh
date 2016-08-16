@@ -33,8 +33,6 @@ pip2 install \
 	pytest-cov \
 	pytest-html \
 	pymc \
-	pymemcache \
-	pymongo \
 	pypandoc \
 	python-daemon \
 	python-docx \
@@ -66,3 +64,6 @@ pip2 install \
 
 pip2 install numba
 
+pip2 install
+	pymemcache \
+	pymongo
