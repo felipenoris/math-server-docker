@@ -28,6 +28,7 @@ pip3 install \
 	names \
 	numpy \
 	pymemcache \
+	pymongo \
 	pytest-cov \
 	pytest-html \
 	pypandoc \

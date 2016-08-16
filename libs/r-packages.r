@@ -49,6 +49,7 @@ pkgs <- c(
 	"mapproj",
 	"maptools",
 	"microbenchmark",
+	"mongolite",
 	"NMOF",
 	"openxlsx",
 	"parcor",

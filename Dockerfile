@@ -49,6 +49,8 @@ RUN yum update -y && yum install -y \
 	make \
 	man \
 	memcached \
+	mongodb \
+	mongodb-server \
 	nano \
 	nload \
 	htop \
@@ -376,6 +378,7 @@ RUN git clone --branch=stable/$SYMPHONY_VER https://github.com/coin-or/SYMPHONY 
 #################
 
 RUN yum -y install \
+	cyrus-sasl-devel \
 	freetype-devel \
 	glpk-devel \
 	hdf5 \

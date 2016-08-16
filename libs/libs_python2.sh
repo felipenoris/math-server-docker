@@ -34,6 +34,7 @@ pip2 install \
 	pytest-html \
 	pymc \
 	pymemcache \
+	pymongo \
 	pypandoc \
 	python-daemon \
 	python-docx \
