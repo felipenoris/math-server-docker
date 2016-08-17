@@ -27,6 +27,8 @@ pip3 install \
 	jsonschema \
 	names \
 	numpy \
+	pymemcache \
+	pymongo \
 	pytest-cov \
 	pytest-html \
 	pypandoc \
@@ -59,7 +61,3 @@ pip3 install \
 	statistics
 
 pip3 install numba
-
-pip3 install
-	pymemcache \
-	pymongo
