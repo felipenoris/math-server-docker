@@ -7,7 +7,7 @@
 # 8787 for RStudio
 # 8000 for Jupyter
 
-# # docker run -d -p 8787:8787 -p 8000:8000 --name ms1 math-server
+# docker run -d -p 8787:8787 -p 8000:8000 --name ms1 math-server
 
 FROM centos:7
 
@@ -16,10 +16,6 @@ MAINTAINER felipenoris <felipenoris@users.noreply.github.com>
 WORKDIR /root
 
 ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
-
-#RUN echo "export PATH=/usr/local/sbin:/usr/local/bin:${PATH}" >> /etc/profile.d/local-bin.sh \
-#	&& echo "export CPATH=/usr/include/glpk" >> /etc/profile.d/glpk-include.sh \
-#	&& source /etc/profile
 
 ENV PATH /usr/local/sbin:/usr/local/bin:$PATH
 ENV CPATH /usr/include/glpk
@@ -99,8 +95,6 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 	&& ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
 	&& cd .. && rm -rf cmake-$CMAKE_VER && rm -f cmake-$CMAKE_VER.tar.gz
 
-#RUN echo "export CMAKE_ROOT=/usr/local/share/cmake-$CMAKE_VER_MAJ" > /etc/profile.d/cmake-root.sh \
-#	&& source /etc/profile
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
 # Python 2
@@ -147,7 +141,6 @@ RUN pip2 install -U pip
 RUN pip3 install -U pip
 
 # LLVM deps
-# TODO: check if python-devel is needed
 RUN yum -y install \
 	libedit-devel \
 	libffi-devel \
@@ -161,7 +154,6 @@ RUN yum -y install \
 # libc++ /projects/libcxx
 # libc++abi /projects/libcxxabi
 # lldb /tools/lldb
-
 ENV LLVM_VER 3.7.1
 
 RUN wget http://llvm.org/releases/$LLVM_VER/llvm-$LLVM_VER.src.tar.xz \
@@ -231,9 +223,6 @@ RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
 	&& rm -rf install-tl && rm -f install-tl-unx.tar.gz
 
 # TODO: replace hardcoded 2015
-#RUN echo "export PATH=/usr/local/texlive/2015/bin/x86_64-linux:${PATH}" >> /etc/profile.d/local-bin.sh \
-#	&& source /etc/profile
-
 ENV PATH /usr/local/texlive/2015/bin/x86_64-linux:$PATH
 
 # R
