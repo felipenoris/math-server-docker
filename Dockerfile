@@ -396,7 +396,19 @@ RUN yum -y install \
 
 ADD libs libs
 
-RUN cd libs && make && ./install_libs
+RUN python2 ./libs/update_pkgs.py
+
+RUN python3 ./libs/update_pkgs.py
+
+# Install packages in sequence
+#RUN cd libs && make && ./install_libs
+RUN source ./libs/libs_python2.sh
+
+RUN source ./libs/libs_python3.sh
+
+RUN source ./libs/libs_julia.sh
+
+RUN source ./libs/libs_R.sh
 
 RUN cd libs && source ./install_JSAnimation.sh
 
