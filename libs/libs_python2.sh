@@ -1,6 +1,8 @@
 #!/bin/sh
 
-pip2 install numpy
+pip2 install 
+	numpy \
+	distribute
 
 pip2 install \
 	astroid \

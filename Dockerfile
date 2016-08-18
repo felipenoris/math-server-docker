@@ -39,6 +39,7 @@ RUN yum update -y && yum install -y \
 	glibc-devel \
 	java-1.8.0-openjdk-devel \
 	lynx \
+	libattr-devel \
 	libcurl \ 
 	libcurl-devel \
 	libedit-devel libffi-devel \
