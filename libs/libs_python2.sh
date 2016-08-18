@@ -1,5 +1,7 @@
 #!/bin/sh
 
+pip2 install numpy
+
 pip2 install \
 	astroid \
 	atom \
@@ -29,7 +31,6 @@ pip2 install \
 	jsonschema \
 	ldap3 \
 	names \
-	numpy \
 	pytest-cov \
 	pytest-html \
 	pymc \
@@ -65,4 +66,3 @@ pip2 install \
 	statistics
 
 pip2 install numba
-

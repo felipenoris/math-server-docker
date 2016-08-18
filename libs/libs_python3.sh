@@ -1,5 +1,7 @@
 #!/bin/sh
 
+pip3 install numpy
+
 pip3 install \
 	astroid \
 	attrs \
@@ -26,7 +28,6 @@ pip3 install \
 	docx \
 	jsonschema \
 	names \
-	numpy \
 	pymemcache \
 	pymongo \
 	pytest-cov \
