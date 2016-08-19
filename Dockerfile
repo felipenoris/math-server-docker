@@ -407,7 +407,7 @@ RUN source ./libs/libs_python2.sh
 
 RUN source ./libs/libs_python3.sh
 
-RUN cd libs && ./libs_julia.sh
+RUN cd libs && source ./libs_julia.sh
 
 RUN cd libs && source ./libs_R.sh
 
