@@ -1,8 +1,9 @@
 #!/bin/sh
 
-pip3 install
+pip3 install \
 	numpy \
-	distribute
+	distribute \
+	pypandoc
 
 pip3 install \
 	astroid \
@@ -34,7 +35,6 @@ pip3 install \
 	pymongo \
 	pytest-cov \
 	pytest-html \
-	pypandoc \
 	python-daemon \
 	python-docx \
 	pyyaml \

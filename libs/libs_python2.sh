@@ -1,8 +1,9 @@
 #!/bin/sh
 
-pip2 install 
+pip2 install \
 	numpy \
-	distribute
+	distribute \
+	pypandoc
 
 pip2 install \
 	astroid \
@@ -38,7 +39,6 @@ pip2 install \
 	pymc \
 	pymemcache \
 	pymongo \
-	pypandoc \
 	python-daemon \
 	python-docx \
 	pyyaml \
