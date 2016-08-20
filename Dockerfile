@@ -15,11 +15,6 @@ MAINTAINER felipenoris <felipenoris@users.noreply.github.com>
 
 WORKDIR /root
 
-ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
-ENV PATH /usr/local/sbin:/usr/local/bin:$PATH
-ENV CPATH /usr/include/glpk
-ENV LD_LIBRARY_PATH /usr/local/lib
-
 RUN yum update -y && yum install -y epel-release && yum clean all
 
 RUN yum update -y && yum install -y \
@@ -71,6 +66,12 @@ RUN yum update -y && yum install -y \
 	zlib-devel \
 	zip \
 	&& yum clean all
+
+ENV PATH /usr/local/sbin:/usr/local/bin:$PATH
+
+ENV CPATH /usr/include/glpk
+
+ENV LD_LIBRARY_PATH /usr/local/lib
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
@@ -287,6 +288,8 @@ RUN cd julia-$JULIA_VER \
 	&& make -j"$(nproc --all)" install \
 	&& cd .. && rm -rf julia-$JULIA_VER && rm -f julia-$JULIA_VER-full.tar.gz \
 	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
+
+ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
 
 # Init package folder on root's home folder
 RUN julia -e 'Pkg.init()'
