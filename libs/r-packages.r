@@ -62,6 +62,7 @@ pkgs <- c(
 	"R.cache",
 	"Rcpp",
 	"RCurl",
+	"rJava",
 	"readr",
 	"randomForest",
 	"Rmpfr",

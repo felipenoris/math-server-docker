@@ -376,6 +376,8 @@ RUN git clone --branch=stable/$SYMPHONY_VER https://github.com/coin-or/SYMPHONY 
 ## LIBS
 #################
 
+ENV JAVA_HOME /etc/alternatives/java_sdk
+
 RUN yum -y install \
 	cyrus-sasl-devel \
 	freetype-devel \
