@@ -16,9 +16,9 @@ MAINTAINER felipenoris <felipenoris@users.noreply.github.com>
 WORKDIR /root
 
 ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
-
 ENV PATH /usr/local/sbin:/usr/local/bin:$PATH
 ENV CPATH /usr/include/glpk
+ENV LD_LIBRARY_PATH /usr/local/lib
 
 RUN yum update -y && yum install -y epel-release && yum clean all
 
