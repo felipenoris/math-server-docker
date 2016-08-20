@@ -98,25 +98,9 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
-# Python 2
-# https://github.com/h2oai/h2o-2/wiki/Installing-python-2.7-on-centos-6.3.-Follow-this-sequence-exactly-for-centos-machine-only
-ENV PYTHON2_VER_MAJ 2.7
-ENV PYTHON2_VER_MIN .11
-ENV PYTHON2_VER $PYTHON2_VER_MAJ$PYTHON2_VER_MIN
-
-RUN wget https://www.python.org/ftp/python/$PYTHON2_VER/Python-$PYTHON2_VER.tar.xz \
-	&& tar xf Python-$PYTHON2_VER.tar.xz \
-	&& cd Python-$PYTHON2_VER \
-	&& ./configure --prefix=/usr/local/python$PYTHON2_VER_MAJ --enable-shared --with-cxx-main=/usr/bin/g++ \
-	&& make -j"$(nproc --all)" \
-	&& make -j"$(nproc --all)" altinstall \
-	&& echo "/usr/local/lib" > /etc/ld.so.conf.d/usrLocalLib.conf \
-	&& ldconfig \
-	&& cd .. && rm -f Python-$PYTHON2_VER.tar.xz && rm -rf Python-$PYTHON2_VER
-
 # pip for Python 2
 RUN curl -O https://bootstrap.pypa.io/get-pip.py \
-	&& /usr/local/python$PYTHON2_VER_MAJ/bin/python$PYTHON2_VER_MAJ get-pip.py \
+	&& python2 get-pip.py \
 	&& rm -f get-pip.py
 
 # Python 3
@@ -315,7 +299,7 @@ RUN pip2 install \
 	ipykernel \
 	ipyparallel \
 	enum34 \
-	&& /usr/local/python2.7/bin/python2.7 -m ipykernel install
+	&& python2 -m ipykernel install
 
 RUN pip3 install \
 	IPython \
