@@ -401,8 +401,6 @@ RUN cd libs && source ./install_excel_readers.sh
 RUN ipcluster nbextension enable
 
 # fix yum (issue #10)
-RUN pip uninstall pycurl
-
 RUN wget https://pypi.python.org/packages/12/3f/557356b60d8e59a1cce62ffc07ecc03e4f8a202c86adae34d895826281fb/pycurl-7.43.0.tar.gz#md5=c94bdba01da6004fa38325e9bd6b9760 \
 	&& tar xf pycurl-7.43.0.tar.gz \
 	&& cd pycurl-7.43.0 \
