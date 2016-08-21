@@ -424,6 +424,8 @@ ENV MEMCACHE_MIN_ALLOC_SIZE 10
 # 8000 for Jupyter
 EXPOSE 8787 8000
 
+ADD jupyterhub_config.py jupyterhub_config.py
+
 CMD memcached -d -u memcached -m $MEMCACHE_MAXSIZE_MB -n $MEMCACHE_MIN_ALLOC_SIZE \
 	&& /usr/lib/rstudio-server/bin/rserver \
 	&& jupyterhub --no-ssl -f jupyterhub_config.py
