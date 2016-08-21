@@ -411,6 +411,9 @@ RUN wget https://pypi.python.org/packages/12/3f/557356b60d8e59a1cce62ffc07ecc03e
 	&& rm -f pycurl-7.43.0.tar.gz \
 	&& rm -rf pycurl-7.43.0
 
+# Improve link to shared libraries
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/R/lib:/usr/local/lib:/lib:/usr/lib/jvm/jre/lib/amd64/server:/usr/lib/jvm/jre/lib/amd64:/usr/lib/jvm/java/lib/amd64:/usr/java/packages/lib/amd64:/lib:/usr/lib:/usr/local/lib
+
 ####################
 ## Services
 ####################
@@ -425,4 +428,4 @@ EXPOSE 8787 8000
 
 CMD memcached -d -u memcached -m $MEMCACHE_MAXSIZE_MB -n $MEMCACHE_MIN_ALLOC_SIZE \
 	&& /usr/lib/rstudio-server/bin/rserver \
-	&& jupyterhub --no-ssl
+	&& jupyterhub --no-ssl -f jupyterhub_config.py
