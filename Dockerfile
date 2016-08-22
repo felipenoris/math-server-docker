@@ -386,16 +386,23 @@ RUN yum -y install \
 
 ADD libs libs
 
-RUN python2 ./libs/update_pkgs.py 2
-
-RUN python3 ./libs/update_pkgs.py 3
-
 # Install packages
-RUN cd libs && make && ./install_libs
+RUN cd libs && source ./libs_python2.sh
+
+RUN cd libs && source ./libs_python3.sh
+
+RUN cd libs && source ./libs_julia.sh
+
+RUN cd libs && source ./libs_R.sh
 
 RUN cd libs && source ./install_JSAnimation.sh
 
 RUN cd libs && source ./install_excel_readers.sh
+
+# Update Python packages
+RUN python2 ./libs/update_pkgs.py 2
+
+RUN python3 ./libs/update_pkgs.py 3
 
 # http://ipyparallel.readthedocs.org/en/latest/
 RUN ipcluster nbextension enable
