@@ -2,8 +2,10 @@
 
 pip3 install \
 	numpy \
-	distribute \
+	virtualenv \
 	pypandoc
+
+pip3 install distribute
 
 pip3 install \
 	astroid \
@@ -49,7 +51,6 @@ pip3 install \
 	sympy \
 	sqlparse \
 	suds-jurko \
-	virtualenv \
 	xlsxwriter
 
 pip3 install \

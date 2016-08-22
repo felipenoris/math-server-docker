@@ -2,8 +2,10 @@
 
 pip2 install \
 	numpy \
-	distribute \
+	virtualenv \
 	pypandoc
+
+pip2 install distribute
 
 pip2 install \
 	astroid \
@@ -53,7 +55,6 @@ pip2 install \
 	sympy \
 	sqlparse \
 	suds-jurko \
-	virtualenv \
 	xlsxwriter
 
 pip2 install \
