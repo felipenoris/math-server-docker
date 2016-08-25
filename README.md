@@ -32,6 +32,13 @@ To start the server, use:
 # docker run -d -p 8787:8787 -p 8000:8000 --name ms1 math-server
 ```
 
+With a running container, you can go ahead and create users:
+
+```
+# docker exec ms1 useradd myuser
+# docker exec -it ms1 passwd myuser
+```
+
 The default ports are:
 
 	* 8787 for RStudio
@@ -127,6 +134,14 @@ Change the default port by editing rserver.conf. The following will change to po
 
 *root user* will add packages with `pip2` or `pip3` command line. Packages will be stored on `/usr/local/lib/python2.7` or `/usr/local/lib/python3.5` directories.
 
+Users can install local packages using:
+
+```
+$ pip2 install --user pkgname
+
+$ pip3 install --user pkgname
+```
+
 **R**
 
 Check package locations with `$ R -e '.libPaths()'`.
@@ -153,6 +168,12 @@ julia> LOAD_PATH
 *root user* will add packages with `julia -e 'Pkg.add("pkg-name")'` command.
 
 It's important to run `using pkg-name` after installation to precompile the packages. This will store files on `/usr/local/share/julia/lib/v0.4/`.
+
+Users can install local packages using the default `Pkg` module:
+
+```
+julia> Pkg.add("pkgname")
+```
 
 ## References
 
