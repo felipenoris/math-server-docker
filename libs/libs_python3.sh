@@ -64,4 +64,6 @@ pip3 install \
 	pandas \
 	statistics
 
-pip3 install numba
+# setting version restrictions to use llvm 3.7.1
+pip3 install 'llvmlite<0.13.0'
+pip3 install 'numba<0.28.0'
