@@ -1,4 +1,3 @@
-c.JupyterHub.config_file = 'jupyterhub_config.py'
 
 # Whitelist of environment variables for the subprocess to inherit
 # c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL']
