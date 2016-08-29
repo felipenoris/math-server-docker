@@ -61,7 +61,7 @@ To start the server:
 # jupyterhub
 ```
 
-By default, will be accessible on the following link: `http://localhost:8000`, and will create state files (`jupyterhub_cookie_secret`, `jupyterhub.sqlite`) on current directory, and use default configuration.
+By default, Jupyter will be accessible on the following link: `http://localhost:8000`, and will create state files (`jupyterhub_cookie_secret`, `jupyterhub.sqlite`) on current directory, and use default configuration.
 
 You can generate a sample configuration file with:
 
@@ -100,24 +100,25 @@ c.JupyterHub.ssl_key = '/root/.ssh/sample-key.pem'
 
 `sample-cert.pem` is the signed certificate file, and `sample-key.pem` is the private ssl key.
 
-You can generate self signed certificate file with:
+You can generate self signed certificate file by running the code below, but be aware that your browser will not recognize the certificate as trusted.
 
 ```
-mkdir ~/.ssh
-openssl req -x509 -newkey rsa:2048 -keyout ~/.ssh/sample-key.pem -out ~/.ssh/sample-cert.pem -days 9999 -nodes -subj "/C=BR/ST=Rio de Janeiro/L=Rio de Janeiro/O=org/OU=unit/CN=website"
-chmod 400 sample*.pem
+# mkdir ~/.ssh
+# openssl req -x509 -newkey rsa:2048 -keyout ~/.ssh/sample-key.pem -out ~/.ssh/sample-cert.pem -days 9999 -nodes -subj "/C=BR/ST=Rio de Janeiro/L=Rio de Janeiro/O=org/OU=unit/CN=website"
+# chmod 400 sample*.pem
 
 ```
 
-But be aware that your browser will not recognize the certificate as trusted.
+This project provides a minimal `jupyter_config.py` configuration file that sets
+a few important environment variables that should be passed to child spawned processes, namely: `'PATH', 'LD_LIBRARY_PATH', 'JAVA_HOME', 'CPATH', 'CMAKE_ROOT', 'http_proxy', 'https_proxy'`.
 
 ### RStudio
 
-Configuration files are at `/etc/rstudio`.
+Configuration files are at `/etc/rstudio`. There's also Server Options file at `/usr/lib/rstudio-server/R/ServerOptions.R`.
 
 Default port is 8787.
 
-Change the default port by editing rserver.conf. The following will change to port 80:
+Change the default port by editing `rserver.conf`. The following will change to port 80:
 
 ```
 # echo -e "www-port=80" | tee /etc/rstudio/rserver.conf
@@ -127,6 +128,13 @@ Change the default port by editing rserver.conf. The following will change to po
 
 `auth-pam-sessions-profile` directive on /etc/rstudio.rserver.conf may not work. If that happens, RStudio will look at `/etc/pam.d/rstudio`.
 
+Proxy settings are not currently repassed to RStudio configuration. If you're running behind proxy, you should update `ServerOptions.R` file.
+
+```
+RUN echo "options(download.file.method = 'wget')" >> /usr/lib/rstudio-server/R/ServerOptions.R
+RUN echo "Sys.setenv(http_proxy = 'my-proxy-url')" >> /usr/lib/rstudio-server/R/ServerOptions.R
+RUN echo "Sys.setenv(https_proxy = 'my-proxy-url')" >> /usr/lib/rstudio-server/R/ServerOptions.R
+```
 
 ## Packages
 
