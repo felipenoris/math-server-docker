@@ -106,7 +106,6 @@ You can generate self signed certificate file by running the code below, but be 
 # mkdir ~/.ssh
 # openssl req -x509 -newkey rsa:2048 -keyout ~/.ssh/sample-key.pem -out ~/.ssh/sample-cert.pem -days 9999 -nodes -subj "/C=BR/ST=Rio de Janeiro/L=Rio de Janeiro/O=org/OU=unit/CN=website"
 # chmod 400 sample*.pem
-
 ```
 
 This project provides a minimal `jupyter_config.py` configuration file that sets
