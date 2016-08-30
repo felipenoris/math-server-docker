@@ -113,7 +113,7 @@ a few important environment variables that should be passed to child spawned pro
 
 ### RStudio
 
-Configuration files are at `/etc/rstudio`. There's also Server Options file at `/usr/lib/rstudio-server/R/ServerOptions.R`.
+Configuration files are at `/etc/rstudio`. There's also the Server Options file at `/usr/lib/rstudio-server/R/ServerOptions.R`.
 
 Default port is 8787.
 
@@ -127,7 +127,7 @@ Change the default port by editing `rserver.conf`. The following will change to 
 
 `auth-pam-sessions-profile` directive on /etc/rstudio.rserver.conf may not work. If that happens, RStudio will look at `/etc/pam.d/rstudio`.
 
-Proxy settings are not currently repassed to RStudio configuration. If you're running behind proxy, you should update `ServerOptions.R` file.
+Proxy settings are not configured in RStudio by default. If you're running behind proxy, you should update `ServerOptions.R` file.
 
 ```
 RUN echo "options(download.file.method = 'wget')" >> /usr/lib/rstudio-server/R/ServerOptions.R
@@ -153,7 +153,7 @@ $ pip3 install --user pkgname
 
 Check package locations with `$ R -e '.libPaths()'`.
 
-System packages will be installed on `/usr/lib64/R/library`.
+System packages will be installed at `/usr/lib64/R/library`.
 
 Each user can have a local package dir, automatically created under `~/R`.
 
