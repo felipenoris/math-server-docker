@@ -359,6 +359,10 @@ RUN git clone --branch=stable/$SYMPHONY_VER https://github.com/coin-or/SYMPHONY 
 	&& make -j"$(nproc --all)" install \
 	&& cd .. && rm -rf SYMPHONY-$SYMPHONY_VER
 
+# calysto-scheme Jupyter kernel
+RUN pip3 install --upgrade calysto-scheme \
+	&& python3 -m calysto_scheme install
+
 #################
 ## LIBS
 #################
