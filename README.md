@@ -4,7 +4,7 @@ Dockerfile to build a server with Jupyterhub and RStudio, ready for Python, R an
 
 ## List of tools
 
-* Jupyterhub [https://github.com/jupyter/jupyterhub] with support for the following languages:
+* [Jupyterhub](https://github.com/jupyter/jupyterhub) with support for the following languages:
 
 	* Python 2.7
 
@@ -14,9 +14,9 @@ Dockerfile to build a server with Jupyterhub and RStudio, ready for Python, R an
 
 	* Julia 0.4
 
-* RStudio Server [https://www.rstudio.com/]
+* [RStudio Server](https://www.rstudio.com/)
 
-* Shiny Server [https://www.rstudio.com/products/shiny/shiny-server2/]
+* [Shiny Server](https://www.rstudio.com/products/shiny/shiny-server2/)
 
 ## Usage
 
@@ -47,7 +47,7 @@ The default ports are:
 
 ## Requirements
 
-Docker [https://www.docker.com/].
+[Docker](https://www.docker.com/).
 
 ## Application specific notes
 
@@ -184,7 +184,7 @@ julia> Pkg.add("pkgname")
 
 **LaTeX**
 
-The image install a LaTeX distribution using texlive tool.
+The Docker image comes with a LaTeX distribution that is installed using [texlive](http://www.tug.org/texlive/) tool.
 TeX packages can me managed using `tlmgr`.
 
 System-wide packages can be installed using:
@@ -207,16 +207,16 @@ $ tlmgr --usermode install [pkgname]
 
 ## References
 
-* Jupyter main website: http://jupyter.org/
+* [Jupyter website](http://jupyter.org/)
 
-* Jupyterhub Docs: https://jupyterhub.readthedocs.org/en/latest/index.html
+* [Jupyterhub Docs](https://jupyterhub.readthedocs.org/en/latest/index.html)
 
-* Full list of supported kernels for Jupyter: https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
+* [Full list of supported kernels for Jupyter](https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages)
 
-* RStudio website: https://www.rstudio.com/
+* [RStudio website](https://www.rstudio.com/)
 
-* RStudio Server download page: https://www.rstudio.com/products/rstudio/download-server/
+* [RStudio Server download page](https://www.rstudio.com/products/rstudio/download-server/)
 
-* RStudio Server Admin Guide: https://s3.amazonaws.com/rstudio-server/rstudio-server-pro-0.99.879-admin-guide.pdf
+* [RStudio Server Admin Guide](https://s3.amazonaws.com/rstudio-server/rstudio-server-pro-0.99.879-admin-guide.pdf)
 
-* Shiny Server Admin Guide: http://rstudio.github.io/shiny-server/latest/
+* [Shiny Server Admin Guide](http://rstudio.github.io/shiny-server/latest/)
