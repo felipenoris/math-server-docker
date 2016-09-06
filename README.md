@@ -182,6 +182,29 @@ Users can install local packages using the default `Pkg` module:
 julia> Pkg.add("pkgname")
 ```
 
+**LaTeX**
+
+The image install a LaTeX distribution using texlive tool.
+TeX packages can me managed using `tlmgr`.
+
+System-wide packages can be installed using:
+
+```
+# tlmgr install [pkgname]
+```
+
+Users can also install local packages. To do that, a user must initialize a `~/texmf` tree:
+
+```
+$ tlmgr init-usertree
+```
+
+After that, the user can install local packages using:
+
+```
+$ tlmgr --usermode install [pkgname]
+```
+
 ## References
 
 * Jupyter main website: http://jupyter.org/
