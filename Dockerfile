@@ -363,6 +363,10 @@ RUN git clone --branch=stable/$SYMPHONY_VER https://github.com/coin-or/SYMPHONY 
 RUN pip3 install --upgrade calysto-scheme \
 	&& python3 -m calysto_scheme install
 
+# bash Jupyter kernel
+RUN pip3 install bash_kernel \
+	&& python3 -m bash_kernel.install
+
 #################
 ## LIBS
 #################
