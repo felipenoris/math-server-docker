@@ -317,6 +317,7 @@ RUN npm install -g configurable-http-proxy
 
 # ipywidgets: https://github.com/ipython/ipywidgets
 RUN pip3 install ipywidgets \
+	&& pip2 install ipywidgets \
 	&& jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 # Support for other languages
