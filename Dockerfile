@@ -244,7 +244,7 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.r
 ENV LIBREOFFICE_VER 5.2.1
 ENV LIBREOFFICE_VER_MINOR .2
 
-RUN wget http://download.documentfoundation.org/libreoffice/stable/5.2.1/$LIBREOFFICE_VER/x86_64/LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
+RUN wget http://linorg.usp.br/LibreOffice/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
 	&& echo "f1a363ed526d6e668f84673eea12b754  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
 	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
 	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
