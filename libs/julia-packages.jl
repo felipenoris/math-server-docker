@@ -16,6 +16,7 @@ Pkg.add("Escher")
 Pkg.add("Feather")
 Pkg.add("FileIO")
 Pkg.add("FixedSizeArrays")
+Pkg.add("FlatBuffers")
 Pkg.add("ForwardDiff")
 Pkg.add("Gadfly")
 #Pkg.add("Gallium") # works only on 0.5
