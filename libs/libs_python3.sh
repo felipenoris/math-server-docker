@@ -62,7 +62,8 @@ pip3 install \
 pip3 install \
 	arch \
 	pandas \
-	statistics
+	statistics \
+	h5py
 
 # setting version restrictions to use llvm 3.7.1
 pip3 install 'llvmlite<0.13.0'
