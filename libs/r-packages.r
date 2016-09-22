@@ -92,7 +92,7 @@ pkgs <- c(
 install.packages(pkgs)
 
 # rjulia
-devtools::install_github("armgong/rjulia", ref="master")
+devtools::install_github("armgong/rjulia", ref="julia0.5")
 
 # http://bioconductor.org/packages/release/bioc/html/rhdf5.html
 source("https://bioconductor.org/biocLite.R")
