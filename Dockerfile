@@ -1,8 +1,8 @@
 
-# docker build --no-cache -t math-server:latest --build-arg http_proxy="http://proxy:8080" --build-arg https_proxy="http://proxy:8080" .
+# docker build -t math-server:latest --build-arg http_proxy="http://proxy:8080" --build-arg https_proxy="http://proxy:8080" .
 
 # In case you're building the image behind a proxy, use
-# docker build --no-cache -t math-server:latest --build-arg http_proxy="http://proxy:8080" --build-arg https_proxy="http://proxy:8080" .
+# docker build -t math-server:latest --build-arg http_proxy="http://proxy:8080" --build-arg https_proxy="http://proxy:8080" .
 
 # 8787 for RStudio
 # 8000 for Jupyter
