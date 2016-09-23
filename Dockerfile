@@ -378,6 +378,7 @@ RUN yum -y install \
 	cyrus-sasl-devel \
 	freetype-devel \
 	glpk-devel \
+	gsl-devel \
 	hdf5 \
 	lcms2-devel \
 	libjpeg-devel \
