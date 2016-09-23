@@ -256,11 +256,11 @@ RUN wget http://linorg.usp.br/LibreOffice/libreoffice/stable/$LIBREOFFICE_VER/rp
 	&& rm -rf LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm
 
 # Shiny
-ENV SHINY_VER 1.4.4.807
+ENV SHINY_VER 1.4.6.809
 
 RUN R -e 'install.packages("shiny")' \
 	&& wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-$SHINY_VER-rh5-x86_64.rpm \
-	&& echo "5c0d5ddaf97548d79393a5b9c800ec64  shiny-server-$SHINY_VER-rh5-x86_64.rpm" > SHINYSERVERMD5 \
+	&& echo "3a9f75b4874d56d341dc20b8f6ae6717  shiny-server-$SHINY_VER-rh5-x86_64.rpm" > SHINYSERVERMD5 \
 	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
 	&& echo ${RESULT} > ~/check-shiny-server-md5.txt \
 	&& yum -y install --nogpgcheck shiny-server-$SHINY_VER-rh5-x86_64.rpm \
@@ -269,7 +269,7 @@ RUN R -e 'install.packages("shiny")' \
 
 # Julia
 ENV JULIA_VER_MAJ 0.4
-ENV JULIA_VER_MIN .6
+ENV JULIA_VER_MIN .7
 ENV JULIA_VER $JULIA_VER_MAJ$JULIA_VER_MIN
 
 RUN wget https://github.com/JuliaLang/julia/releases/download/v$JULIA_VER/julia-$JULIA_VER-full.tar.gz \
