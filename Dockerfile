@@ -207,7 +207,7 @@ ADD texlive.profile texlive.profile
 RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz \
 	&& mkdir install-tl \
 	&& tar xf install-tl-unx.tar.gz -C install-tl --strip-components=1 \
-	&& ./install-tl/install-tl -profile ./texlive.profile \
+	&& ./install-tl/install-tl -profile ./texlive.profile --location http://mirrors.rit.edu/CTAN/systems/texlive/tlnet \
 	&& rm -rf install-tl && rm -f install-tl-unx.tar.gz
 
 # TODO: replace hardcoded 2015
