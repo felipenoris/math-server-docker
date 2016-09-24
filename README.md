@@ -108,6 +108,9 @@ You can generate self signed certificate file by running the code below, but be 
 # chmod 400 sample*.pem
 ```
 
+This project provides a minimal `jupyter_config.py` configuration file that sets
+a few important environment variables that should be passed to child spawned processes, namely: `'PATH', 'LD_LIBRARY_PATH', 'JAVA_HOME', 'CPATH', 'CMAKE_ROOT', 'http_proxy', 'https_proxy'`.
+
 ### RStudio
 
 Configuration files are at `/etc/rstudio`. There's also the Server Options file at `/usr/lib/rstudio-server/R/ServerOptions.R`.
