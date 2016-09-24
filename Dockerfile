@@ -379,7 +379,9 @@ RUN yum -y install \
 	freetype-devel \
 	glpk-devel \
 	gsl-devel \
+	gtk3-devel \
 	hdf5 \
+	ImageMagick \
 	lcms2-devel \
 	libjpeg-devel \
 	libpng \
