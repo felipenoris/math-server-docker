@@ -203,7 +203,8 @@ RUN yum -y install perl-Tk perl-Digest-MD5 && yum clean all
 ADD texlive.profile texlive.profile
 
 # non-interactive http://www.tug.org/pipermail/tex-live/2008-June/016323.html
-RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
+# Official link: http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz \
 	&& mkdir install-tl \
 	&& tar xf install-tl-unx.tar.gz -C install-tl --strip-components=1 \
 	&& ./install-tl/install-tl -profile ./texlive.profile \
