@@ -30,6 +30,7 @@ RUN yum update -y && yum install -y \
 	gcc \
 	gcc-c++ \
 	gcc-gfortran \
+	gdb \
 	gettext-devel \
 	glibc-devel \
 	java-1.8.0-openjdk-devel \
