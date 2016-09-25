@@ -12,7 +12,7 @@ Dockerfile to build a server with Jupyterhub and RStudio, ready for Python, R an
 
 	* R 3.3.1
 
-	* Julia 0.4
+	* Julia 0.5
 
 * [RStudio Server](https://www.rstudio.com/)
 
@@ -168,8 +168,8 @@ Each user can add new search directories by changing Julia's `LOAD_PATH` variabl
 ```julia
 julia> LOAD_PATH
 2-element Array{ByteString,1}:
- "/usr/local/julia/local/share/julia/site/v0.4"
- "/usr/local/julia/share/julia/site/v0.4"
+ "/usr/local/julia/local/share/julia/site/v0.5"
+ "/usr/local/julia/share/julia/site/v0.5"
 ```
 
 *root user* will add packages with `julia -e 'Pkg.add("pkg-name")'` command.
@@ -220,3 +220,9 @@ $ tlmgr --usermode install [pkgname]
 * [RStudio Server Admin Guide](https://s3.amazonaws.com/rstudio-server/rstudio-server-pro-0.99.879-admin-guide.pdf)
 
 * [Shiny Server Admin Guide](http://rstudio.github.io/shiny-server/latest/)
+
+* [Python](https://www.python.org/)
+
+* [R](https://cran.r-project.org/)
+
+* [Julia](http://julialang.org/)
