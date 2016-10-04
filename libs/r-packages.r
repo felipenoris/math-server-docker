@@ -76,6 +76,7 @@ pkgs <- c(
 	"rvest",
 	"scales",
 	"sqldf",
+	"shinydashboard",
 	"stringr",
 	"Synth",
 	"plyr",
