@@ -76,7 +76,7 @@ ENV LD_LIBRARY_PATH /usr/local/lib
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-ENV GIT_VER 2.10.0
+ENV GIT_VER 2.10.1
 
 RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
 	&& tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
@@ -89,8 +89,8 @@ RUN git config --global url."https://".insteadOf git://
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-ENV CMAKE_VER_MAJ 3.6
-ENV CMAKE_VER_MIN .2
+ENV CMAKE_VER_MAJ 3.7
+ENV CMAKE_VER_MIN .0
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
 RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
@@ -178,7 +178,7 @@ RUN cd ~/llvm_build \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
 # node
-ENV NODE_VER 6.6.0
+ENV NODE_VER 6.7.0
 
 RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
 	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
