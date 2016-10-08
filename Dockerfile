@@ -55,6 +55,7 @@ RUN yum update -y && yum install -y \
 	openssl-devel \
 	patch \
 	perl-ExtUtils-MakeMaker \
+	pigz \
 	svn \
 	unzip \
 	valgrind \
