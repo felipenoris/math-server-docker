@@ -55,7 +55,6 @@ RUN yum update -y && yum install -y \
 	openssl-devel \
 	patch \
 	perl-ExtUtils-MakeMaker \
-	pigz \
 	svn \
 	unzip \
 	valgrind \
@@ -370,6 +369,17 @@ RUN pip3 install --upgrade calysto-scheme \
 # bash Jupyter kernel
 RUN pip3 install bash_kernel \
 	&& python3 -m bash_kernel.install
+
+# pigz: http://zlib.net/pigz/
+ENV PIGZ_VER 2.3.4
+
+RUN wget http://zlib.net/pigz/pigz-$PIGZ_VER.tar.gz \
+	&& tar xf pigz-$PIGZ_VER.tar.gz \
+	&& cd pigz-$PIGZ_VER \
+	&& make -j"$(nproc --all)" \
+	&& cp pigz /usr/local/bin \
+	&& cp unpigz /usr/local/bin \
+	&& cd .. && rm -rf pigz-$PIGZ_VER && rm -f pigz-$PIGZ_VER.tar.gz
 
 #################
 ## LIBS
