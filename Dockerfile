@@ -231,7 +231,7 @@ RUN yum -y install \
 # Set default CRAN Mirror
 RUN echo 'options(repos = c(CRAN="http://www.vps.fmvz.usp.br/CRAN/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
-# RStudio
+# RStudio - https://www.rstudio.com/products/rstudio/download-server/
 ENV RSTUDIO_VER 0.99.903
 
 RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
@@ -257,12 +257,12 @@ RUN wget http://linorg.usp.br/LibreOffice/libreoffice/stable/$LIBREOFFICE_VER/rp
 	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
 	&& rm -rf LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm
 
-# Shiny
-ENV SHINY_VER 1.4.6.809
+# Shiny - https://www.rstudio.com/products/shiny/download-server/
+ENV SHINY_VER 1.4.7.815
 
 RUN R -e 'install.packages("shiny")' \
 	&& wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-$SHINY_VER-rh5-x86_64.rpm \
-	&& echo "3a9f75b4874d56d341dc20b8f6ae6717  shiny-server-$SHINY_VER-rh5-x86_64.rpm" > SHINYSERVERMD5 \
+	&& echo "31ba9a400115bc48c20c85b474ed0e11  shiny-server-$SHINY_VER-rh5-x86_64.rpm" > SHINYSERVERMD5 \
 	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
 	&& echo ${RESULT} > ~/check-shiny-server-md5.txt \
 	&& yum -y install --nogpgcheck shiny-server-$SHINY_VER-rh5-x86_64.rpm \
