@@ -178,7 +178,7 @@ RUN cd ~/llvm_build \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
 # node
-ENV NODE_VER 6.8.0
+ENV NODE_VER 6.9.0
 
 RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
 	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
@@ -443,6 +443,18 @@ RUN wget https://pypi.python.org/packages/12/3f/557356b60d8e59a1cce62ffc07ecc03e
 
 # Improve link to shared libraries
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/R/lib:/usr/local/lib:/lib:/usr/lib/jvm/jre/lib/amd64/server:/usr/lib/jvm/jre/lib/amd64:/usr/lib/jvm/java/lib/amd64:/usr/java/packages/lib/amd64:/lib:/usr/lib:/usr/local/lib
+
+# Gambit-C
+RUN git clone https://github.com/gambit/gambit.git \
+	&& cd gambit \
+	&& ./configure \
+	&& make -j4 latest-release \
+	&& ./configure --enable-single-host \
+	&& make -j4 from-scratch \
+	&& make check \
+	&& make install \
+	&& ln -s /usr/local/Gambit/bin/gsc /usr/local/bin/gsc \
+	&& ln -s /usr/local/Gambit/bin/gsi /usr/local/bin/gsi
 
 ####################
 ## Services
