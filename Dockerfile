@@ -448,13 +448,15 @@ ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/R/lib:/usr/local/lib:/lib:/usr/l
 RUN git clone https://github.com/gambit/gambit.git \
 	&& cd gambit \
 	&& ./configure \
-	&& make -j4 latest-release \
+	&& make -j"$(nproc --all)" latest-release \
 	&& ./configure --enable-single-host \
-	&& make -j4 from-scratch \
+	&& make -j"$(nproc --all)" from-scratch \
 	&& make check \
 	&& make install \
 	&& ln -s /usr/local/Gambit/bin/gsc /usr/local/bin/gsc \
-	&& ln -s /usr/local/Gambit/bin/gsi /usr/local/bin/gsi
+	&& ln -s /usr/local/Gambit/bin/gsi /usr/local/bin/gsi \
+	&& ln -s /usr/local/Gambit/bin/gambcomp-C /usr/local/bin/gambcomp-C \
+	&& ln -s /usr/local/Gambit/bin/gambdoc /usr/local/bin/gambdoc
 
 ####################
 ## Services
