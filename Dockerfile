@@ -286,21 +286,13 @@ RUN cpuid/cpuid >> julia-$JULIA_VER/Make.user
 RUN cd julia-$JULIA_VER \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
+	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia \
+	&& rm -rf julia-$JULIA_VER && rm -f julia-$JULIA_VER-full.tar.gz
 
 ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
 
 # Init package folder on root's home folder
 RUN julia -e 'Pkg.init()'
-
-# Build Julia Docs
-RUN cd julia-$JULIA_VER/doc \
-	&& make html \
-	&& cd _build \
-	&& mv html /usr/local/doc/julia-docs
-
-# Clean Julia installation files
-RUN rm -rf julia-$JULIA_VER && rm -f julia-$JULIA_VER-full.tar.gz
 
 # Jupyter
 # Add python2.7 kernel: https://github.com/jupyter/jupyter/issues/71
