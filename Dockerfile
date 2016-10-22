@@ -454,7 +454,8 @@ RUN git clone https://github.com/gambit/gambit.git \
 	&& ln -s /usr/local/Gambit/bin/gsc /usr/local/bin/gsc \
 	&& ln -s /usr/local/Gambit/bin/gsi /usr/local/bin/gsi \
 	&& ln -s /usr/local/Gambit/bin/gambcomp-C /usr/local/bin/gambcomp-C \
-	&& ln -s /usr/local/Gambit/bin/gambdoc /usr/local/bin/gambdoc
+	&& ln -s /usr/local/Gambit/bin/gambdoc /usr/local/bin/gambdoc \
+	&& cd .. && rm -rf gambit
 
 ####################
 ## Services
