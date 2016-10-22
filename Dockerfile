@@ -286,13 +286,21 @@ RUN cpuid/cpuid >> julia-$JULIA_VER/Make.user
 RUN cd julia-$JULIA_VER \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf julia-$JULIA_VER && rm -f julia-$JULIA_VER-full.tar.gz \
 	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
 
 ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
 
 # Init package folder on root's home folder
 RUN julia -e 'Pkg.init()'
+
+# Build Julia Docs
+RUN cd julia-$JULIA_VER/doc \
+	&& make html \
+	&& cd _build \
+	&& mv html /usr/local/doc/julia-docs
+
+# Clean Julia installation files
+RUN rm -rf julia-$JULIA_VER && rm -f julia-$JULIA_VER-full.tar.gz
 
 # Jupyter
 # Add python2.7 kernel: https://github.com/jupyter/jupyter/issues/71
@@ -398,6 +406,7 @@ RUN yum -y install \
 	libpng \
 	libpng-devel \
 	libtiff-devel \
+	libtool \
 	libwebp-devel \
 	libxslt-devel \
 	libxml2-devel \
@@ -406,6 +415,20 @@ RUN yum -y install \
 	tcl-devel \
 	tk-devel \
 	&& yum clean all
+
+# QuantLib http://quantlib.org/install/linux.shtml
+# Depends on boost-devel and libtool CENTOS packages
+ENV QUANTLIB_VER v1.8.1
+
+RUN wget https://github.com/lballabio/QuantLib/archive/QuantLib-$QUANTLIB_VER.tar.gz \
+	&& tar xf QuantLib-$QUANTLIB_VER.tar.gz \
+	&& cd QuantLib-QuantLib-$QUANTLIB_VER \
+	&& ./autogen.sh \
+	&& ./configure --enable-intraday \
+	&& make -j"$(nproc --all)" \
+	&& make install \
+	&& ldconfig \
+	&& cd .. && rm -rf QuantLib-QuantLib-$QUANTLIB_VER && rm -f QuantLib-$QUANTLIB_VER.tar.gz
 
 ADD libs libs
 
