@@ -70,7 +70,6 @@ pkgs <- c(
 	"Rmpfr",
 	"rjson",
 	"roxygen2",
-	"RQuantLib",
 	"RSelenium",
 	"RSQLite",
 	"rvest",

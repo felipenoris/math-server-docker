@@ -219,8 +219,6 @@ RUN yum -y install \
 	blas-devel \
 	libicu-devel \
 	unixodbc-devel \
-	QuantLib \
-	QuantLib-devel \
 	boost \
 	boost-devel \
 	libxml2 \
