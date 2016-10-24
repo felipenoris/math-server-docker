@@ -387,6 +387,8 @@ ENV JAVA_HOME /etc/alternatives/java_sdk
 
 RUN yum -y install \
 	cyrus-sasl-devel \
+	freeglut \
+	freeglut-devel \
 	freetype-devel \
 	glpk-devel \
 	gsl-devel \
