@@ -2,6 +2,9 @@
 
 Dockerfile to build a server with Jupyterhub and RStudio, ready for Python, R and Julia languages.
 
+It's based on CentOS 7 image, which is a very stable Linux distribution, compatible with Red Hat (widely used in Corporations),
+but often offers outdated packages. In order to provide up-to-date tools, this Dockerfile builds most tools from source.
+
 ## List of tools
 
 * [Jupyterhub](https://github.com/jupyter/jupyterhub) with support for the following languages:
