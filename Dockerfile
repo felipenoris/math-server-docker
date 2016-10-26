@@ -178,7 +178,7 @@ RUN cd ~/llvm_build \
 	&& cd .. && rm -rf llvm_build && rm -rf llvm
 
 # node
-ENV NODE_VER 6.9.1
+ENV NODE_VER 7.0.0
 
 RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
 	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
