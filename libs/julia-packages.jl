@@ -1,6 +1,7 @@
 
 Pkg.update()
 
+Pkg.add("ApproxFun")
 Pkg.add("BusinessDays")
 Pkg.add("BufferedStreams")
 Pkg.add("Calculus")
