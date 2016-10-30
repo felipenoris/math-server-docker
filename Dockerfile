@@ -76,7 +76,7 @@ ENV LD_LIBRARY_PATH /usr/local/lib
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-ENV GIT_VER 2.10.1
+ENV GIT_VER 2.10.2
 
 RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
 	&& tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
@@ -241,7 +241,7 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.r
 	&& rm -f rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm && rm -f RSTUDIOMD5
 
 # Libreoffice
-ENV LIBREOFFICE_VER 5.2.1
+ENV LIBREOFFICE_VER 5.2.2
 ENV LIBREOFFICE_VER_MINOR .2
 
 RUN wget http://linorg.usp.br/LibreOffice/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
