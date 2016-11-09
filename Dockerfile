@@ -287,7 +287,8 @@ RUN cd julia-$JULIA_VER \
 	&& make -j"$(nproc --all)" \
 	&& make -j"$(nproc --all)" install \
 	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia \
-	&& rm -rf julia-$JULIA_VER && rm -f julia-$JULIA_VER-full.tar.gz
+	&& cd .. \
+	&& rm -rf julia-$JULIA_VER && rm -f julia-$JULIA_VER-full.tar.gz && rm -rf cpuid
 
 ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
 
