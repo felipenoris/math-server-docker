@@ -82,9 +82,9 @@ With a running container, you can go ahead and create users:
 
 The default ports are:
 
-	* 8787 for RStudio
-	
-	* 8000 for Jupyter
+* `8787` for RStudio
+
+* `8000` for Jupyter
 
 ## Requirements
 
