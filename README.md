@@ -29,7 +29,9 @@ To build the image, run the following comand:
 # docker build -t math-server .
 ```
 
-To start the server, use:
+Be patient. It may take up to 8 hours to complete.
+
+After the build is complete, you can start the server with:
 
 ```
 # docker run -d -p 8787:8787 -p 8000:8000 --name ms1 math-server
