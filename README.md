@@ -17,9 +17,45 @@ but often offers outdated packages. In order to provide up-to-date tools, this D
 
 	* Julia 0.5
 
+	* Scheme (provided by *Calysto Scheme* python package)
+
+	* Bash
+
 * [RStudio Server](https://www.rstudio.com/)
 
 * [Shiny Server](https://www.rstudio.com/products/shiny/shiny-server2/)
+
+There's also a number of utilities under the hood:
+
+* p7zip
+
+* java
+
+* memcached
+
+* mongodb
+
+* git
+
+* svn
+
+* sqlite
+
+* pigz
+
+* llvm 3.7.1
+
+* node
+
+* LaTeX (TeX Live)
+
+* LibreOffice
+
+* Support for HDF5
+
+* QuantLib
+
+* [Gambit Scheme](http://gambitscheme.org)
 
 ## Usage
 
