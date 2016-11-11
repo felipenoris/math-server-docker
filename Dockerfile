@@ -210,8 +210,7 @@ RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz
 	&& ./install-tl/install-tl -profile ./texlive.profile --location http://mirrors.rit.edu/CTAN/systems/texlive/tlnet \
 	&& rm -rf install-tl && rm -f install-tl-unx.tar.gz
 
-# TODO: replace hardcoded 2015
-ENV PATH /usr/local/texlive/2015/bin/x86_64-linux:$PATH
+ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 
 # R
 RUN yum -y install \
