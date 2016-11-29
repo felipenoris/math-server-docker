@@ -40,6 +40,7 @@ pip3 install \
 	python-daemon \
 	python-docx \
 	pyyaml \
+	requests \
 	rstr \
 	seaborn \
 	schedule \
