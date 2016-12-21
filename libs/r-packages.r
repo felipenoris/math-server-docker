@@ -2,6 +2,7 @@
 pkgs <- c(
 	"alabama",
 	"base64enc",
+	"bootStepAIC",
 	"caret",
 	"cubature",
 	"data.table",
