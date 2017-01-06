@@ -267,3 +267,5 @@ $ tlmgr --usermode install [pkgname]
 * [R](https://cran.r-project.org/)
 
 * [Julia](http://julialang.org/)
+
+* [Gambit Scheme](http://gambitscheme.org)
