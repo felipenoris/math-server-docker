@@ -25,6 +25,7 @@ RUN yum update -y && yum install -y \
 	bzip2-devel \
 	cmake \
 	curl-devel \
+	czmq \
 	expat-devel \
 	flex \
 	gcc \
@@ -326,6 +327,7 @@ RUN pip3 install ipywidgets \
 # Add Julia kernel
 # https://github.com/JuliaLang/IJulia.jl
 # https://github.com/JuliaLang/IJulia.jl/issues/341
+# Depends on yum install czmq
 RUN julia -e 'Pkg.add("IJulia"); using IJulia'
 
 # registers global kernel
