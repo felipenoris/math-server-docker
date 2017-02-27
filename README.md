@@ -9,9 +9,9 @@ but often offers outdated packages. In order to provide up-to-date tools, this D
 
 * [Jupyterhub](https://github.com/jupyter/jupyterhub) with support for the following languages:
 
-	* Python 2.7
+	* Python 2
 
-	* Python 3.5
+	* Python 3
 
 	* R 3.3.1
 
