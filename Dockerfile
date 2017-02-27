@@ -107,8 +107,8 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py \
 	&& rm -f get-pip.py
 
 # Python 3
-ENV PYTHON3_VER_MAJ 3.5
-ENV PYTHON3_VER_MIN .2
+ENV PYTHON3_VER_MAJ 3.6
+ENV PYTHON3_VER_MIN .0
 ENV PYTHON3_VER $PYTHON3_VER_MAJ$PYTHON3_VER_MIN
 
 RUN wget https://www.python.org/ftp/python/$PYTHON3_VER/Python-$PYTHON3_VER.tar.xz \
