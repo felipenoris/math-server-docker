@@ -12,6 +12,7 @@ CSV
 DataFrames
 DataStreams
 DataStructures
+DataTables
 FactCheck
 Feather
 FileIO
