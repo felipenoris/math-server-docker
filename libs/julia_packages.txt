@@ -1,4 +1,5 @@
 ApproxFun
+BenchmarkTools
 BusinessDays
 BufferedStreams
 Calculus
