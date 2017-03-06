@@ -246,7 +246,7 @@ ENV LIBREOFFICE_VER 5.3.0
 ENV LIBREOFFICE_VER_MINOR .3
 
 RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
-	&& echo "ee369ac8ebf93962314c64abecea2165  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
+	&& echo "de0214a9ec1c4be1abf178c5144becc0  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
 	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
 	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
 	&& tar xf LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
