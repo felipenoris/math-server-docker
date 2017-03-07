@@ -270,7 +270,7 @@ RUN R -e 'install.packages("shiny")' \
 
 # Julia
 ENV JULIA_VER_MAJ 0.5
-ENV JULIA_VER_MIN .0
+ENV JULIA_VER_MIN .1
 ENV JULIA_VER $JULIA_VER_MAJ$JULIA_VER_MIN
 
 RUN wget https://github.com/JuliaLang/julia/releases/download/v$JULIA_VER/julia-$JULIA_VER-full.tar.gz \
