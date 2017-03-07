@@ -29,8 +29,6 @@ GZip
 HDF5
 HttpParser
 HttpServer
-Images
-ImageMagick
 ImplicitEquations
 InterestRates
 JavaCall

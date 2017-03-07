@@ -427,26 +427,6 @@ RUN wget https://github.com/lballabio/QuantLib/archive/QuantLib-$QUANTLIB_VER.ta
 	&& ldconfig \
 	&& cd .. && rm -rf QuantLib-QuantLib-$QUANTLIB_VER && rm -f QuantLib-$QUANTLIB_VER.tar.gz
 
-ADD libs libs
-
-# Install packages
-RUN cd libs && source ./libs_python2.sh
-
-RUN cd libs && source ./libs_python3.sh
-
-RUN cd libs && source ./libs_R.sh
-
-RUN cd libs && julia libs_julia.jl
-
-RUN cd libs && source ./install_JSAnimation.sh
-
-RUN cd libs && source ./install_excel_readers.sh
-
-# Update Python packages
-RUN python2 ./libs/update_pkgs.py 2
-
-RUN python3 ./libs/update_pkgs.py 3
-
 # http://ipyparallel.readthedocs.org/en/latest/
 RUN ipcluster nbextension enable
 
@@ -476,6 +456,30 @@ RUN git clone https://github.com/gambit/gambit.git \
 	&& ln -s /usr/local/Gambit/bin/gambcomp-C /usr/local/bin/gambcomp-C \
 	&& ln -s /usr/local/Gambit/bin/gambdoc /usr/local/bin/gambdoc \
 	&& cd .. && rm -rf gambit
+
+####################
+## Libraries
+####################
+
+ADD libs libs
+
+# Install packages
+RUN cd libs && source ./libs_python2.sh
+
+RUN cd libs && source ./libs_python3.sh
+
+RUN cd libs && source ./libs_R.sh
+
+RUN cd libs && julia libs_julia.jl
+
+RUN cd libs && source ./install_JSAnimation.sh
+
+RUN cd libs && source ./install_excel_readers.sh
+
+# Update Python packages
+RUN python2 ./libs/update_pkgs.py 2
+
+RUN python3 ./libs/update_pkgs.py 3
 
 ####################
 ## Services
