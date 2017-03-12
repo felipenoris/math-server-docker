@@ -47,6 +47,7 @@ MultivariateStats
 NullableArrays
 Optim
 PkgDev
+PlotRecipes
 Plots
 Plotly
 PlotlyJS
