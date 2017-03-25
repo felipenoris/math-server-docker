@@ -77,7 +77,7 @@ ENV LD_LIBRARY_PATH /usr/local/lib
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-ENV GIT_VER 2.12.0
+ENV GIT_VER 2.12.1
 
 RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
 	&& tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
@@ -108,7 +108,7 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py \
 
 # Python 3
 ENV PYTHON3_VER_MAJ 3.6
-ENV PYTHON3_VER_MIN .0
+ENV PYTHON3_VER_MIN .1
 ENV PYTHON3_VER $PYTHON3_VER_MAJ$PYTHON3_VER_MIN
 
 RUN wget https://www.python.org/ftp/python/$PYTHON3_VER/Python-$PYTHON3_VER.tar.xz \
