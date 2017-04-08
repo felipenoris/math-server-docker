@@ -13,7 +13,7 @@ but often offers outdated packages. In order to provide up-to-date tools, this D
 
 	* Python 3
 
-	* R 3.3.1
+	* R
 
 	* Julia 0.5
 
@@ -39,7 +39,7 @@ There's also a number of utilities under the hood:
 
 * svn
 
-* sqlite
+* sqlite3
 
 * pigz
 
@@ -51,11 +51,13 @@ There's also a number of utilities under the hood:
 
 * LibreOffice
 
-* Support for HDF5
+* HDF5
 
 * QuantLib
 
 * [Gambit Scheme](http://gambitscheme.org)
+
+* [uchardet](https://www.freedesktop.org/wiki/Software/uchardet/)
 
 ## Usage
 

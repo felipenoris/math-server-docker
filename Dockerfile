@@ -382,7 +382,7 @@ RUN wget http://zlib.net/pigz/pigz-$PIGZ_VER.tar.gz \
 	&& cp unpigz /usr/local/bin \
 	&& cd .. && rm -rf pigz-$PIGZ_VER && rm -f pigz-$PIGZ_VER.tar.gz
 
-# uchardet
+# uchardet: https://www.freedesktop.org/wiki/Software/uchardet/
 RUN git clone https://anongit.freedesktop.org/git/uchardet/uchardet.git \
 	&& cd uchardet \
 	&& cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release \
