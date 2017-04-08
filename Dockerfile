@@ -73,7 +73,7 @@ ENV PATH /usr/local/sbin:/usr/local/bin:$PATH
 
 ENV CPATH /usr/include/glpk
 
-ENV LD_LIBRARY_PATH /usr/local/lib
+ENV LD_LIBRARY_PATH /usr/local/lib:/usr/local/lib64
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
@@ -381,6 +381,14 @@ RUN wget http://zlib.net/pigz/pigz-$PIGZ_VER.tar.gz \
 	&& cp pigz /usr/local/bin \
 	&& cp unpigz /usr/local/bin \
 	&& cd .. && rm -rf pigz-$PIGZ_VER && rm -f pigz-$PIGZ_VER.tar.gz
+
+# uchardet
+RUN git clone https://anongit.freedesktop.org/git/uchardet/uchardet.git \
+	&& cd uchardet \
+	&& cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release \
+	&& make -j"$(nproc --all)" \
+	&& make install \
+	&& cd .. && rm -rf uchardet
 
 #################
 ## LIBS
