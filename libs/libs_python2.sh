@@ -70,6 +70,11 @@ pip2 install \
 	statistics \
 	h5py
 
+pip2 install \
+	tables \
+	tox \
+	mpld3
+
 # setting version restrictions to use llvm 3.7.1
 pip2 install 'llvmlite<0.13.0'
 pip2 install 'numba<0.28.0'
