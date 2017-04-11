@@ -25,6 +25,7 @@ RUN yum update -y && yum install -y \
 	bzip2-devel \
 	cmake \
 	curl-devel \
+	cronie \
 	czmq \
 	expat-devel \
 	flex \
