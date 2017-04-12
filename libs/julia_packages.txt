@@ -38,6 +38,7 @@ JuMP
 LibBSON
 LightXML
 Libz
+Lint
 Logging
 Lora
 Memcache
