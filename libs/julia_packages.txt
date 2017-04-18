@@ -42,6 +42,7 @@ Lint
 Logging
 Lora
 Memcache
+Memoize
 Mocha
 Mongo
 MultivariateStats

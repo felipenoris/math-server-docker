@@ -49,6 +49,7 @@ pkgs <- c(
 	"mail",
 	"mapproj",
 	"maptools",
+	"memoise",
 	"microbenchmark",
 	"mongolite",
 	"NMOF",
