@@ -454,9 +454,9 @@ ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/R/lib:/usr/local/lib:/lib:/usr/l
 # Gambit-C
 RUN git clone https://github.com/gambit/gambit.git \
 	&& cd gambit \
-	&& ./configure --enable-single-host \
-	&& make -j"$(nproc --all)" latest-release \
-	&& ./configure --enable-single-host \
+	&& ./configure \
+	&& make -j"$(nproc --all)" current-gsc-boot \
+	&& ./configure --enable-single-host --enable-c-opt --enable-gcc-opts \
 	&& make -j"$(nproc --all)" from-scratch \
 	&& make check \
 	&& make install \
