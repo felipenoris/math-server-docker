@@ -10,6 +10,7 @@ Clp
 Coverage
 Compat
 ComposeDiff
+CpuId
 CSV
 DataFrames
 DataStreams
