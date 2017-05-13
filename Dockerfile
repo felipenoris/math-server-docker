@@ -231,10 +231,10 @@ RUN yum -y install \
 RUN echo 'options(repos = c(CRAN="https://ftp.osuosl.org/pub/cran/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
 # RStudio - https://www.rstudio.com/products/rstudio/download-server/
-ENV RSTUDIO_VER 1.0.136
+ENV RSTUDIO_VER 1.0.143
 
 RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
-	&& echo "ed7ebef1eb47f19cdfe05288b77c3336  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
+	&& echo "46456fb1604bf79f1dfeff9053cf5c33  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
 	&& RESULT=$(md5sum -c RSTUDIOMD5) \
 	&& echo ${RESULT} > ~/check-rstudio-md5.txt \
 	&& yum -y install --nogpgcheck rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
@@ -243,11 +243,11 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.r
 
 # Libreoffice - https://www.libreoffice.org/download/libreoffice-fresh/
 # Linux x64 rpm
-ENV LIBREOFFICE_VER 5.3.2
+ENV LIBREOFFICE_VER 5.3.3
 ENV LIBREOFFICE_VER_MINOR .2
 
 RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
-	&& echo "abd262a113c304406b1d165e61ad1680  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
+	&& echo "e9b0c43a7845fa79754ac3fdd7a6a144  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
 	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
 	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
 	&& tar xf LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
@@ -258,11 +258,11 @@ RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/
 	&& rm -rf LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm
 
 # Shiny - https://www.rstudio.com/products/shiny/download-server/
-ENV SHINY_VER 1.5.1.834
+ENV SHINY_VER 1.5.3.838
 
 RUN R -e 'install.packages("shiny")' \
 	&& wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-$SHINY_VER-rh5-x86_64.rpm \
-	&& echo "2423ef792ee5b2aca5fbcf47cd958770  shiny-server-$SHINY_VER-rh5-x86_64.rpm" > SHINYSERVERMD5 \
+	&& echo "2a7d716d2c36597f27f152f43acdef2c  shiny-server-$SHINY_VER-rh5-x86_64.rpm" > SHINYSERVERMD5 \
 	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
 	&& echo ${RESULT} > ~/check-shiny-server-md5.txt \
 	&& yum -y install --nogpgcheck shiny-server-$SHINY_VER-rh5-x86_64.rpm \
