@@ -42,6 +42,7 @@ Libz
 Lint
 Logging
 Lora
+Luxor
 Memcache
 Memoize
 Mocha
