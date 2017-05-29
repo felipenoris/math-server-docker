@@ -64,6 +64,7 @@ RCall
 ReverseDiff
 Roots
 SQLite
+StaticArrays
 StatsBase
 TimeZones
 TimeSeries
