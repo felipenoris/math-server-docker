@@ -190,8 +190,11 @@ RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
 	&& cd .. && rm -f v$NODE_VER.tar.gz && rm -rf node-$NODE_VER
 
 # reinstall npm with the lastest version
-RUN npm cache clean \
-	&& curl -L https://npmjs.org/install.sh | sh
+# Workaround https://github.com/npm/npm/issues/15558
+# with https://github.com/npm/npm/issues/15611#issuecomment-289133810
+RUN npm install npm \
+	&& rm -rf /usr/local/lib/node_modules \
+	&& mv node_modules /usr/local/lib/
 
 # Makes npm work behind proxy if http_proxy variable is set
 RUN npm config set proxy ${http_proxy} \
