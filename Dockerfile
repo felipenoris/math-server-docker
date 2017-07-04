@@ -102,82 +102,15 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
-# pip for Python 2
-RUN curl -O https://bootstrap.pypa.io/get-pip.py \
-	&& python2 get-pip.py \
-	&& rm -f get-pip.py
+# Conda
+RUN wget https://repo.continuum.io/archive/Anaconda2-4.4.0-Linux-x86_64.sh \
+	&& bash Anaconda2-4.4.0-Linux-x86_64.sh -b -p /usr/local/conda/anaconda2
 
-# Python 3
-ENV PYTHON3_VER_MAJ 3.6
-ENV PYTHON3_VER_MIN .1
-ENV PYTHON3_VER $PYTHON3_VER_MAJ$PYTHON3_VER_MIN
+RUN wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh \
+	&& bash Anaconda3-4.4.0-Linux-x86_64.sh -b -p /usr/local/conda/anaconda3
 
-RUN wget https://www.python.org/ftp/python/$PYTHON3_VER/Python-$PYTHON3_VER.tar.xz \
-	&& tar xf Python-$PYTHON3_VER.tar.xz && cd Python-$PYTHON3_VER \
-	&& ./configure --prefix=/usr/local --enable-shared --with-cxx-main=/usr/bin/g++ \
-	&& echo "zlib zlibmodule.c -I\$(prefix)/include -L\$(exec_prefix)/lib -lz" >> ./Modules/Setup \
-	&& make -j"$(nproc --all)" \
-	&& make -j"$(nproc --all)" altinstall \
-	&& ln -s /usr/local/bin/python$PYTHON3_VER_MAJ /usr/local/bin/python3 \
-	&& ln -s /usr/local/bin/pip$PYTHON3_VER_MAJ /usr/local/bin/pip3 \
-	&& ldconfig \
-	&& cd .. && rm -f Python-$PYTHON3_VER.tar.xz && rm -rf Python-$PYTHON3_VER
-
-# Upgrade pip
-# https://pip.pypa.io/en/stable/installing/#upgrading-pip
-RUN pip2 install -U pip
-
-RUN pip3 install -U pip
-
-# LLVM deps
-RUN yum -y install \
-	libedit-devel \
-	libffi-devel \
-	swig \
-	python-devel \
-	&& yum clean all
-
-# LLVM
-# Clang /tools/clang
-# CompilerRT /projects/compiler-rt
-# libc++ /projects/libcxx
-# libc++abi /projects/libcxxabi
-# lldb /tools/lldb
-ENV LLVM_VER 3.7.1
-
-RUN wget http://llvm.org/releases/$LLVM_VER/llvm-$LLVM_VER.src.tar.xz \
-	&& wget http://llvm.org/releases/$LLVM_VER/cfe-$LLVM_VER.src.tar.xz \
-	&& wget http://llvm.org/releases/$LLVM_VER/compiler-rt-$LLVM_VER.src.tar.xz \
-	&& wget http://llvm.org/releases/$LLVM_VER/libcxx-$LLVM_VER.src.tar.xz \
-	&& wget http://llvm.org/releases/$LLVM_VER/libcxxabi-$LLVM_VER.src.tar.xz \
-	&& wget http://llvm.org/releases/$LLVM_VER/lldb-$LLVM_VER.src.tar.xz \
-	&& mkdir llvm \
-	&& tar xf llvm-$LLVM_VER.src.tar.xz -C llvm --strip-components=1 \
-	&& mkdir llvm/tools/clang \
-	&& tar xf cfe-$LLVM_VER.src.tar.xz -C llvm/tools/clang --strip-components=1 \
-	&& mkdir llvm/projects/compiler-rt \
-	&& tar xf compiler-rt-$LLVM_VER.src.tar.xz -C llvm/projects/compiler-rt --strip-components=1 \
-	&& mkdir llvm/projects/libcxx \
-	&& tar xf libcxx-$LLVM_VER.src.tar.xz -C llvm/projects/libcxx --strip-components=1 \
-	&& mkdir llvm/projects/libcxxabi \
-	&& tar xf libcxxabi-$LLVM_VER.src.tar.xz -C llvm/projects/libcxxabi --strip-components=1 \
-	&& mkdir llvm/tools/lldb \
-	&& tar xf lldb-$LLVM_VER.src.tar.xz -C llvm/tools/lldb --strip-components=1 \
-	&& rm -f *tar.xz
-
-# http://llvm.org/docs/CMake.html
-# find / -iname 'ffi.h'
-# cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release -DLLVM_BUILD_LLVM_DYLIB=ON -DLLVM_ENABLE_PIC=ON -DLLVM_ENABLE_FFI=ON -DFFI_INCLUDE_DIR=/usr/lib64/libffi-3.0.5/include  ../llvm
-RUN mkdir ~/llvm_build \
-	&& cd ~/llvm_build \
-	&& ../llvm/configure --enable-shared
-
-RUN cd ~/llvm_build \
-	&& make ENABLE_OPTIMIZED=1 DISABLE_ASSERTIONS=1 -j"$(nproc --all)" \
-	&& make -j"$(nproc --all)" install \
-	&& ln -s /usr/local/lib/libLLVM-$LLVM_VER.so /usr/local/lib/libLLVM.so \
-	&& ldconfig \
-	&& cd .. && rm -rf llvm_build && rm -rf llvm
+RUN ln -s /usr/local/conda/anaconda2/bin/pip /usr/local/bin/pip2 \
+    && ln -s /usr/local/conda/anaconda3/bin/pip /usr/local/bin/pip3
 
 # node
 ENV NODE_VER 7.6.0
@@ -300,6 +233,17 @@ ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
 # Init package folder on root's home folder
 RUN julia -e 'Pkg.init()'
 
+
+##### CHECAR DAQUI PRA BAIXO
+
+# https://anaconda.org/conda-forge/jupyterhub -> instala node 6.2 e configurable-http-proxy
+RUN /usr/local/conda/anaconda3/bin/conda install -c conda-forge jupyterhub=0.7.2
+
+RUN ln -s /usr/local/conda/anaconda3/bin/jupyterhub /usr/local/bin/jupyterhub
+
+# for Jupyter
+#RUN npm install -g configurable-http-proxy
+
 # Jupyter
 # Add python2.7 kernel: https://github.com/jupyter/jupyter/issues/71
 RUN pip2 install \
@@ -318,8 +262,6 @@ RUN pip3 install \
 	ipyparallel \
 	enum34 \
 	&& python3 -m ipykernel install
-
-RUN npm install -g configurable-http-proxy
 
 # ipywidgets: https://github.com/ipython/ipywidgets
 RUN pip3 install ipywidgets \
