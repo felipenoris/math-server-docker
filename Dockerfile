@@ -385,13 +385,13 @@ RUN wget https://github.com/lballabio/QuantLib/archive/QuantLib-$QUANTLIB_VER.ta
 RUN ipcluster nbextension enable
 
 # fix yum (issue #10)
-RUN wget https://pypi.python.org/packages/12/3f/557356b60d8e59a1cce62ffc07ecc03e4f8a202c86adae34d895826281fb/pycurl-7.43.0.tar.gz#md5=c94bdba01da6004fa38325e9bd6b9760 \
-	&& tar xf pycurl-7.43.0.tar.gz \
-	&& cd pycurl-7.43.0 \
-	&& python setup.py --with-nss install \
-	&& cd .. \
-	&& rm -f pycurl-7.43.0.tar.gz \
-	&& rm -rf pycurl-7.43.0
+#RUN wget https://pypi.python.org/packages/12/3f/557356b60d8e59a1cce62ffc07ecc03e4f8a202c86adae34d895826281fb/pycurl-7.43.0.tar.gz#md5=c94bdba01da6004fa38325e9bd6b9760 \
+#	&& tar xf pycurl-7.43.0.tar.gz \
+#	&& cd pycurl-7.43.0 \
+#	&& python setup.py --with-nss install \
+#	&& cd .. \
+#	&& rm -f pycurl-7.43.0.tar.gz \
+#	&& rm -rf pycurl-7.43.0
 
 # Improve link to shared libraries
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/R/lib:/usr/local/lib:/lib:/usr/lib/jvm/jre/lib/amd64/server:/usr/lib/jvm/jre/lib/amd64:/usr/lib/jvm/java/lib/amd64:/usr/java/packages/lib/amd64:/lib:/usr/lib:/usr/local/lib
@@ -418,22 +418,22 @@ RUN git clone https://github.com/gambit/gambit.git \
 ADD libs libs
 
 # Install packages
-RUN cd libs && source ./libs_python2.sh
+#RUN cd libs && source ./libs_python2.sh
 
-RUN cd libs && source ./libs_python3.sh
+#RUN cd libs && source ./libs_python3.sh
 
 RUN cd libs && source ./libs_R.sh
 
 RUN cd libs && julia libs_julia.jl
 
-RUN cd libs && source ./install_JSAnimation.sh
+#RUN cd libs && source ./install_JSAnimation.sh
 
-RUN cd libs && source ./install_excel_readers.sh
+#RUN cd libs && source ./install_excel_readers.sh
 
 # Update Python packages
-RUN python2 ./libs/update_pkgs.py 2
+#RUN python2 ./libs/update_pkgs.py 2
 
-RUN python3 ./libs/update_pkgs.py 3
+#RUN python3 ./libs/update_pkgs.py 3
 
 ####################
 ## Services
