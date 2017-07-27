@@ -237,36 +237,36 @@ RUN julia -e 'Pkg.init()'
 ##### CHECAR DAQUI PRA BAIXO
 
 # https://anaconda.org/conda-forge/jupyterhub -> instala node 6.2 e configurable-http-proxy
-RUN /usr/local/conda/anaconda3/bin/conda install -c conda-forge jupyterhub=0.7.2
+RUN /usr/local/conda/anaconda3/bin/conda install -c conda-forge jupyterhub
 
 RUN ln -s /usr/local/conda/anaconda3/bin/jupyterhub /usr/local/bin/jupyterhub
 
 # for Jupyter
-#RUN npm install -g configurable-http-proxy
+RUN npm install -g configurable-http-proxy
 
 # Jupyter
 # Add python2.7 kernel: https://github.com/jupyter/jupyter/issues/71
-RUN pip2 install \
-	IPython \
-	notebook \
-	ipykernel \
-	ipyparallel \
-	enum34 \
-	&& python2 -m ipykernel install
+#RUN pip2 install \
+#	IPython \
+#	notebook \
+#	ipykernel \
+#	ipyparallel \
+#	enum34 \
+#	&& python2 -m ipykernel install
 
-RUN pip3 install \
-	IPython \
-	jupyterhub \
-	notebook \
-	ipykernel \
-	ipyparallel \
-	enum34 \
-	&& python3 -m ipykernel install
+#RUN pip3 install \
+#	IPython \
+#	jupyterhub \
+#	notebook \
+#	ipykernel \
+#	ipyparallel \
+#	enum34 \
+#	&& python3 -m ipykernel install
 
 # ipywidgets: https://github.com/ipython/ipywidgets
-RUN pip3 install ipywidgets \
-	&& pip2 install ipywidgets \
-	&& jupyter nbextension enable --py --sys-prefix widgetsnbextension
+#RUN pip3 install ipywidgets \
+#	&& pip2 install ipywidgets \
+#	&& jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 # Support for other languages
 # https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
@@ -278,10 +278,10 @@ RUN pip3 install ipywidgets \
 RUN julia -e 'Pkg.add("IJulia"); using IJulia'
 
 # registers global kernel
-RUN cp -r ~/.local/share/jupyter/kernels/julia-$JULIA_VER_MAJ /usr/local/share/jupyter/kernels
+RUN cp -r ~/.local/share/jupyter/kernels/julia-$JULIA_VER_MAJ /usr/local/conda/anaconda3/share/jupyter/kernels
 
 # rewrite julia's kernel configuration
-ADD julia-kernel.json /usr/local/share/jupyter/kernels/julia-$JULIA_VER_MAJ/kernel.json
+ADD julia-kernel.json /usr/local/conda/anaconda3/share/jupyter/kernels/julia-$JULIA_VER_MAJ/kernel.json
 
 # R
 # http://irkernel.github.io/installation/
@@ -290,7 +290,7 @@ RUN yum -y install czmq-devel && yum clean all
 RUN R -e 'install.packages(c("pbdZMQ", "devtools"))' \
 	&& R -e 'devtools::install_github(paste0("IRkernel/", c("repr", "IRdisplay", "IRkernel")))'
 
-RUN cp -r /usr/lib64/R/library/IRkernel/kernelspec /usr/local/share/jupyter/kernels/R
+RUN cp -r /usr/lib64/R/library/IRkernel/kernelspec /usr/local/conda/anaconda3/share/jupyter/kernels/R
 
 # Optional configuration file for svn
 ADD svn-servers /etc/subversion/servers
@@ -310,12 +310,12 @@ RUN git clone --branch=stable/$SYMPHONY_VER https://github.com/coin-or/SYMPHONY 
 	&& cd .. && rm -rf SYMPHONY-$SYMPHONY_VER
 
 # calysto-scheme Jupyter kernel
-RUN pip3 install --upgrade calysto-scheme \
-	&& python3 -m calysto_scheme install
+#RUN pip3 install --upgrade calysto-scheme \
+#	&& python3 -m calysto_scheme install
 
 # bash Jupyter kernel
-RUN pip3 install bash_kernel \
-	&& python3 -m bash_kernel.install
+#RUN pip3 install bash_kernel \
+#	&& python3 -m bash_kernel.install
 
 # pigz: http://zlib.net/pigz/
 ENV PIGZ_VER 2.3.4
@@ -382,7 +382,7 @@ RUN wget https://github.com/lballabio/QuantLib/archive/QuantLib-$QUANTLIB_VER.ta
 	&& cd .. && rm -rf QuantLib-QuantLib-$QUANTLIB_VER && rm -f QuantLib-$QUANTLIB_VER.tar.gz
 
 # http://ipyparallel.readthedocs.org/en/latest/
-RUN ipcluster nbextension enable
+#RUN ipcluster nbextension enable
 
 # fix yum (issue #10)
 #RUN wget https://pypi.python.org/packages/12/3f/557356b60d8e59a1cce62ffc07ecc03e4f8a202c86adae34d895826281fb/pycurl-7.43.0.tar.gz#md5=c94bdba01da6004fa38325e9bd6b9760 \
