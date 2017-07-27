@@ -78,7 +78,7 @@ ENV LD_LIBRARY_PATH /usr/local/lib:/usr/local/lib64
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-ENV GIT_VER 2.13.1
+ENV GIT_VER 2.13.3
 
 RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
 	&& tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
