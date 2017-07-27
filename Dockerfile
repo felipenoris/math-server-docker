@@ -109,6 +109,8 @@ RUN wget https://repo.continuum.io/archive/Anaconda2-4.4.0-Linux-x86_64.sh \
 RUN wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh \
 	&& bash Anaconda3-4.4.0-Linux-x86_64.sh -b -p /usr/local/conda/anaconda3
 
+ENV PATH $PATH:/usr/local/conda/anaconda3/bin
+
 RUN ln -s /usr/local/conda/anaconda2/bin/pip /usr/local/bin/pip2 \
     && ln -s /usr/local/conda/anaconda3/bin/pip /usr/local/bin/pip3
 
