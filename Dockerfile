@@ -102,40 +102,72 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
+# node
+#ENV NODE_VER 7.6.0
+
+#RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
+#	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
+#	&& ./configure \
+#	&& make -j"$(nproc --all)" \
+#	&& make -j"$(nproc --all)" install \
+#	&& cd .. && rm -f v$NODE_VER.tar.gz && rm -rf node-$NODE_VER
+
+# reinstall npm with the lastest version
+# Workaround https://github.com/npm/npm/issues/15558
+# with https://github.com/npm/npm/issues/15611#issuecomment-289133810
+#RUN npm install npm \
+#	&& rm -rf /usr/local/lib/node_modules \
+#	&& mv node_modules /usr/local/lib/
+
+# Makes npm work behind proxy if http_proxy variable is set
+#RUN npm config set proxy ${http_proxy} \
+#	&& npm config set https-proxy ${https_proxy} \
+#	&& npm config set registry http://registry.npmjs.org/ \
+#	&& npm set strict-ssl false
+
+# for Jupyter
+#RUN npm install -g configurable-http-proxy
+
 # Conda
-RUN wget https://repo.continuum.io/archive/Anaconda2-4.4.0-Linux-x86_64.sh \
-	&& bash Anaconda2-4.4.0-Linux-x86_64.sh -b -p /usr/local/conda/anaconda2
+#RUN wget https://repo.continuum.io/archive/Anaconda2-4.4.0-Linux-x86_64.sh \
+#	&& bash Anaconda2-4.4.0-Linux-x86_64.sh -b -p /usr/local/conda/anaconda2
 
 RUN wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh \
 	&& bash Anaconda3-4.4.0-Linux-x86_64.sh -b -p /usr/local/conda/anaconda3
 
 ENV PATH $PATH:/usr/local/conda/anaconda3/bin
 
-RUN ln -s /usr/local/conda/anaconda2/bin/pip /usr/local/bin/pip2 \
-    && ln -s /usr/local/conda/anaconda3/bin/pip /usr/local/bin/pip3
+#RUN ln -s /usr/local/conda/anaconda2/bin/pip /usr/local/bin/pip2 \
+#    && ln -s /usr/local/conda/anaconda3/bin/pip /usr/local/bin/pip3
 
-# node
-ENV NODE_VER 7.6.0
+# Install py2 and py3 envs, and registers jupyterhub kernels
+# https://github.com/jupyter/jupyter/issues/71
 
-RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
-	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
-	&& ./configure \
-	&& make -j"$(nproc --all)" \
-	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -f v$NODE_VER.tar.gz && rm -rf node-$NODE_VER
+# install everything (except JupyterHub itself) with Python 2 and 3. Jupyter is included in Anaconda.
+RUN conda create -n py3 python=3 anaconda \
+	&& conda create -n py2 python=2 anaconda
 
-# reinstall npm with the lastest version
-# Workaround https://github.com/npm/npm/issues/15558
-# with https://github.com/npm/npm/issues/15611#issuecomment-289133810
-RUN npm install npm \
-	&& rm -rf /usr/local/lib/node_modules \
-	&& mv node_modules /usr/local/lib/
+# register py2 kernel
+RUN source activate py2 && ipython kernel install
 
-# Makes npm work behind proxy if http_proxy variable is set
-RUN npm config set proxy ${http_proxy} \
-	&& npm config set https-proxy ${https_proxy} \
-	&& npm config set registry http://registry.npmjs.org/ \
-	&& npm set strict-ssl false
+# same for py3, and install juptyerhub in the py3 env
+# && pip install jupyterhub
+RUN source activate py3 && ipython kernel install
+
+RUN conda install -c conda-forge jupyterhub
+
+# https://anaconda.org/conda-forge/jupyterhub -> instala node 6.2 e configurable-http-proxy
+#RUN /usr/local/conda/anaconda3/bin/conda install -c conda-forge jupyterhub
+#RUN conda install -c conda-forge jupyterhub \
+#	&& ln -s /usr/local/conda/anaconda3/bin/jupyterhub /usr/local/bin/jupyterhub
+
+# ipywidgets: https://github.com/ipython/ipywidgets
+#RUN pip3 install ipywidgets \
+#	&& pip2 install ipywidgets \
+#	&& jupyter nbextension enable --py --sys-prefix widgetsnbextension
+
+# Support for other languages
+# https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
 
 # TeX
 RUN yum -y install perl-Tk perl-Digest-MD5 && yum clean all
@@ -235,44 +267,6 @@ ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
 # Init package folder on root's home folder
 RUN julia -e 'Pkg.init()'
 
-
-##### CHECAR DAQUI PRA BAIXO
-
-# https://anaconda.org/conda-forge/jupyterhub -> instala node 6.2 e configurable-http-proxy
-RUN /usr/local/conda/anaconda3/bin/conda install -c conda-forge jupyterhub
-
-RUN ln -s /usr/local/conda/anaconda3/bin/jupyterhub /usr/local/bin/jupyterhub
-
-# for Jupyter
-RUN npm install -g configurable-http-proxy
-
-# Jupyter
-# Add python2.7 kernel: https://github.com/jupyter/jupyter/issues/71
-#RUN pip2 install \
-#	IPython \
-#	notebook \
-#	ipykernel \
-#	ipyparallel \
-#	enum34 \
-#	&& python2 -m ipykernel install
-
-#RUN pip3 install \
-#	IPython \
-#	jupyterhub \
-#	notebook \
-#	ipykernel \
-#	ipyparallel \
-#	enum34 \
-#	&& python3 -m ipykernel install
-
-# ipywidgets: https://github.com/ipython/ipywidgets
-#RUN pip3 install ipywidgets \
-#	&& pip2 install ipywidgets \
-#	&& jupyter nbextension enable --py --sys-prefix widgetsnbextension
-
-# Support for other languages
-# https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
-
 # Add Julia kernel
 # https://github.com/JuliaLang/IJulia.jl
 # https://github.com/JuliaLang/IJulia.jl/issues/341
@@ -289,9 +283,10 @@ ADD julia-kernel.json /usr/local/conda/anaconda3/share/jupyter/kernels/julia-$JU
 # http://irkernel.github.io/installation/
 RUN yum -y install czmq-devel && yum clean all
 
-RUN R -e 'install.packages(c("pbdZMQ", "devtools"))' \
-	&& R -e 'devtools::install_github(paste0("IRkernel/", c("repr", "IRdisplay", "IRkernel")))'
-
+RUN R -e 'install.packages("devtools")'
+RUN R -e 'install.packages("pbdZMQ")'
+RUN R -e 'devtools::install_github("IRkernel/IRkernel")'
+RUN R -e 'IRkernel::installspec()'
 RUN cp -r /usr/lib64/R/library/IRkernel/kernelspec /usr/local/conda/anaconda3/share/jupyter/kernels/R
 
 # Optional configuration file for svn
@@ -337,6 +332,18 @@ RUN git clone https://anongit.freedesktop.org/git/uchardet/uchardet.git \
 	&& make -j"$(nproc --all)" \
 	&& make install \
 	&& cd .. && rm -rf uchardet
+
+# GOLANG
+ENV GOVERSION 1.8.3
+
+RUN wget https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz \
+	&& tar xf go$GOVERSION.linux-amd64.tar.gz \
+	&& mv go /usr/local \
+	&& rm go$GOVERSION.linux-amd64.tar.gz
+
+ENV GOROOT /usr/local/go
+
+ENV PATH $GOROOT/bin:$PATH
 
 #################
 ## LIBS
@@ -386,15 +393,6 @@ RUN wget https://github.com/lballabio/QuantLib/archive/QuantLib-$QUANTLIB_VER.ta
 # http://ipyparallel.readthedocs.org/en/latest/
 #RUN ipcluster nbextension enable
 
-# fix yum (issue #10)
-#RUN wget https://pypi.python.org/packages/12/3f/557356b60d8e59a1cce62ffc07ecc03e4f8a202c86adae34d895826281fb/pycurl-7.43.0.tar.gz#md5=c94bdba01da6004fa38325e9bd6b9760 \
-#	&& tar xf pycurl-7.43.0.tar.gz \
-#	&& cd pycurl-7.43.0 \
-#	&& python setup.py --with-nss install \
-#	&& cd .. \
-#	&& rm -f pycurl-7.43.0.tar.gz \
-#	&& rm -rf pycurl-7.43.0
-
 # Improve link to shared libraries
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/R/lib:/usr/local/lib:/lib:/usr/lib/jvm/jre/lib/amd64/server:/usr/lib/jvm/jre/lib/amd64:/usr/lib/jvm/java/lib/amd64:/usr/java/packages/lib/amd64:/lib:/usr/lib:/usr/local/lib
 
@@ -430,7 +428,7 @@ RUN cd libs && julia libs_julia.jl
 
 #RUN cd libs && source ./install_JSAnimation.sh
 
-#RUN cd libs && source ./install_excel_readers.sh
+RUN cd libs && source ./install_excel_readers.sh
 
 # Update Python packages
 #RUN python2 ./libs/update_pkgs.py 2
