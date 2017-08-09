@@ -102,43 +102,10 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
-# node
-#ENV NODE_VER 7.6.0
-
-#RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
-#	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
-#	&& ./configure \
-#	&& make -j"$(nproc --all)" \
-#	&& make -j"$(nproc --all)" install \
-#	&& cd .. && rm -f v$NODE_VER.tar.gz && rm -rf node-$NODE_VER
-
-# reinstall npm with the lastest version
-# Workaround https://github.com/npm/npm/issues/15558
-# with https://github.com/npm/npm/issues/15611#issuecomment-289133810
-#RUN npm install npm \
-#	&& rm -rf /usr/local/lib/node_modules \
-#	&& mv node_modules /usr/local/lib/
-
-# Makes npm work behind proxy if http_proxy variable is set
-#RUN npm config set proxy ${http_proxy} \
-#	&& npm config set https-proxy ${https_proxy} \
-#	&& npm config set registry http://registry.npmjs.org/ \
-#	&& npm set strict-ssl false
-
-# for Jupyter
-#RUN npm install -g configurable-http-proxy
-
-# Conda
-#RUN wget https://repo.continuum.io/archive/Anaconda2-4.4.0-Linux-x86_64.sh \
-#	&& bash Anaconda2-4.4.0-Linux-x86_64.sh -b -p /usr/local/conda/anaconda2
-
 RUN wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh \
 	&& bash Anaconda3-4.4.0-Linux-x86_64.sh -b -p /usr/local/conda/anaconda3
 
 ENV PATH $PATH:/usr/local/conda/anaconda3/bin
-
-#RUN ln -s /usr/local/conda/anaconda2/bin/pip /usr/local/bin/pip2 \
-#    && ln -s /usr/local/conda/anaconda3/bin/pip /usr/local/bin/pip3
 
 # Install py2 and py3 envs, and registers jupyterhub kernels
 # https://github.com/jupyter/jupyter/issues/71
@@ -151,15 +118,15 @@ RUN conda create -n py3 python=3 anaconda \
 RUN source activate py2 && ipython kernel install
 
 # same for py3, and install juptyerhub in the py3 env
-# && pip install jupyterhub
 RUN source activate py3 && ipython kernel install
 
 RUN conda install -c conda-forge jupyterhub
 
-# https://anaconda.org/conda-forge/jupyterhub -> instala node 6.2 e configurable-http-proxy
-#RUN /usr/local/conda/anaconda3/bin/conda install -c conda-forge jupyterhub
-#RUN conda install -c conda-forge jupyterhub \
-#	&& ln -s /usr/local/conda/anaconda3/bin/jupyterhub /usr/local/bin/jupyterhub
+# Makes npm work behind proxy if http_proxy variable is set
+RUN npm config set proxy ${http_proxy} \
+	&& npm config set https-proxy ${https_proxy} \
+	&& npm config set registry http://registry.npmjs.org/ \
+	&& npm set strict-ssl false
 
 # ipywidgets: https://github.com/ipython/ipywidgets
 #RUN pip3 install ipywidgets \
