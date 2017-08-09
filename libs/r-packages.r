@@ -43,6 +43,7 @@ pkgs <- c(
 	"knitr",
 	"leaps",
 	"linprog",
+	"longitudinalData",
 	"lubridate",
 	"lpSolve",
 	"lpSolveAPI",
