@@ -1,3 +1,4 @@
+
 # math-server-docker
 
 Dockerfile to build the ideal multi-user Data Science server with Jupyterhub and RStudio, ready for Python, R and Julia languages.
@@ -58,6 +59,8 @@ There's also a number of utilities under the hood:
 * [Gambit Scheme](http://gambitscheme.org)
 
 * [uchardet](https://www.freedesktop.org/wiki/Software/uchardet/)
+
+* [Go Language](https://golang.org/)
 
 ## Usage
 
