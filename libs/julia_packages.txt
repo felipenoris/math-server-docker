@@ -16,6 +16,7 @@ DataFrames
 DataStreams
 DataStructures
 DataTables
+ExcelReaders
 FactCheck
 Feather
 FileIO

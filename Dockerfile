@@ -400,8 +400,6 @@ RUN cd libs && julia libs_julia.jl
 
 #RUN cd libs && source ./install_JSAnimation.sh
 
-RUN cd libs && source ./install_excel_readers.sh
-
 # Update Python packages
 #RUN python2 ./libs/update_pkgs.py 2
 
