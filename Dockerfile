@@ -114,6 +114,9 @@ ENV PATH $PATH:/usr/local/conda/anaconda3/bin
 RUN conda create -n py3 python=3 anaconda \
 	&& conda create -n py2 python=2 anaconda
 
+# Set PYTHON env variable to point to Python2. This will be used by PyCall.jl julia package.
+ENV PYTHON /usr/local/conda/anaconda3/envs/py2/bin/python
+
 # register py2 kernel
 RUN source activate py2 && ipython kernel install
 
