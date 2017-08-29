@@ -277,12 +277,12 @@ RUN git clone --branch=stable/$SYMPHONY_VER https://github.com/coin-or/SYMPHONY 
 	&& cd .. && rm -rf SYMPHONY-$SYMPHONY_VER
 
 # calysto-scheme Jupyter kernel
-#RUN pip3 install --upgrade calysto-scheme \
-#	&& python3 -m calysto_scheme install
+RUN pip install --upgrade calysto-scheme \
+	&& python3 -m calysto_scheme install
 
 # bash Jupyter kernel
-#RUN pip3 install bash_kernel \
-#	&& python3 -m bash_kernel.install
+RUN pip install bash_kernel \
+	&& python3 -m bash_kernel.install
 
 # pigz: http://zlib.net/pigz/
 ENV PIGZ_VER 2.3.4
