@@ -137,7 +137,7 @@ RUN npm config set proxy ${http_proxy} \
 #	&& jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 # Support for other languages
-# https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages
+# https://github.com/jupyter/jupyter/wiki/Jupyter-kernels
 
 # TeX
 RUN yum -y install perl-Tk perl-Digest-MD5 && yum clean all
