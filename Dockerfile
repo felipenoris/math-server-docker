@@ -132,9 +132,7 @@ RUN npm config set proxy ${http_proxy} \
 	&& npm set strict-ssl false
 
 # ipywidgets: https://github.com/ipython/ipywidgets
-#RUN pip3 install ipywidgets \
-#	&& pip2 install ipywidgets \
-#	&& jupyter nbextension enable --py --sys-prefix widgetsnbextension
+RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 # Support for other languages
 # https://github.com/jupyter/jupyter/wiki/Jupyter-kernels
