@@ -3,7 +3,7 @@
 
 git clone https://github.com/jakevdp/JSAnimation.git
 cd JSAnimation
-python2 setup.py install
+/usr/local/conda/anaconda3/envs/py2/bin/python setup.py install
 python3 setup.py install
 cd ..
 rm -rf JSAnimation
