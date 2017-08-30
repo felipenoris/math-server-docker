@@ -7,3 +7,5 @@ c.Spawner.env_keep = [ 'PATH', 'LD_LIBRARY_PATH', 'JAVA_HOME', 'CPATH', 'CMAKE_R
 # 
 # If unspecified, only the user that launches the server will be admin.
 #c.Authenticator.admin_users = set(['admin'])
+
+c.JupyterHub.extra_log_file = '/var/log/jupyterhub.log'
