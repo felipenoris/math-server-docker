@@ -1,8 +1,6 @@
 #!/bin/sh
 
-pip2 install \
-	numpy \
-	virtualenv \
+/usr/local/conda/anaconda3/envs/py2/bin/pip install \
 	pypandoc
 
 pip2 install distribute

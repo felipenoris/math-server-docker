@@ -1,8 +1,6 @@
 #!/bin/sh
 
-pip3 install \
-	numpy \
-	virtualenv \
+pip install \
 	pypandoc
 
 pip3 install distribute
