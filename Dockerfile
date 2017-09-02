@@ -391,9 +391,9 @@ RUN rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro \
 ADD libs libs
 
 # Install packages
-#RUN cd libs && source ./libs_python2.sh
+RUN cd libs && source ./libs_python2.sh
 
-#RUN cd libs && source ./libs_python3.sh
+RUN cd libs && source ./libs_python3.sh
 
 RUN cd libs && source ./libs_R.sh
 
