@@ -1,6 +1,7 @@
 #!/bin/sh
 
 /usr/local/conda/anaconda3/envs/py2/bin/pip install \
+	arch \
 	pypandoc \
 	attrs \
 	bcolz \
@@ -12,4 +13,34 @@
 	characteristic \
 	colander \
 	coverage \
-	csvkit
+	csvkit \
+	cymem \
+	cytoolz \
+	dask \
+	datetime \
+	deap \
+	docx \
+	jsonschema \
+	names \
+	pymemcache \
+	pymongo \
+	pytest-cov \
+	pytest-html \
+	python-daemon \
+	python-docx \
+	pyyaml \
+	requests \
+	rstr \
+	seaborn \
+	schedule \
+	scikit-learn \
+	simplejson \
+	sphinx \
+	spyder \
+	sqlalchemy \
+	sympy \
+	sqlparse \
+	suds-jurko \
+	xlsxwriter \
+	tox \
+	mpld3

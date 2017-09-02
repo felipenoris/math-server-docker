@@ -395,11 +395,11 @@ RUN cd libs && source ./libs_python2.sh
 
 RUN cd libs && source ./libs_python3.sh
 
-#RUN cd libs && source ./libs_R.sh
+RUN cd libs && source ./libs_R.sh
 
-#RUN cd libs && julia libs_julia.jl
+RUN cd libs && julia libs_julia.jl
 
-#RUN cd libs && source ./install_JSAnimation.sh
+RUN cd libs && source ./install_JSAnimation.sh
 
 # Update Python packages
 #RUN python2 ./libs/update_pkgs.py 2
