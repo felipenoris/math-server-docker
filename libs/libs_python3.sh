@@ -1,6 +1,7 @@
 #!/bin/sh
 
-pip install pypandoc \
+pip install \
+	pypandoc \
 	deap
 
 pip install \

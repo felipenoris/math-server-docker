@@ -1,6 +1,7 @@
 #!/bin/sh
 
-/usr/local/conda/anaconda3/envs/py2/bin/pip install pypandoc \
+/usr/local/conda/anaconda3/envs/py2/bin/pip install \
+	pypandoc \
 	deap
 
 /usr/local/conda/anaconda3/envs/py2/bin/pip install \
