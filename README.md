@@ -16,7 +16,7 @@ but often offers outdated packages. In order to provide up-to-date tools, this D
 
 	* R
 
-	* Julia 0.5
+	* Julia 0.6
 
 	* Scheme (provided by *Calysto Scheme* python package)
 
