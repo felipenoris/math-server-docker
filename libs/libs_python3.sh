@@ -1,8 +1,10 @@
 #!/bin/sh
 
+pip install pypandoc \
+	deap
+
 pip install \
 	arch \
-	pypandoc \
 	attrs \
 	bcolz \
 	bcrypt \
@@ -18,7 +20,6 @@ pip install \
 	cytoolz \
 	dask \
 	datetime \
-	deap \
 	docx \
 	jsonschema \
 	names \

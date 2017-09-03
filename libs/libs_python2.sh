@@ -1,8 +1,10 @@
 #!/bin/sh
 
+/usr/local/conda/anaconda3/envs/py2/bin/pip install pypandoc \
+	deap
+
 /usr/local/conda/anaconda3/envs/py2/bin/pip install \
 	arch \
-	pypandoc \
 	attrs \
 	bcolz \
 	bcrypt \
@@ -18,7 +20,6 @@
 	cytoolz \
 	dask \
 	datetime \
-	deap \
 	docx \
 	jsonschema \
 	names \
