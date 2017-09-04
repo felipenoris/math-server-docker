@@ -310,6 +310,10 @@ ENV GOROOT /usr/local/go
 
 ENV PATH $GOROOT/bin:$PATH
 
+# SCALA: http://www.scala-sbt.org/0.13/docs/Installing-sbt-on-Linux.html
+RUN curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo \
+	&& yum install sbt
+
 #################
 ## LIBS
 #################
