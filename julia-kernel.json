@@ -1,10 +1,10 @@
 {
-  "display_name": "Julia 0.5",
+  "display_name": "Julia 0.6",
   "argv": [
     "/usr/local/julia/bin/julia",
     "-i",
     "-F",
-    "/usr/local/julia/share/julia/site/v0.5/IJulia/src/kernel.jl",
+    "/usr/local/julia/share/julia/site/v0.6/IJulia/src/kernel.jl",
     "{connection_file}"
   ],
   "language": "julia"
