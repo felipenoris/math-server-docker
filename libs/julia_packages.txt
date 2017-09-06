@@ -74,3 +74,4 @@ TypedTables
 UnicodePlots
 WebSockets
 Escher
+ZipFile
