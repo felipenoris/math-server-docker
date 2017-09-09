@@ -196,11 +196,11 @@ RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/
 	&& rm -rf LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm
 
 # Shiny - https://www.rstudio.com/products/shiny/download-server/
-ENV SHINY_VER 1.5.3.838
+ENV SHINY_VER 1.5.4.869
 
 RUN R -e 'install.packages("shiny")' \
 	&& wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-$SHINY_VER-rh5-x86_64.rpm \
-	&& echo "2a7d716d2c36597f27f152f43acdef2c  shiny-server-$SHINY_VER-rh5-x86_64.rpm" > SHINYSERVERMD5 \
+	&& echo "7254e2f890596e23bf3973e2173b89dd  shiny-server-$SHINY_VER-rh5-x86_64.rpm" > SHINYSERVERMD5 \
 	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
 	&& echo ${RESULT} > ~/check-shiny-server-md5.txt \
 	&& yum -y install --nogpgcheck shiny-server-$SHINY_VER-rh5-x86_64.rpm \
