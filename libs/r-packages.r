@@ -69,6 +69,8 @@ pkgs <- c(
 	"rJava",
 	"readr",
 	"reshape",
+	"rgeos",
+	"rgdal",
 	"rmarkdown",
 	"Rmpfr",
 	"rjson",
@@ -93,7 +95,7 @@ pkgs <- c(
 	"xml2",
 	"xts",
 	"zoo"
-	)
+)
 
 install.packages(pkgs)
 

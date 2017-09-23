@@ -325,6 +325,8 @@ RUN yum -y install \
 	freeglut \
 	freeglut-devel \
 	freetype-devel \
+	geos-devel \
+	gdal-devel \
 	glpk-devel \
 	gsl-devel \
 	gtk3-devel \
@@ -342,6 +344,9 @@ RUN yum -y install \
 	libzip-devel \
 	mpfr-devel \
 	pandoc \
+	proj-devel \
+	proj-epsg \
+	proj-nad \
 	tcl-devel \
 	tk-devel \
 	&& yum clean all
