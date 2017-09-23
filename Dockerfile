@@ -340,6 +340,7 @@ RUN yum -y install \
 	libxslt-devel \
 	libxml2-devel \
 	libzip-devel \
+	mpfr-devel \
 	pandoc \
 	tcl-devel \
 	tk-devel \
