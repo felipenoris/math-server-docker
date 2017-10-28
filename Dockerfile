@@ -299,7 +299,7 @@ RUN git clone https://anongit.freedesktop.org/git/uchardet/uchardet.git \
 	&& cd .. && rm -rf uchardet
 
 # GOLANG
-ENV GOVERSION 1.9.1
+ENV GOVERSION 1.9.2
 
 RUN wget https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz \
 	&& tar xf go$GOVERSION.linux-amd64.tar.gz \
