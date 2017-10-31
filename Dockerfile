@@ -213,7 +213,8 @@ ENV JULIA_VER_MIN .1
 ENV JULIA_VER $JULIA_VER_MAJ$JULIA_VER_MIN
 
 RUN wget https://github.com/JuliaLang/julia/releases/download/v$JULIA_VER/julia-$JULIA_VER-full.tar.gz \
-		&& tar xf julia-$JULIA_VER-full.tar.gz
+		&& mkdir julia-$JULIA_VER \
+		&& tar xf julia-$JULIA_VER-full.tar.gz --directory ./julia-$JULIA_VER --strip-components=1
 
 ADD julia-Make.user julia-$JULIA_VER/Make.user
 
