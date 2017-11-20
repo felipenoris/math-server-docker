@@ -102,7 +102,9 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
-RUN wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh \
+ENV CONDA_VER 5.0.1
+
+RUN wget https://repo.continuum.io/archive/Anaconda3-$CONDA_VER-Linux-x86_64.sh \
 	&& bash Anaconda3-4.4.0-Linux-x86_64.sh -b -p /usr/local/conda/anaconda3
 
 ENV PATH $PATH:/usr/local/conda/anaconda3/bin
