@@ -30,7 +30,7 @@ There's also a number of utilities under the hood:
 
 * p7zip
 
-* java
+* Java SDK
 
 * memcached
 
@@ -43,8 +43,6 @@ There's also a number of utilities under the hood:
 * sqlite3
 
 * pigz
-
-* llvm 3.7.1
 
 * node
 
@@ -61,6 +59,8 @@ There's also a number of utilities under the hood:
 * [uchardet](https://www.freedesktop.org/wiki/Software/uchardet/)
 
 * [Go Language](https://golang.org/)
+
+* [Gradle](https://gradle.org/)
 
 ## Usage
 
