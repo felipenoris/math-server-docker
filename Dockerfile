@@ -95,6 +95,14 @@ ENV CMAKE_VER_MAJ 3.10
 ENV CMAKE_VER_MIN .0
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
+# Gradle
+ENV GRADLE_VER 4.3.1
+
+RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
+	unzip -d /usr/local/gradle gradle-$GRADLE_VER-bin.zip
+
+ENV PATH $PATH:/usr/local/gradle/gradle-$GRADLE_VER/bin
+
 RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 	&& tar xf cmake-$CMAKE_VER.tar.gz && cd cmake-$CMAKE_VER \
 	&& ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
