@@ -272,9 +272,9 @@ ADD svn-servers /etc/subversion/servers
 # https://projects.coin-or.org/SYMPHONY
 ENV SYMPHONY_VER 5.6
 
-RUN git clone --branch=stable/$SYMPHONY_VER https://github.com/coin-or/SYMPHONY SYMPHONY-$SYMPHONY_VER \
+RUN git clone --depth=1 --branch=stable/$SYMPHONY_VER https://github.com/coin-or/SYMPHONY SYMPHONY-$SYMPHONY_VER \
 	&& cd SYMPHONY-$SYMPHONY_VER \
-	&& git clone --branch=stable/0.8 https://github.com/coin-or-tools/BuildTools/ \
+	&& git clone --depth=1 --branch=stable/0.8 https://github.com/coin-or-tools/BuildTools/ \
 	&& chmod u+x ./BuildTools/get.dependencies.sh \
 	&& ./BuildTools/get.dependencies.sh fetch --no-third-party \
 	&& ./configure \
@@ -302,7 +302,7 @@ RUN wget http://zlib.net/pigz/pigz-$PIGZ_VER.tar.gz \
 	&& cd .. && rm -rf pigz-$PIGZ_VER && rm -f pigz-$PIGZ_VER.tar.gz
 
 # uchardet: https://www.freedesktop.org/wiki/Software/uchardet/
-RUN git clone https://anongit.freedesktop.org/git/uchardet/uchardet.git \
+RUN git clone --depth=1 https://anongit.freedesktop.org/git/uchardet/uchardet.git \
 	&& cd uchardet \
 	&& cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release \
 	&& make -j"$(nproc --all)" \
@@ -383,7 +383,7 @@ RUN wget https://github.com/lballabio/QuantLib/archive/QuantLib-$QUANTLIB_VER.ta
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/R/lib:/usr/local/lib:/lib:/usr/lib/jvm/jre/lib/amd64/server:/usr/lib/jvm/jre/lib/amd64:/usr/lib/jvm/java/lib/amd64:/usr/java/packages/lib/amd64:/lib:/usr/lib:/usr/local/lib
 
 # Gambit-C
-RUN git clone https://github.com/gambit/gambit.git \
+RUN git clone --depth=1 https://github.com/gambit/gambit.git \
 	&& cd gambit \
 	&& ./configure \
 	&& make -j"$(nproc --all)" current-gsc-boot \
