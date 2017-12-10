@@ -384,7 +384,7 @@ RUN wget https://github.com/lballabio/QuantLib/archive/QuantLib-$QUANTLIB_VER.ta
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/R/lib:/usr/local/lib:/lib:/usr/lib/jvm/jre/lib/amd64/server:/usr/lib/jvm/jre/lib/amd64:/usr/lib/jvm/java/lib/amd64:/usr/java/packages/lib/amd64:/lib:/usr/lib:/usr/local/lib
 
 # Gambit-C
-RUN git clone --depth=1 https://github.com/gambit/gambit.git \
+RUN git clone https://github.com/gambit/gambit.git \
 	&& cd gambit \
 	&& ./configure \
 	&& make -j"$(nproc --all)" current-gsc-boot \
