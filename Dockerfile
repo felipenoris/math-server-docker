@@ -99,7 +99,8 @@ ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 ENV GRADLE_VER 4.4
 
 RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
-	&& unzip -d /usr/local/gradle gradle-$GRADLE_VER-bin.zip
+	&& unzip -d /usr/local/gradle gradle-$GRADLE_VER-bin.zip \
+	&& rm -f gradle-$GRADLE_VER-bin.zip
 
 ENV PATH $PATH:/usr/local/gradle/gradle-$GRADLE_VER/bin
 
