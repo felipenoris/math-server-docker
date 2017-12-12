@@ -62,6 +62,8 @@ There's also a number of utilities under the hood:
 
 * [Gradle](https://gradle.org/)
 
+* [sbt](http://www.scala-sbt.org)
+
 ## Usage
 
 To build the image, run the following comand:
