@@ -1,6 +1,8 @@
 
 # math-server-docker
 
+[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
+
 Dockerfile to build the ideal multi-user Data Science server with Jupyterhub and RStudio, ready for Python, R and Julia languages.
 
 It's based on CentOS 7 image, which is a very stable Linux distribution, compatible with Red Hat (widely used in Corporations),
