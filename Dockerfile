@@ -65,6 +65,7 @@ RUN yum update -y && yum install -y \
 	telnet \
 	vim \
 	wget \
+	xorriso \
 	zlib \
 	zlib-devel \
 	zip \
@@ -75,6 +76,28 @@ ENV PATH /usr/local/sbin:/usr/local/bin:$PATH
 ENV CPATH /usr/include/glpk
 
 ENV LD_LIBRARY_PATH /usr/local/lib:/usr/local/lib64
+
+# TeX
+RUN yum -y install perl-Tk perl-Digest-MD5 && yum clean all
+
+ADD texlive.profile texlive.profile
+
+#RUN wget http://linorg.usp.br/CTAN/systems/texlive/Images/texlive.iso
+#RUN wget http://mirrors.ircam.fr/pub/CTAN/systems/texlive/Images/texlive.iso
+RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive.iso
+
+# Offline TeX Live installation
+# https://tex.stackexchange.com/questions/370256/how-to-install-tex-live-offline-on-ubuntu
+# https://stackoverflow.com/questions/22028795/is-it-possible-to-mount-an-iso-inside-a-docker-container
+# http://www.gnu.org/software/xorriso/
+# non-interactive http://www.tug.org/pipermail/tex-live/2008-June/016323.html
+# Official link: http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+RUN osirrox -indev ./texlive.iso -extract / ./texlive_install \
+	&& rm -f texlive.iso \
+	&& ./texlive_install/install-tl -profile ./texlive.profile \
+	&& rm -rf texlive_install
+
+ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
@@ -148,21 +171,6 @@ RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 # Support for other languages
 # https://github.com/jupyter/jupyter/wiki/Jupyter-kernels
-
-# TeX
-RUN yum -y install perl-Tk perl-Digest-MD5 && yum clean all
-
-ADD texlive.profile texlive.profile
-
-# non-interactive http://www.tug.org/pipermail/tex-live/2008-June/016323.html
-# Official link: http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz \
-	&& mkdir install-tl \
-	&& tar xf install-tl-unx.tar.gz -C install-tl --strip-components=1 \
-	&& ./install-tl/install-tl -profile ./texlive.profile \
-	&& rm -rf install-tl && rm -f install-tl-unx.tar.gz
-
-ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 
 # R
 RUN yum -y install \
