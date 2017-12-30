@@ -65,7 +65,6 @@ RUN yum update -y && yum install -y \
 	telnet \
 	vim \
 	wget \
-	xorriso \
 	zlib \
 	zlib-devel \
 	zip \
@@ -78,7 +77,7 @@ ENV CPATH /usr/include/glpk
 ENV LD_LIBRARY_PATH /usr/local/lib:/usr/local/lib64
 
 # TeX
-RUN yum -y install perl-Tk perl-Digest-MD5 && yum clean all
+RUN yum -y install perl-Tk perl-Digest-MD5 xorriso && yum clean all
 
 ADD texlive.profile texlive.profile
 
