@@ -293,7 +293,7 @@ RUN pip install bash_kernel \
 	&& python3 -m bash_kernel.install
 
 # pigz: http://zlib.net/pigz/
-ENV PIGZ_VER 2.3.4
+ENV PIGZ_VER 2.4
 
 RUN wget http://zlib.net/pigz/pigz-$PIGZ_VER.tar.gz \
 	&& tar xf pigz-$PIGZ_VER.tar.gz \
