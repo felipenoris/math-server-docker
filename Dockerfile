@@ -81,17 +81,14 @@ RUN yum -y install perl-Tk perl-Digest-MD5 xorriso && yum clean all
 
 ADD texlive.profile texlive.profile
 
-#RUN wget http://linorg.usp.br/CTAN/systems/texlive/Images/texlive.iso
-#RUN wget http://mirrors.ircam.fr/pub/CTAN/systems/texlive/Images/texlive.iso
-RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive.iso
-
 # Offline TeX Live installation
 # https://tex.stackexchange.com/questions/370256/how-to-install-tex-live-offline-on-ubuntu
 # https://stackoverflow.com/questions/22028795/is-it-possible-to-mount-an-iso-inside-a-docker-container
 # http://www.gnu.org/software/xorriso/
 # non-interactive http://www.tug.org/pipermail/tex-live/2008-June/016323.html
 # Official link: http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-RUN osirrox -indev ./texlive.iso -extract / ./texlive_install \
+RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive.iso \
+	&& osirrox -indev ./texlive.iso -extract / ./texlive_install \
 	&& rm -f texlive.iso \
 	&& ./texlive_install/install-tl -profile ./texlive.profile \
 	&& rm -rf texlive_install
