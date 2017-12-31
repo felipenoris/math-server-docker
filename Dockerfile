@@ -43,6 +43,7 @@ RUN yum update -y && yum install -y \
 	libedit-devel libffi-devel \
 	libgcc \
 	libstdc++-static \
+	libtool \
 	m4 \
 	make \
 	man \
