@@ -91,7 +91,11 @@ ADD texlive.profile texlive.profile
 
 ENV TEXLIVE_VERSION 2017
 
-RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso \
+RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso
+
+RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso.md5 \
+	&& RESULT=$(md5sum -c texlive$TEXLIVE_VERSION.iso.md5) \
+	&& echo ${RESULT} > ~/check-texlive-md5.txt \
 	&& osirrox -indev ./texlive$TEXLIVE_VERSION.iso -extract / ./texlive_install \
 	&& rm -f texlive$TEXLIVE_VERSION.iso \
 	&& ./texlive_install/install-tl -profile ./texlive.profile \
@@ -99,10 +103,10 @@ RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERS
 
 # Sets texlive update mirror
 # https://tex.stackexchange.com/questions/378210/installing-tl-using-iso-leads-to-local-unknown-repository-tlpdb
-RUN tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
+#RUN tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
 
 # Updates Tex Live
-RUN tlmgr update --self --all --reinstall-forcibly-removed
+#RUN tlmgr update --self --all --reinstall-forcibly-removed
 
 ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 
