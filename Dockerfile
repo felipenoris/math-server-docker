@@ -88,9 +88,12 @@ ADD texlive.profile texlive.profile
 # http://www.gnu.org/software/xorriso/
 # non-interactive http://www.tug.org/pipermail/tex-live/2008-June/016323.html
 # Official link: http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive.iso \
-	&& osirrox -indev ./texlive.iso -extract / ./texlive_install \
-	&& rm -f texlive.iso \
+
+ENV TEXLIVE_VERSION 2007
+
+RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso \
+	&& osirrox -indev ./texlive$TEXLIVE_VERSION.iso -extract / ./texlive_install \
+	&& rm -f texlive$TEXLIVE_VERSION.iso \
 	&& ./texlive_install/install-tl -profile ./texlive.profile \
 	&& rm -rf texlive_install
 
