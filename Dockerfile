@@ -101,11 +101,10 @@ RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERS
 	&& ./texlive_install/install-tl -profile ./texlive.profile \
 	&& rm -rf texlive_install
 
+# Uncomment lines below to update TeX Live to latest packages
 # Sets texlive update mirror
 # https://tex.stackexchange.com/questions/378210/installing-tl-using-iso-leads-to-local-unknown-repository-tlpdb
 #RUN tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
-
-# Updates Tex Live
 #RUN tlmgr update --self --all --reinstall-forcibly-removed
 
 ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
