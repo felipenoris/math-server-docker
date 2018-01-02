@@ -91,9 +91,8 @@ ADD texlive.profile texlive.profile
 
 ENV TEXLIVE_VERSION 2017
 
-RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso
-
-RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso.md5 \
+RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso \
+	&& wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso.md5 \
 	&& RESULT=$(md5sum -c texlive$TEXLIVE_VERSION.iso.md5) \
 	&& echo ${RESULT} > ~/check-texlive-md5.txt \
 	&& osirrox -indev ./texlive$TEXLIVE_VERSION.iso -extract / ./texlive_install \
