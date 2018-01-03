@@ -52,6 +52,7 @@ Mongo
 MultivariateStats
 NullableArrays
 Optim
+PackageCompiler
 PkgDev
 PlotRecipes
 Plots
@@ -66,6 +67,7 @@ Query
 RCall
 ReverseDiff
 Roots
+SnoopCompile
 SQLite
 StaticArrays
 StatsBase
