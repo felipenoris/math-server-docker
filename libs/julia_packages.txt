@@ -39,6 +39,7 @@ JavaCall
 JLD
 JSON
 JuMP
+Knet
 LibBSON
 LightXML
 Libz
