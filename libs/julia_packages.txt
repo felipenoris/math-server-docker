@@ -23,6 +23,7 @@ Feather
 FileIO
 FixedSizeArrays
 FlatBuffers
+Flux
 Formatting
 ForwardDiff
 Gadfly
