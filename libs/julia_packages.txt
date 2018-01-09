@@ -15,7 +15,6 @@ CSV
 DataFrames
 DataStreams
 DataStructures
-DataTables
 DifferentialEquations
 ExcelReaders
 FactCheck
