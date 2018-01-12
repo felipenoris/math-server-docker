@@ -88,6 +88,7 @@ pkgs <- c(
 	"Synth",
 	"plyr",
 	"TSA",
+	"tidyverse",
 	"tikzDevice",
 	"x12",
 	"xlsx",
