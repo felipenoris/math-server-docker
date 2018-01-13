@@ -218,13 +218,13 @@ Each user can add new search directories by changing Julia's `LOAD_PATH` variabl
 ```julia
 julia> LOAD_PATH
 2-element Array{ByteString,1}:
- "/usr/local/julia/local/share/julia/site/v0.5"
- "/usr/local/julia/share/julia/site/v0.5"
+ "/usr/local/julia/local/share/julia/site/v0.6"
+ "/usr/local/julia/share/julia/site/v0.6"
 ```
 
 *root user* will add packages with `julia -e 'Pkg.add("pkg-name")'` command.
 
-It's important to run `using pkg-name` after installation to precompile the packages. This will store files on `/usr/local/share/julia/lib/v0.4/`.
+It's important to run `using pkg-name` after installation to precompile the packages. This will store files on `/usr/local/share/julia/lib/`.
 
 Users can install local packages using the default `Pkg` module:
 
