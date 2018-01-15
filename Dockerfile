@@ -425,6 +425,9 @@ RUN rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro \
 ## Libraries
 ####################
 
+# Altair - https://altair-viz.github.io/installation.html
+RUN conda install altair --channel conda-forge
+
 ADD libs libs
 
 # Install packages
