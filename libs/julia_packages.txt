@@ -46,6 +46,7 @@ Lint
 Logging
 Lora
 Luxor
+MD5
 Memcache
 Memoize
 Mocha
