@@ -428,6 +428,9 @@ RUN rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro \
 # Altair - https://altair-viz.github.io/installation.html
 RUN conda install altair --channel conda-forge
 
+# Plotly for Python
+RUN conda install plotly
+
 ADD libs libs
 
 # Install packages
