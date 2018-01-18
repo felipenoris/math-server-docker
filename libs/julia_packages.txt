@@ -16,6 +16,7 @@ DataFrames
 DataStreams
 DataStructures
 DifferentialEquations
+Documenter
 ExcelReaders
 FactCheck
 Feather
