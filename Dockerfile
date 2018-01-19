@@ -128,7 +128,8 @@ ENV CMAKE_VER_MIN .2
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
 # Gradle
-ENV GRADLE_VER 4.4
+# https://gradle.org/install/ -> Binary-only
+ENV GRADLE_VER 4.4.1
 
 RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
 	&& unzip -d /usr/local/gradle gradle-$GRADLE_VER-bin.zip \
