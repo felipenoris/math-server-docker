@@ -144,6 +144,8 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
+# Anaconda
+# https://repo.continuum.io/archive
 ENV CONDA_VER 5.0.1
 
 RUN wget https://repo.continuum.io/archive/Anaconda3-$CONDA_VER-Linux-x86_64.sh \
