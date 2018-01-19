@@ -189,15 +189,25 @@ RUN echo "Sys.setenv(https_proxy = 'my-proxy-url')" >> /usr/lib/rstudio-server/R
 
 **Python**
 
-*root user* will add packages with `pip2` or `pip3` command line. Packages will be stored on `/usr/local/lib/python2.7` or `/usr/local/lib/python3.5` directories.
+Users can packages with `conda` or `pip` command line.
 
-Users can install local packages using:
+With pip, users can install local packages for Python2 using:
 
 ```
-$ pip2 install --user pkgname
+$ source activate py2
 
-$ pip3 install --user pkgname
+$ pip install --user pkgname
 ```
+
+And also for Python3 using:
+
+```
+$ source activate py3
+
+$ pip install --user pkgname
+```
+
+Refer to `conda` documentation to install packages using `conda` utility.
 
 **R**
 
