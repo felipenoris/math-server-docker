@@ -127,16 +127,6 @@ ENV CMAKE_VER_MAJ 3.10
 ENV CMAKE_VER_MIN .2
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
-# Gradle
-# https://gradle.org/install/ -> Binary-only
-ENV GRADLE_VER 4.4.1
-
-RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
-	&& unzip -d /usr/local/gradle gradle-$GRADLE_VER-bin.zip \
-	&& rm -f gradle-$GRADLE_VER-bin.zip
-
-ENV PATH $PATH:/usr/local/gradle/gradle-$GRADLE_VER/bin
-
 RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 	&& tar xf cmake-$CMAKE_VER.tar.gz && cd cmake-$CMAKE_VER \
 	&& ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
@@ -452,6 +442,16 @@ RUN cd libs && source ./install_JSAnimation.sh
 #RUN python2 ./libs/update_pkgs.py 2
 
 #RUN python3 ./libs/update_pkgs.py 3
+
+# Gradle
+# https://gradle.org/install/ -> Binary-only
+ENV GRADLE_VER 4.5
+
+RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
+	&& unzip -d /usr/local/gradle gradle-$GRADLE_VER-bin.zip \
+	&& rm -f gradle-$GRADLE_VER-bin.zip
+
+ENV PATH $PATH:/usr/local/gradle/gradle-$GRADLE_VER/bin
 
 ####################
 ## Services
