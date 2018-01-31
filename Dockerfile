@@ -28,6 +28,7 @@ RUN yum update -y && yum install -y \
 	cronie \
 	czmq \
 	expat-devel \
+	file \
 	flex \
 	gcc \
 	gcc-c++ \
