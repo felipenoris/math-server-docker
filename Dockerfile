@@ -451,12 +451,13 @@ ENV PATH $PATH:/usr/local/gradle/gradle-$GRADLE_VER/bin
 
 # Rust
 # Non-interactive install: https://github.com/rust-lang-deprecated/rustup.sh/issues/83
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y \
-	&& mkdir /usr/local/cargo \
-	&& mkdir /usr/local/cargo/bin \
-	&& mv ./.cargo/bin/* /usr/local/cargo/bin
 
-ENV PATH $PATH:/usr/local/cargo/bin
+ENV CARGO_HOME /usr/local/rust/cargo
+ENV RUSTUP_HOME /usr/local/rust/rustup
+
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+ENV PATH $PATH:$CARGO_HOME/bin
 
 ####################
 ## Services
