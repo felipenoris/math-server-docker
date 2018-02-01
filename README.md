@@ -30,31 +30,31 @@ but often offers outdated packages. In order to provide up-to-date tools, this D
 
 There's also a number of utilities under the hood:
 
-* p7zip
+* [p7zip](http://p7zip.sourceforge.net)
 
-* Java SDK
+* [Java SDK](http://openjdk.java.net)
 
-* memcached
+* [Memcached](https://memcached.org)
 
-* mongodb
+* [MongoDB](https://www.mongodb.com)
 
-* git
+* [git](https://git-scm.com)
 
-* svn
+* [svn](https://subversion.apache.org)
 
-* sqlite3
+* [sqlite3](https://www.sqlite.org)
 
-* pigz
+* [pigz](https://zlib.net/pigz/)
 
-* node
+* [Node.js](https://nodejs.org)
 
-* LaTeX (TeX Live)
+* [LaTeX](https://www.latex-project.org)
 
-* LibreOffice
+* [LibreOffice](https://www.libreoffice.org)
 
-* HDF5
+* [HDF5](https://support.hdfgroup.org/HDF5/)
 
-* QuantLib
+* [QuantLib](http://quantlib.org)
 
 * [Gambit Scheme](http://gambitscheme.org)
 
