@@ -66,6 +66,8 @@ There's also a number of utilities under the hood:
 
 * [sbt](http://www.scala-sbt.org)
 
+* [Rust](https://www.rust-lang.org)
+
 ## Usage
 
 To build the image, run the following comand:
@@ -86,6 +88,7 @@ With a running container, you can go ahead and create users:
 
 ```
 # docker exec ms1 useradd myuser
+
 # docker exec -it ms1 passwd myuser
 ```
 
