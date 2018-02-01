@@ -450,6 +450,7 @@ RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
 ENV PATH $PATH:/usr/local/gradle/gradle-$GRADLE_VER/bin
 
 # Rust
+# Non-interactive install: https://github.com/rust-lang-deprecated/rustup.sh/issues/83
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y \
 	&& mkdir /usr/local/cargo \
 	&& mkdir /usr/local/cargo/bin \
