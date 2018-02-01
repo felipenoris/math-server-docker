@@ -449,6 +449,14 @@ RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
 
 ENV PATH $PATH:/usr/local/gradle/gradle-$GRADLE_VER/bin
 
+# Rust
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y \
+	&& mkdir /usr/local/cargo \
+	&& mkdir /usr/local/cargo/bin \
+	&& mv ./.cargo/bin/* /usr/local/cargo/bin
+
+ENV PATH $PATH:/usr/local/cargo/bin
+
 ####################
 ## Services
 ####################
