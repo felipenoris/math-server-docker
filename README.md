@@ -60,7 +60,7 @@ There's also a number of utilities under the hood:
 
 * [uchardet](https://www.freedesktop.org/wiki/Software/uchardet/)
 
-* [Go Language](https://golang.org/)
+* [Go](https://golang.org/)
 
 * [Gradle](https://gradle.org/)
 
