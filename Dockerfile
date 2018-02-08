@@ -441,7 +441,7 @@ RUN cd libs && source ./install_JSAnimation.sh
 
 # Gradle
 # https://gradle.org/install/ -> Binary-only
-ENV GRADLE_VER 4.5
+ENV GRADLE_VER 4.5.1
 
 RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
 	&& unzip -d /usr/local/gradle gradle-$GRADLE_VER-bin.zip \
