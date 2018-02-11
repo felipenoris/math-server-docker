@@ -204,11 +204,11 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.r
 
 # Libreoffice - https://www.libreoffice.org/download/libreoffice-fresh/
 # Linux x64 rpm
-ENV LIBREOFFICE_VER 6.0.0
-ENV LIBREOFFICE_VER_MINOR .3
+ENV LIBREOFFICE_VER 6.0.1
+ENV LIBREOFFICE_VER_MINOR .1
 
 RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
-	&& echo "19ecd873dcbe77162c00cd6950c6a22b  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
+	&& echo "a1fb163cc58e58dcc27f1ad2c9174950  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
 	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
 	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
 	&& tar xf LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
