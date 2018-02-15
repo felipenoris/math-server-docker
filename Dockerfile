@@ -339,11 +339,32 @@ ENV PATH $GOROOT/bin:$PATH
 RUN curl https://bintray.com/sbt/rpm/rpm | tee /etc/yum.repos.d/bintray-sbt-rpm.repo \
 	&& yum install -y sbt
 
+ENV JAVA_HOME /etc/alternatives/java_sdk
+
+# Gradle
+# https://gradle.org/install/ -> Binary-only
+ENV GRADLE_VER 4.5.1
+
+RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
+	&& unzip -d /usr/local/gradle gradle-$GRADLE_VER-bin.zip \
+	&& rm -f gradle-$GRADLE_VER-bin.zip
+
+ENV PATH $PATH:/usr/local/gradle/gradle-$GRADLE_VER/bin
+
+# Maven
+# https://maven.apache.org/download.cgi -> Binary tar.gz archive
+ENV MAVEN_VER 3.5.2
+
+RUN wget http://ftp.unicamp.br/pub/apache/maven/maven-3/$MAVEN_VER/binaries/apache-maven-$MAVEN_VER-bin.tar.gz \
+	&& echo "948110de4aab290033c23bf4894f7d9a  apache-maven-$MAVEN_VER-bin.tar.gz" > MAVENVERMD5 \
+	&& mkdir /usr/local/maven && tar xf apache-maven-$MAVEN_VER-bin.tar.gz -C /usr/local/maven --strip-components=1 \
+	&& rm -f apache-maven-$MAVEN_VER-bin.tar.gz
+
+ENV PATH $PATH:/usr/local/maven/bin
+
 #################
 ## LIBS
 #################
-
-ENV JAVA_HOME /etc/alternatives/java_sdk
 
 RUN yum -y install \
 	cyrus-sasl-devel \
@@ -416,10 +437,6 @@ RUN rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro \
 	&& rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm \
 	&& yum install ffmpeg ffmpeg-devel -y
 
-####################
-## Libraries
-####################
-
 # Altair - https://altair-viz.github.io/installation.html
 RUN conda install altair --channel conda-forge
 
@@ -438,16 +455,6 @@ RUN cd libs && source ./libs_R.sh
 #RUN cd libs && julia libs_julia.jl
 
 RUN cd libs && source ./install_JSAnimation.sh
-
-# Gradle
-# https://gradle.org/install/ -> Binary-only
-ENV GRADLE_VER 4.5.1
-
-RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
-	&& unzip -d /usr/local/gradle gradle-$GRADLE_VER-bin.zip \
-	&& rm -f gradle-$GRADLE_VER-bin.zip
-
-ENV PATH $PATH:/usr/local/gradle/gradle-$GRADLE_VER/bin
 
 # Rust
 # Non-interactive install: https://github.com/rust-lang-deprecated/rustup.sh/issues/83

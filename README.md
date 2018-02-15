@@ -64,6 +64,8 @@ There's also a number of utilities under the hood:
 
 * [Gradle](https://gradle.org/)
 
+* [Maven](https://maven.apache.org)
+
 * [sbt](http://www.scala-sbt.org)
 
 * [Rust](https://www.rust-lang.org)
