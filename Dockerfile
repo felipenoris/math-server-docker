@@ -67,6 +67,7 @@ RUN yum update -y && yum install -y \
 	telnet \
 	vim \
 	wget \
+	zeromq \
 	zlib \
 	zlib-devel \
 	zip \
