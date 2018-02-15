@@ -372,6 +372,14 @@ RUN wget http://ftp.unicamp.br/pub/apache/maven/maven-3/$MAVEN_VER/binaries/apac
 
 ENV PATH $PATH:/usr/local/maven/bin
 
+# Redis (https://redis.io)
+RUN wget http://download.redis.io/redis-stable.tar.gz \
+	&& tar xf redis-stable.tar.gz \
+	&& cd redis-stable \
+	&& && make -j"$(nproc --all)" \
+	&& make install \
+	&& cd .. && rm -rf redis-stable && rm -f redis-stable.tar.gz
+
 #################
 ## LIBS
 #################

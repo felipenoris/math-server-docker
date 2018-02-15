@@ -34,7 +34,7 @@ There's also a number of utilities under the hood:
 
 * [Java SDK](http://openjdk.java.net)
 
-* [Memcached](https://memcached.org)
+* [Redis](https://redis.io)
 
 * [MongoDB](https://www.mongodb.com)
 
