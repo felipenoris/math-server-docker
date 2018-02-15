@@ -48,7 +48,6 @@ RUN yum update -y && yum install -y \
 	m4 \
 	make \
 	man \
-	memcached \
 	mongodb \
 	mongodb-server \
 	nano \
@@ -471,10 +470,6 @@ RUN cd libs && source ./install_JSAnimation.sh
 ## Services
 ####################
 
-# Memcached parameters
-ENV MEMCACHE_MAXSIZE_MB 100
-ENV MEMCACHE_MIN_ALLOC_SIZE 10
-
 # 8787 for RStudio
 # 8000 for Jupyter
 EXPOSE 8787 8000
@@ -483,6 +478,5 @@ ADD jupyterhub_config.py jupyterhub_config.py
 
 ENV TERM xterm
 
-CMD memcached -d -u memcached -m $MEMCACHE_MAXSIZE_MB -n $MEMCACHE_MIN_ALLOC_SIZE \
-	&& /usr/lib/rstudio-server/bin/rserver \
+CMD /usr/lib/rstudio-server/bin/rserver \
 	&& jupyterhub --no-ssl -f jupyterhub_config.py
