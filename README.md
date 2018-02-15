@@ -272,24 +272,10 @@ $ tlmgr --usermode install [pkgname]
 
 ## References
 
-* [Jupyter website](http://jupyter.org/)
-
 * [Jupyterhub Docs](https://jupyterhub.readthedocs.org/en/latest/index.html)
 
 * [Full list of supported kernels for Jupyter](https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages)
 
-* [RStudio website](https://www.rstudio.com/)
-
-* [RStudio Server download page](https://www.rstudio.com/products/rstudio/download-server/)
-
 * [RStudio Server Admin Guide](https://s3.amazonaws.com/rstudio-server/rstudio-server-pro-0.99.879-admin-guide.pdf)
 
 * [Shiny Server Admin Guide](http://rstudio.github.io/shiny-server/latest/)
-
-* [Python](https://www.python.org/)
-
-* [R](https://cran.r-project.org/)
-
-* [Julia](http://julialang.org/)
-
-* [Gambit Scheme](http://gambitscheme.org)
