@@ -376,7 +376,7 @@ ENV PATH $PATH:/usr/local/maven/bin
 RUN wget http://download.redis.io/redis-stable.tar.gz \
 	&& tar xf redis-stable.tar.gz \
 	&& cd redis-stable \
-	&& && make -j"$(nproc --all)" \
+	&& make -j"$(nproc --all)" \
 	&& make install \
 	&& cd .. && rm -rf redis-stable && rm -f redis-stable.tar.gz
 
