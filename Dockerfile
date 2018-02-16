@@ -30,12 +30,14 @@ RUN yum update -y && yum install -y \
 	expat-devel \
 	file \
 	flex \
+	fontconfig-devel \
 	gcc \
 	gcc-c++ \
 	gcc-gfortran \
 	gdb \
 	gettext-devel \
 	glibc-devel \
+	gperf \
 	java-1.8.0-openjdk-devel \
 	lynx \
 	libattr-devel \
@@ -61,6 +63,7 @@ RUN yum update -y && yum install -y \
 	svn \
 	unzip \
 	valgrind \
+	ruby \
 	sqlite \
 	sqlite-devel \
 	telnet \
