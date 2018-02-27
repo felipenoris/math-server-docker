@@ -68,8 +68,6 @@ There's also a number of utilities under the hood:
 
 * [sbt](http://www.scala-sbt.org)
 
-* [Rust](https://www.rust-lang.org)
-
 ## Usage
 
 To build the image, run the following comand:

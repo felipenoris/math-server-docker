@@ -338,16 +338,6 @@ ENV GOROOT /usr/local/go
 
 ENV PATH $GOROOT/bin:$PATH
 
-# Rust
-# Non-interactive install: https://github.com/rust-lang-deprecated/rustup.sh/issues/83
-ENV CARGO_HOME /usr/local/rust/cargo
-
-ENV RUSTUP_HOME /usr/local/rust/rustup
-
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-
-ENV PATH $PATH:$CARGO_HOME/bin
-
 # SCALA: http://www.scala-sbt.org/0.13/docs/Installing-sbt-on-Linux.html
 RUN curl https://bintray.com/sbt/rpm/rpm | tee /etc/yum.repos.d/bintray-sbt-rpm.repo \
 	&& yum install -y sbt
