@@ -346,7 +346,7 @@ ENV JAVA_HOME /etc/alternatives/java_sdk
 
 # Gradle
 # https://gradle.org/install/ -> Binary-only
-ENV GRADLE_VER 4.5.1
+ENV GRADLE_VER 4.6
 
 RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
 	&& unzip -d /usr/local/gradle gradle-$GRADLE_VER-bin.zip \
