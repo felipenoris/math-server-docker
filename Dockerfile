@@ -138,6 +138,29 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
+# node
+ENV NODE_VER 8.9.4
+
+RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
+	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
+	&& ./configure \
+	&& make -j"$(nproc --all)" \
+	&& make -j"$(nproc --all)" install \
+	&& cd .. && rm -f v$NODE_VER.tar.gz && rm -rf node-$NODE_VER
+
+# reinstall npm with the lastest version
+# Workaround https://github.com/npm/npm/issues/15558
+# with https://github.com/npm/npm/issues/15611#issuecomment-289133810
+RUN npm install npm \
+	&& rm -rf /usr/local/lib/node_modules \
+	&& mv node_modules /usr/local/lib/
+
+# Makes npm work behind proxy if http_proxy variable is set
+RUN npm config set proxy ${http_proxy} \
+	&& npm config set https-proxy ${https_proxy} \
+	&& npm config set registry http://registry.npmjs.org/ \
+	&& npm set strict-ssl false
+
 # Anaconda
 # https://repo.continuum.io/archive
 ENV CONDA_VER 5.0.1
@@ -167,10 +190,10 @@ RUN source activate py3 && ipython kernel install
 RUN conda install -c conda-forge jupyterhub
 
 # Makes npm work behind proxy if http_proxy variable is set
-RUN npm config set proxy ${http_proxy} \
-	&& npm config set https-proxy ${https_proxy} \
-	&& npm config set registry http://registry.npmjs.org/ \
-	&& npm set strict-ssl false
+#RUN npm config set proxy ${http_proxy} \
+#	&& npm config set https-proxy ${https_proxy} \
+#	&& npm config set registry http://registry.npmjs.org/ \
+#	&& npm set strict-ssl false
 
 # ipywidgets: https://github.com/ipython/ipywidgets
 RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
