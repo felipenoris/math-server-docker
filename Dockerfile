@@ -187,7 +187,7 @@ RUN source activate py2 && ipython kernel install
 # same for py3, and install juptyerhub in the py3 env
 RUN source activate py3 && ipython kernel install
 
-RUN conda install -c conda-forge jupyterhub -y
+RUN conda update -n base conda -y && conda install -c conda-forge jupyterhub -y
 
 # Makes npm work behind proxy if http_proxy variable is set
 #RUN npm config set proxy ${http_proxy} \
