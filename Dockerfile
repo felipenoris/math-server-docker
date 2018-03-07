@@ -187,7 +187,7 @@ RUN source activate py2 && ipython kernel install
 # same for py3, and install juptyerhub in the py3 env
 RUN source activate py3 && ipython kernel install
 
-RUN conda install -c conda-forge jupyterhub
+RUN conda install -c conda-forge jupyterhub -y
 
 # Makes npm work behind proxy if http_proxy variable is set
 #RUN npm config set proxy ${http_proxy} \
@@ -472,10 +472,10 @@ RUN rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro \
 	&& yum install ffmpeg ffmpeg-devel -y
 
 # Altair - https://altair-viz.github.io/installation.html
-RUN conda install altair --channel conda-forge
+RUN conda install altair --channel conda-forge -y
 
 # Plotly for Python
-RUN conda install plotly
+RUN conda install plotly -y
 
 ADD libs libs
 
