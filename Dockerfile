@@ -379,10 +379,10 @@ ENV PATH $PATH:/usr/local/gradle/gradle-$GRADLE_VER/bin
 
 # Maven
 # https://maven.apache.org/download.cgi -> Binary tar.gz archive
-ENV MAVEN_VER 3.5.2
+ENV MAVEN_VER 3.5.3
 
 RUN wget http://ftp.unicamp.br/pub/apache/maven/maven-3/$MAVEN_VER/binaries/apache-maven-$MAVEN_VER-bin.tar.gz \
-	&& echo "948110de4aab290033c23bf4894f7d9a  apache-maven-$MAVEN_VER-bin.tar.gz" > MAVENVERMD5 \
+	&& echo "51025855d5a7456fc1a67666fbef29de  apache-maven-$MAVEN_VER-bin.tar.gz" > MAVENVERMD5 \
 	&& mkdir /usr/local/maven && tar xf apache-maven-$MAVEN_VER-bin.tar.gz -C /usr/local/maven --strip-components=1 \
 	&& rm -f apache-maven-$MAVEN_VER-bin.tar.gz
 
