@@ -198,6 +198,9 @@ RUN conda update -n base conda -y && conda install -c conda-forge jupyterhub -y
 # ipywidgets: https://github.com/ipython/ipywidgets
 RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
+# Jupyterlab: https://github.com/jupyterlab/jupyterlab
+RUN source activate py3 && conda install -c conda-forge jupyterlab -y
+
 # Support for other languages
 # https://github.com/jupyter/jupyter/wiki/Jupyter-kernels
 

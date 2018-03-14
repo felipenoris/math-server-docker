@@ -10,7 +10,7 @@ but often offers outdated packages. In order to provide up-to-date tools, this D
 
 ## List of tools
 
-* [Jupyterhub](https://github.com/jupyter/jupyterhub) with support for the following languages:
+* [Jupyterhub](https://github.com/jupyter/jupyterhub) and [Jupyterlab](https://github.com/jupyterlab/jupyterlab) with support for the following languages:
 
 	* Python 2
 
