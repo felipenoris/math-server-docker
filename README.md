@@ -164,6 +164,19 @@ You can generate self signed certificate file by running the code below, but be 
 This project provides a minimal `jupyter_config.py` configuration file that sets
 a few important environment variables that should be passed to child spawned processes, namely: `'PATH', 'LD_LIBRARY_PATH', 'JAVA_HOME', 'CPATH', 'CMAKE_ROOT', 'http_proxy', 'https_proxy'`.
 
+### Jupyterlab
+
+The default behavior is to show `/tree` page after a user logs in Jupyter (`http://localhost:8000/user/username/tree` for example).
+
+To access Jupyterlab, you should change manually to `/lab` page (`http://localhost:8000/user/username/lab`).
+
+As described in [Jupyterlab documentation](http://jupyterlab.readthedocs.io/en/latest/user/jupyterhub.html),
+to change the user’s default user interface to JupyterLab, set the following configuration option in your `jupyterhub_config.py` file:
+
+```
+c.Spawner.default_url = '/lab'
+```
+
 ### RStudio
 
 Configuration files are at `/etc/rstudio`. There's also the Server Options file at `/usr/lib/rstudio-server/R/ServerOptions.R`.
