@@ -285,6 +285,8 @@ $ tlmgr --usermode install [pkgname]
 
 * [Jupyterhub Docs](https://jupyterhub.readthedocs.org/en/latest/index.html)
 
+* [Jupyterlab Docs](http://jupyterlab.readthedocs.io)
+
 * [Full list of supported kernels for Jupyter](https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages)
 
 * [RStudio Server Admin Guide](https://s3.amazonaws.com/rstudio-server/rstudio-server-pro-0.99.879-admin-guide.pdf)
