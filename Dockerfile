@@ -64,6 +64,7 @@ RUN yum update -y && yum install -y \
 	unzip \
 	valgrind \
 	ruby \
+	ruby-devel \
 	sqlite \
 	sqlite-devel \
 	telnet \
