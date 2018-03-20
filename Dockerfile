@@ -67,6 +67,7 @@ RUN yum update -y && yum install -y \
 	ruby-devel \
 	sqlite \
 	sqlite-devel \
+	squashfs-tools \
 	telnet \
 	vim \
 	wget \
