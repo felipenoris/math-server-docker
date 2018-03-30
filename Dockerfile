@@ -129,8 +129,8 @@ RUN git config --global url."https://".insteadOf git://
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-ENV CMAKE_VER_MAJ 3.10
-ENV CMAKE_VER_MIN .3
+ENV CMAKE_VER_MAJ 3.11
+ENV CMAKE_VER_MIN .0
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
 RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
@@ -141,7 +141,7 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
 # node
-ENV NODE_VER 9.8.0
+ENV NODE_VER 9.10.0
 
 RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
 	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
@@ -355,7 +355,7 @@ RUN git clone --depth=1 https://anongit.freedesktop.org/git/uchardet/uchardet.gi
 
 # golang
 # https://golang.org/dl/
-ENV GOVERSION 1.10
+ENV GOVERSION 1.10.1
 
 RUN wget https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz \
 	&& tar xf go$GOVERSION.linux-amd64.tar.gz \
