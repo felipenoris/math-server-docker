@@ -253,7 +253,7 @@ RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/
 ENV SHINY_VER 1.5.7.907
 
 RUN R -e 'install.packages("shiny")' \
-	&& wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-$SHINY_VER-rh5-x86_64.rpm \
+	&& wget https://download3.rstudio.org/centos6.3/x86_64/shiny-server-$SHINY_VER-rh5-x86_64.rpm \
 	&& echo "3f8f53d87767cc5949d3b83206c628d0  shiny-server-$SHINY_VER-rh5-x86_64.rpm" > SHINYSERVERMD5 \
 	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
 	&& echo ${RESULT} > ~/check-shiny-server-md5.txt \
