@@ -95,7 +95,7 @@ ADD texlive.profile texlive.profile
 # non-interactive http://www.tug.org/pipermail/tex-live/2008-June/016323.html
 # Official link: http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 
-ENV TEXLIVE_VERSION 2017
+ENV TEXLIVE_VERSION 2018
 
 RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso \
 	&& wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso.md5 \
