@@ -438,7 +438,7 @@ RUN yum -y install \
 
 # QuantLib http://quantlib.org/install/linux.shtml
 # Depends on boost-devel and libtool CENTOS packages
-ENV QUANTLIB_VER v1.8.1
+ENV QUANTLIB_VER v1.12.1
 
 RUN wget https://github.com/lballabio/QuantLib/archive/QuantLib-$QUANTLIB_VER.tar.gz \
 	&& tar xf QuantLib-$QUANTLIB_VER.tar.gz \
