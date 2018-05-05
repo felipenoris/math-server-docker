@@ -294,7 +294,7 @@ RUN julia -e 'Pkg.init()'
 # https://github.com/JuliaLang/IJulia.jl
 # https://github.com/JuliaLang/IJulia.jl/issues/341
 # Depends on yum install czmq
-RUN julia -e 'Pkg.pin("ZMQ", v"0.5.1"); Pkg.add("IJulia"); using IJulia'
+RUN julia -e 'Pkg.add("ZMQ", v"0.5.1"); Pkg.add("IJulia"); using IJulia'
 
 # registers global kernel
 RUN cp -r ~/.local/share/jupyter/kernels/julia-$JULIA_VER_MAJ /usr/local/conda/anaconda3/share/jupyter/kernels
