@@ -266,24 +266,11 @@ ENV JULIA_VER_MAJ 0.6
 ENV JULIA_VER_MIN .2
 ENV JULIA_VER $JULIA_VER_MAJ$JULIA_VER_MIN
 
-RUN wget https://github.com/JuliaLang/julia/releases/download/v$JULIA_VER/julia-$JULIA_VER-full.tar.gz \
-		&& mkdir julia-$JULIA_VER \
-		&& tar xf julia-$JULIA_VER-full.tar.gz --directory ./julia-$JULIA_VER --strip-components=1
-
-ADD julia-Make.user julia-$JULIA_VER/Make.user
-
-ADD cpuid cpuid
-
-RUN cd cpuid && make
-
-RUN cpuid/cpuid >> julia-$JULIA_VER/Make.user
-
-RUN cd julia-$JULIA_VER \
-	&& make -j"$(nproc --all)" \
-	&& make -j"$(nproc --all)" install \
-	&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia \
-	&& cd .. \
-	&& rm -rf julia-$JULIA_VER && rm -f julia-$JULIA_VER-full.tar.gz && rm -rf cpuid
+RUN wget https://julialang-s3.julialang.org/bin/linux/x64/$JULIA_VER_MAJ/julia-$JULIA_VER-linux-x86_64.tar.gz \
+		&& mkdir /usr/local/julia \
+		&& tar xf julia-$JULIA_VER-linux-x86_64.tar.gz --directory /usr/local/julia --strip-components=1 \
+		&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia \
+		&& rm -f julia-$JULIA_VER-linux-x86_64.tar.gz
 
 ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
 
@@ -294,7 +281,7 @@ RUN julia -e 'Pkg.init()'
 # https://github.com/JuliaLang/IJulia.jl
 # https://github.com/JuliaLang/IJulia.jl/issues/341
 # Depends on yum install czmq
-RUN julia -e 'Pkg.add("ZMQ"); Pkg.pin("ZMQ", v"0.5.1"); Pkg.build("ZMQ"); Pkg.add("IJulia"); using IJulia'
+RUN julia -e 'Pkg.add("IJulia"); using IJulia'
 
 # registers global kernel
 RUN cp -r ~/.local/share/jupyter/kernels/julia-$JULIA_VER_MAJ /usr/local/conda/anaconda3/share/jupyter/kernels

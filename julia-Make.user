@@ -1,2 +1,0 @@
-MARCH=x86-64
-prefix=/usr/local/julia
