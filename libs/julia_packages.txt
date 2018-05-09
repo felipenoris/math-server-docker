@@ -3,6 +3,7 @@ BufferedStreams
 Calculus
 Cbc
 Clp
+Coverage
 CSV
 DataFrames
 DataStreams
