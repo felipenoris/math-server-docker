@@ -290,11 +290,10 @@ RUN cp -r ~/.local/share/jupyter/kernels/julia-$JULIA_VER_MAJ /usr/local/conda/a
 # http://irkernel.github.io/installation/
 RUN yum -y install czmq-devel && yum clean all
 
-RUN R -e 'install.packages("devtools")'
-RUN R -e 'install.packages("pbdZMQ")'
-RUN R -e 'devtools::install_github("IRkernel/IRkernel")'
-RUN R -e 'IRkernel::installspec()'
-RUN cp -r /usr/lib64/R/library/IRkernel/kernelspec /usr/local/conda/anaconda3/share/jupyter/kernels/R
+RUN R -e "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest'))"
+RUN R -e "devtools::install_github('IRkernel/IRkernel')"
+RUN R -e 'IRkernel::installspec(user = FALSE)'
+#RUN cp -r /usr/lib64/R/library/IRkernel/kernelspec /usr/local/conda/anaconda3/share/jupyter/kernels/R
 
 # Optional configuration file for svn
 ADD svn-servers /etc/subversion/servers
