@@ -116,7 +116,7 @@ ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-ENV GIT_VER 2.17.0
+ENV GIT_VER 2.17.1
 
 RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
 	&& tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
