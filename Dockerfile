@@ -165,7 +165,7 @@ RUN npm config set proxy ${http_proxy} \
 
 # Anaconda
 # https://repo.continuum.io/archive
-ENV CONDA_VER 5.1.0
+ENV CONDA_VER 5.2.0
 
 RUN wget https://repo.continuum.io/archive/Anaconda3-$CONDA_VER-Linux-x86_64.sh \
 	&& bash Anaconda3-$CONDA_VER-Linux-x86_64.sh -b -p /usr/local/conda/anaconda3 \
