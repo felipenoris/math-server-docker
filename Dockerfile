@@ -223,10 +223,10 @@ RUN yum -y install \
 RUN echo 'options(repos = c(CRAN="https://ftp.osuosl.org/pub/cran/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
 # RStudio - https://www.rstudio.com/products/rstudio/download-server/
-ENV RSTUDIO_VER 1.1.447
+ENV RSTUDIO_VER 1.1.453
 
 RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
-	&& echo "742a56ed04cb7deb3f80bde6a07cdcda  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
+	&& echo "ed83a0824f70229b5e4b1eb0fb802ff1  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
 	&& RESULT=$(md5sum -c RSTUDIOMD5) \
 	&& echo ${RESULT} > ~/check-rstudio-md5.txt \
 	&& yum -y install --nogpgcheck rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
