@@ -116,7 +116,7 @@ ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 
 # GIT
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-ENV GIT_VER 2.17.1
+ENV GIT_VER 2.18.0
 
 RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
 	&& tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
@@ -130,7 +130,7 @@ RUN git config --global url."https://".insteadOf git://
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
 ENV CMAKE_VER_MAJ 3.11
-ENV CMAKE_VER_MIN .3
+ENV CMAKE_VER_MIN .4
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
 RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
@@ -141,7 +141,7 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
 # node https://nodejs.org/en/
-ENV NODE_VER 10.3.0
+ENV NODE_VER 10.5.0
 
 RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
 	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
@@ -235,11 +235,11 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.r
 
 # Libreoffice - https://www.libreoffice.org/download/libreoffice-fresh/
 # Linux x64 rpm
-ENV LIBREOFFICE_VER 6.0.4
+ENV LIBREOFFICE_VER 6.0.5
 ENV LIBREOFFICE_VER_MINOR .2
 
 RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
-	&& echo "d1452c6d8799576fa8d310b2849e2236  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
+	&& echo "611db02eb462d98fd774000f30b0761a  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
 	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
 	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
 	&& tar xf LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
@@ -341,7 +341,7 @@ RUN git clone --depth=1 https://anongit.freedesktop.org/git/uchardet/uchardet.gi
 
 # golang
 # https://golang.org/dl/
-ENV GOVERSION 1.10.2
+ENV GOVERSION 1.10.3
 
 RUN wget https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz \
 	&& tar xf go$GOVERSION.linux-amd64.tar.gz \
@@ -474,8 +474,6 @@ RUN cd libs && source ./libs_python2.sh
 RUN cd libs && source ./libs_python3.sh
 
 RUN cd libs && source ./libs_R.sh
-
-RUN cd libs && julia libs_julia.jl
 
 RUN cd libs && source ./install_JSAnimation.sh
 
