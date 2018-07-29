@@ -114,7 +114,7 @@ RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERS
 
 ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 
-# GIT
+# GIT - https://git-scm.com/
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
 ENV GIT_VER 2.18.0
 
@@ -129,8 +129,8 @@ RUN git config --global url."https://".insteadOf git://
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-ENV CMAKE_VER_MAJ 3.11
-ENV CMAKE_VER_MIN .4
+ENV CMAKE_VER_MAJ 3.12
+ENV CMAKE_VER_MIN .0
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
 RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
@@ -141,7 +141,7 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
 # node https://nodejs.org/en/
-ENV NODE_VER 10.5.0
+ENV NODE_VER 10.7.0
 
 RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
 	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
@@ -223,10 +223,10 @@ RUN yum -y install \
 RUN echo 'options(repos = c(CRAN="https://ftp.osuosl.org/pub/cran/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
 # RStudio - https://www.rstudio.com/products/rstudio/download-server/
-ENV RSTUDIO_VER 1.1.453
+ENV RSTUDIO_VER 1.1.456
 
 RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
-	&& echo "ed83a0824f70229b5e4b1eb0fb802ff1  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
+	&& echo "2ecd9dd78d645bd79e2a4ac73da4ff84  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
 	&& RESULT=$(md5sum -c RSTUDIOMD5) \
 	&& echo ${RESULT} > ~/check-rstudio-md5.txt \
 	&& yum -y install --nogpgcheck rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
@@ -360,7 +360,7 @@ ENV JAVA_HOME /etc/alternatives/java_sdk
 
 # Gradle
 # https://gradle.org/install/ -> Binary-only
-ENV GRADLE_VER 4.7
+ENV GRADLE_VER 4.9
 
 RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
 	&& unzip -d /usr/local/gradle gradle-$GRADLE_VER-bin.zip \
@@ -370,10 +370,9 @@ ENV PATH $PATH:/usr/local/gradle/gradle-$GRADLE_VER/bin
 
 # Maven
 # https://maven.apache.org/download.cgi -> Binary tar.gz archive
-ENV MAVEN_VER 3.5.3
+ENV MAVEN_VER 3.5.4
 
 RUN wget http://ftp.unicamp.br/pub/apache/maven/maven-3/$MAVEN_VER/binaries/apache-maven-$MAVEN_VER-bin.tar.gz \
-	&& echo "51025855d5a7456fc1a67666fbef29de  apache-maven-$MAVEN_VER-bin.tar.gz" > MAVENVERMD5 \
 	&& mkdir /usr/local/maven && tar xf apache-maven-$MAVEN_VER-bin.tar.gz -C /usr/local/maven --strip-components=1 \
 	&& rm -f apache-maven-$MAVEN_VER-bin.tar.gz
 
@@ -424,7 +423,7 @@ RUN yum -y install \
 
 # QuantLib http://quantlib.org/install/linux.shtml
 # Depends on boost-devel and libtool CENTOS packages
-ENV QUANTLIB_VER v1.12.1
+ENV QUANTLIB_VER v1.13
 
 RUN wget https://github.com/lballabio/QuantLib/archive/QuantLib-$QUANTLIB_VER.tar.gz \
 	&& tar xf QuantLib-$QUANTLIB_VER.tar.gz \
