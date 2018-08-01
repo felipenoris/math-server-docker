@@ -417,19 +417,6 @@ RUN wget https://github.com/lballabio/QuantLib/archive/QuantLib-$QUANTLIB_VER.ta
 # Improve link to shared libraries
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/R/lib:/usr/local/lib:/lib:/usr/lib/jvm/jre/lib/amd64/server:/usr/lib/jvm/jre/lib/amd64:/usr/lib/jvm/java/lib/amd64:/usr/java/packages/lib/amd64:/lib:/usr/lib:/usr/local/lib
 
-# Gambit-C
-RUN git clone https://github.com/gambit/gambit.git \
-	&& cd gambit \
-	&& ./configure \
-	&& make -j"$(nproc --all)" \
-	&& make check \
-	&& make install \
-	&& ln -s /usr/local/Gambit/bin/gsc /usr/local/bin/gsc \
-	&& ln -s /usr/local/Gambit/bin/gsi /usr/local/bin/gsi \
-	&& ln -s /usr/local/Gambit/bin/gambcomp-C /usr/local/bin/gambcomp-C \
-	&& ln -s /usr/local/Gambit/bin/gambdoc /usr/local/bin/gambdoc \
-	&& cd .. && rm -rf gambit
-
 # ffmpeg
 RUN rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro \
 	&& rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm \
