@@ -56,17 +56,9 @@ There's also a number of utilities under the hood:
 
 * [QuantLib](http://quantlib.org)
 
-* [Gambit Scheme](http://gambitscheme.org)
-
 * [uchardet](https://www.freedesktop.org/wiki/Software/uchardet/)
 
 * [Go](https://golang.org/)
-
-* [Gradle](https://gradle.org/)
-
-* [Maven](https://maven.apache.org)
-
-* [sbt](http://www.scala-sbt.org)
 
 ## Usage
 

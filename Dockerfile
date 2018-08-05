@@ -352,31 +352,7 @@ ENV GOROOT /usr/local/go
 
 ENV PATH $GOROOT/bin:$PATH
 
-# SCALA: http://www.scala-sbt.org/0.13/docs/Installing-sbt-on-Linux.html
-RUN curl https://bintray.com/sbt/rpm/rpm | tee /etc/yum.repos.d/bintray-sbt-rpm.repo \
-	&& yum install -y sbt
-
 ENV JAVA_HOME /etc/alternatives/java_sdk
-
-# Gradle
-# https://gradle.org/install/ -> Binary-only
-ENV GRADLE_VER 4.9
-
-RUN wget https://services.gradle.org/distributions/gradle-$GRADLE_VER-bin.zip \
-	&& unzip -d /usr/local/gradle gradle-$GRADLE_VER-bin.zip \
-	&& rm -f gradle-$GRADLE_VER-bin.zip
-
-ENV PATH $PATH:/usr/local/gradle/gradle-$GRADLE_VER/bin
-
-# Maven
-# https://maven.apache.org/download.cgi -> Binary tar.gz archive
-ENV MAVEN_VER 3.5.4
-
-RUN wget http://ftp.unicamp.br/pub/apache/maven/maven-3/$MAVEN_VER/binaries/apache-maven-$MAVEN_VER-bin.tar.gz \
-	&& mkdir /usr/local/maven && tar xf apache-maven-$MAVEN_VER-bin.tar.gz -C /usr/local/maven --strip-components=1 \
-	&& rm -f apache-maven-$MAVEN_VER-bin.tar.gz
-
-ENV PATH $PATH:/usr/local/maven/bin
 
 # Redis (https://redis.io)
 RUN wget http://download.redis.io/redis-stable.tar.gz \
@@ -440,19 +416,6 @@ RUN wget https://github.com/lballabio/QuantLib/archive/QuantLib-$QUANTLIB_VER.ta
 
 # Improve link to shared libraries
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/R/lib:/usr/local/lib:/lib:/usr/lib/jvm/jre/lib/amd64/server:/usr/lib/jvm/jre/lib/amd64:/usr/lib/jvm/java/lib/amd64:/usr/java/packages/lib/amd64:/lib:/usr/lib:/usr/local/lib
-
-# Gambit-C
-RUN git clone https://github.com/gambit/gambit.git \
-	&& cd gambit \
-	&& ./configure \
-	&& make -j"$(nproc --all)" \
-	&& make check \
-	&& make install \
-	&& ln -s /usr/local/Gambit/bin/gsc /usr/local/bin/gsc \
-	&& ln -s /usr/local/Gambit/bin/gsi /usr/local/bin/gsi \
-	&& ln -s /usr/local/Gambit/bin/gambcomp-C /usr/local/bin/gambcomp-C \
-	&& ln -s /usr/local/Gambit/bin/gambdoc /usr/local/bin/gambdoc \
-	&& cd .. && rm -rf gambit
 
 # ffmpeg
 RUN rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro \
