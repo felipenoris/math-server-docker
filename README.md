@@ -158,12 +158,16 @@ a few important environment variables that should be passed to child spawned pro
 
 ### Jupyterlab
 
-The default behavior is to show `/tree` page after a user logs in Jupyter (`http://localhost:8000/user/username/tree` for example).
+Jupyterlab is the default user interface. This behavior is set by the following line in the provided jupyterhub_config.py file:
 
-To access Jupyterlab, you should change manually to `/lab` page (`http://localhost:8000/user/username/lab`).
+```
+c.Spawner.default_url = '/lab'
+```
 
-As described in [Jupyterlab documentation](http://jupyterlab.readthedocs.io/en/latest/user/jupyterhub.html),
-to change the user’s default user interface to JupyterLab, set the following configuration option in your `jupyterhub_config.py` file:
+To revert to old Jupyter user interface, you can either access manually the `/tree` url (as in `http://localhost:8000/user/username/tree`)
+or edit `jupyterhub_config.py` deleting the `c.Spawner.default_url` line.
+
+See [Jupyterlab documentation](http://jupyterlab.readthedocs.io/en/latest/user/jupyterhub.html) for more information.
 
 ```
 c.Spawner.default_url = '/lab'
