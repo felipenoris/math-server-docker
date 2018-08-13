@@ -169,10 +169,6 @@ or edit `jupyterhub_config.py` deleting the `c.Spawner.default_url` line.
 
 See [Jupyterlab documentation](http://jupyterlab.readthedocs.io/en/latest/user/jupyterhub.html) for more information.
 
-```
-c.Spawner.default_url = '/lab'
-```
-
 ### RStudio
 
 Configuration files are at `/etc/rstudio`. There's also the Server Options file at `/usr/lib/rstudio-server/R/ServerOptions.R`.
