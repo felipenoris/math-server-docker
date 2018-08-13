@@ -1,7 +1,7 @@
 
 # Whitelist of environment variables for the subprocess to inherit
 # c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL']
-c.Spawner.env_keep = [ 'PATH', 'LD_LIBRARY_PATH', 'JAVA_HOME', 'CPATH', 'CMAKE_ROOT', 'GOROOT', 'CARGO_HOME', 'RUSTUP_HOME' ]
+c.Spawner.env_keep = [ 'PATH', 'LD_LIBRARY_PATH', 'JAVA_HOME', 'CPATH', 'CMAKE_ROOT', 'GOROOT' ]
 
 # use jupyterlab as default user interface
 c.Spawner.default_url = '/lab'
