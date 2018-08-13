@@ -141,7 +141,7 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
 # node https://nodejs.org/en/
-ENV NODE_VER 10.8.0
+ENV NODE_VER 8.11.3
 
 RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
 	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
@@ -190,12 +190,6 @@ RUN source activate py2 && ipython kernel install
 RUN source activate py3 && ipython kernel install
 
 RUN conda update -n base conda -y && conda install -c conda-forge jupyterhub -y
-
-# Makes npm work behind proxy if http_proxy variable is set
-#RUN npm config set proxy ${http_proxy} \
-#	&& npm config set https-proxy ${https_proxy} \
-#	&& npm config set registry http://registry.npmjs.org/ \
-#	&& npm set strict-ssl false
 
 # ipywidgets: https://github.com/ipython/ipywidgets
 RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
