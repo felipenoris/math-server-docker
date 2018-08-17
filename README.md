@@ -96,15 +96,16 @@ The default ports are:
 
 ## Application specific notes
 
+The last command in the Dockerfile starts Jupyterhub and RStudio:
+
+```shell
+CMD /usr/lib/rstudio-server/bin/rserver \
+	&& jupyterhub --no-ssl -f jupyterhub_config.py
+```
+
 ### Jupyter
 
 Data files are at `/usr/local/share/jupyter/hub`.
-
-To start the server:
-
-```
-# jupyterhub
-```
 
 By default, Jupyter will be accessible on the following link: `http://localhost:8000`, and will create state files (`jupyterhub_cookie_secret`, `jupyterhub.sqlite`) on current directory, and use default configuration.
 
