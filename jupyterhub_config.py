@@ -12,3 +12,6 @@ c.Spawner.default_url = '/lab'
 #c.Authenticator.admin_users = set(['admin'])
 
 c.JupyterHub.extra_log_file = '/var/log/jupyterhub.log'
+
+# https://github.com/jupyterhub/jupyterlab-hub
+c.Spawner.cmd = ['jupyter-labhub']
