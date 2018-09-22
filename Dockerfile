@@ -271,18 +271,6 @@ RUN wget https://julialang-s3.julialang.org/bin/linux/x64/$JULIA_VER_MAJ/julia-$
 
 ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
 
-# Init package folder on root's home folder
-#RUN julia -e 'using Pkg; Pkg.init()'
-
-# Add Julia kernel
-# https://github.com/JuliaLang/IJulia.jl
-# https://github.com/JuliaLang/IJulia.jl/issues/341
-# Depends on yum install czmq
-#RUN julia -e 'using Pkg; Pkg.add("IJulia"); using IJulia'
-
-# registers global kernel
-#RUN cp -r ~/.local/share/jupyter/kernels/julia-$JULIA_VER_MAJ /usr/local/conda/anaconda3/share/jupyter/kernels
-
 # R
 # http://irkernel.github.io/installation/
 RUN yum -y install czmq-devel && yum clean all
