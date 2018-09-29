@@ -50,8 +50,6 @@ RUN yum update -y && yum install -y \
 	m4 \
 	make \
 	man \
-	mongodb \
-	mongodb-server \
 	nano \
 	nload \
 	htop \
@@ -346,6 +344,10 @@ RUN wget http://download.redis.io/redis-stable.tar.gz \
 	&& make -j"$(nproc --all)" \
 	&& make install \
 	&& cd .. && rm -rf redis-stable && rm -f redis-stable.tar.gz
+
+# MongoDB (https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/)
+ADD mongodb-org-4.0.repo /etc/yum.repos.d/mongodb-org-4.0.repo
+RUN yum install -y mongodb-org
 
 #################
 ## LIBS
