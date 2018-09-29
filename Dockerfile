@@ -40,6 +40,7 @@ RUN yum update -y && yum install -y \
 	gperf \
 	java-1.8.0-openjdk-devel \
 	lynx \
+	libaio \
 	libattr-devel \
 	libcurl \
 	libcurl-devel \
