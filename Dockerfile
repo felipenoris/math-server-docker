@@ -259,7 +259,7 @@ RUN R -e 'install.packages("shiny")' \
 
 # Julia
 ENV JULIA_VER_MAJ 1.0
-ENV JULIA_VER_MIN .0
+ENV JULIA_VER_MIN .1
 ENV JULIA_VER $JULIA_VER_MAJ$JULIA_VER_MIN
 
 RUN wget https://julialang-s3.julialang.org/bin/linux/x64/$JULIA_VER_MAJ/julia-$JULIA_VER-linux-x86_64.tar.gz \
