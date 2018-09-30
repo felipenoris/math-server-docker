@@ -230,26 +230,17 @@ Each user can have a local package dir, automatically created under `~/R`.
 
 **Julia**
 
-System packages will be installed to `/usr/local/julia/share/julia/site`.
+Since Julia v1.0, system packages are disabled. Only user-level packages are supported.
 
-Each user can add new search directories by changing Julia's `LOAD_PATH` variable.
+To install IJulia kernel, open a terminal and use the following commands:
 
-```julia
-julia> LOAD_PATH
-2-element Array{ByteString,1}:
- "/usr/local/julia/local/share/julia/site/v0.6"
- "/usr/local/julia/share/julia/site/v0.6"
+```shell
+julia> using Pkg
+
+julia> pkg"add IJulia"
 ```
 
-*root user* will add packages with `julia -e 'Pkg.add("pkg-name")'` command.
-
-It's important to run `using pkg-name` after installation to precompile the packages. This will store files on `/usr/local/share/julia/lib/`.
-
-Users can install local packages using the default `Pkg` module:
-
-```
-julia> Pkg.add("pkgname")
-```
+Restart your Jupyter session. After that, a Julia notebook option should show up.
 
 **LaTeX**
 
