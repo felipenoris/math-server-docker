@@ -115,7 +115,7 @@ ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 
 # GIT - https://git-scm.com/
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-ENV GIT_VER 2.18.0
+ENV GIT_VER 2.19.0
 
 RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
 	&& tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
@@ -129,7 +129,7 @@ RUN git config --global url."https://".insteadOf git://
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
 ENV CMAKE_VER_MAJ 3.12
-ENV CMAKE_VER_MIN .0
+ENV CMAKE_VER_MIN .2
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
 RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
@@ -140,7 +140,7 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
 # node https://nodejs.org/en/
-ENV NODE_VER 8.11.3
+ENV NODE_VER 8.12.0
 
 RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
 	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
@@ -164,7 +164,7 @@ RUN npm config set proxy ${http_proxy} \
 
 # Anaconda
 # https://repo.continuum.io/archive
-ENV CONDA_VER 5.2.0
+ENV CONDA_VER 5.3.0
 
 RUN wget https://repo.continuum.io/archive/Anaconda3-$CONDA_VER-Linux-x86_64.sh \
 	&& bash Anaconda3-$CONDA_VER-Linux-x86_64.sh -b -p /usr/local/conda/anaconda3 \
@@ -231,11 +231,11 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.r
 
 # Libreoffice - https://www.libreoffice.org/download/libreoffice-fresh/
 # Linux x64 rpm
-ENV LIBREOFFICE_VER 6.0.6
-ENV LIBREOFFICE_VER_MINOR .2
+ENV LIBREOFFICE_VER 6.1.2
+ENV LIBREOFFICE_VER_MINOR .1
 
 RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
-	&& echo "a8ff7f6c7cf4bec5550c8a84e73b15e9  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
+	&& echo "b462407ca869da19c387d4349e51cf7a  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
 	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
 	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
 	&& tar xf LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
@@ -246,11 +246,11 @@ RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/
 	&& rm -rf LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm
 
 # Shiny - https://www.rstudio.com/products/shiny/download-server/
-ENV SHINY_VER 1.5.7.907
+ENV SHINY_VER 1.5.9.923
 
 RUN R -e 'install.packages("shiny")' \
 	&& wget https://download3.rstudio.org/centos6.3/x86_64/shiny-server-$SHINY_VER-rh6-x86_64.rpm \
-	&& echo "3f8f53d87767cc5949d3b83206c628d0  shiny-server-$SHINY_VER-rh6-x86_64.rpm" > SHINYSERVERMD5 \
+	&& echo "124aed894021af4f6aff22c8112e26bd  shiny-server-$SHINY_VER-rh6-x86_64.rpm" > SHINYSERVERMD5 \
 	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
 	&& echo ${RESULT} > ~/check-shiny-server-md5.txt \
 	&& yum -y install --nogpgcheck shiny-server-$SHINY_VER-rh6-x86_64.rpm \
