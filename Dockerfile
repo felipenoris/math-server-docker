@@ -248,14 +248,14 @@ RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/
 # Shiny - https://www.rstudio.com/products/shiny/download-server/
 ENV SHINY_VER 1.5.9.923
 
-RUN R -e 'install.packages("shiny")' \
-	&& wget https://download3.rstudio.org/centos6.3/x86_64/shiny-server-$SHINY_VER-rh6-x86_64.rpm \
-	&& echo "124aed894021af4f6aff22c8112e26bd  shiny-server-$SHINY_VER-rh6-x86_64.rpm" > SHINYSERVERMD5 \
+RUN R -e 'install.packages("shiny", repos="https://cran.rstudio.com/")' \
+	&& wget https://download3.rstudio.org/centos6.3/x86_64/shiny-server-$SHINY_VER-x86_64.rpm \
+	&& echo "124aed894021af4f6aff22c8112e26bd  shiny-server-$SHINY_VER-x86_64.rpm" > SHINYSERVERMD5 \
 	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
 	&& echo ${RESULT} > ~/check-shiny-server-md5.txt \
-	&& yum -y install --nogpgcheck shiny-server-$SHINY_VER-rh6-x86_64.rpm \
+	&& yum -y install --nogpgcheck shiny-server-$SHINY_VER-x86_64.rpm \
 	&& yum clean all \
-	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-$SHINY_VER-rh6-x86_64.rpm
+	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-$SHINY_VER-x86_64.rpm
 
 # Julia
 ENV JULIA_VER_MAJ 1.0
