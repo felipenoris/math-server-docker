@@ -323,19 +323,6 @@ RUN git clone --depth=1 https://anongit.freedesktop.org/git/uchardet/uchardet.gi
 	&& make install \
 	&& cd .. && rm -rf uchardet
 
-# golang
-# https://golang.org/dl/
-ENV GOVERSION 1.11.1
-
-RUN wget https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz \
-	&& tar xf go$GOVERSION.linux-amd64.tar.gz \
-	&& mv go /usr/local \
-	&& rm go$GOVERSION.linux-amd64.tar.gz
-
-ENV GOROOT /usr/local/go
-
-ENV PATH $GOROOT/bin:$PATH
-
 ENV JAVA_HOME /etc/alternatives/java_sdk
 
 # Redis (https://redis.io)

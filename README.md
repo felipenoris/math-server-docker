@@ -58,8 +58,6 @@ There's also a number of utilities under the hood:
 
 * [uchardet](https://www.freedesktop.org/wiki/Software/uchardet/)
 
-* [Go](https://golang.org/)
-
 ## Usage
 
 To build the image, run the following comand:
