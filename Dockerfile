@@ -372,20 +372,6 @@ RUN yum -y install \
 	tk-devel \
 	&& yum clean all
 
-# QuantLib http://quantlib.org/install/linux.shtml
-# Depends on boost-devel and libtool CENTOS packages
-ENV QUANTLIB_VER v1.13
-
-RUN wget https://github.com/lballabio/QuantLib/archive/QuantLib-$QUANTLIB_VER.tar.gz \
-	&& tar xf QuantLib-$QUANTLIB_VER.tar.gz \
-	&& cd QuantLib-QuantLib-$QUANTLIB_VER \
-	&& ./autogen.sh \
-	&& ./configure --enable-intraday \
-	&& make -j"$(nproc --all)" \
-	&& make install \
-	&& ldconfig \
-	&& cd .. && rm -rf QuantLib-QuantLib-$QUANTLIB_VER && rm -f QuantLib-$QUANTLIB_VER.tar.gz
-
 # http://ipyparallel.readthedocs.org/en/latest/
 #RUN ipcluster nbextension enable
 
