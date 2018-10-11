@@ -54,8 +54,6 @@ There's also a number of utilities under the hood:
 
 * [HDF5](https://support.hdfgroup.org/HDF5/)
 
-* [QuantLib](http://quantlib.org)
-
 * [uchardet](https://www.freedesktop.org/wiki/Software/uchardet/)
 
 ## Usage
