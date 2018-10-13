@@ -18,63 +18,63 @@ WORKDIR /root
 RUN yum update -y && yum install -y epel-release && yum clean all
 
 RUN yum update -y && yum install -y \
-	p7zip \
-	p7zip-plugins \
-	bison \
-	bzip2 \
-	bzip2-devel \
-	cmake \
-	curl-devel \
-	cronie \
-	czmq \
-	expat-devel \
-	file \
-	flex \
-	fontconfig-devel \
-	gcc \
-	gcc-c++ \
-	gcc-gfortran \
-	gdb \
-	gettext-devel \
-	glibc-devel \
-	gperf \
-	java-1.8.0-openjdk-devel \
-	lynx \
-	libaio \
-	libattr-devel \
-	libcurl \
-	libcurl-devel \
-	libedit-devel libffi-devel \
-	libgcc \
-	libstdc++-static \
-	libtool \
-	m4 \
-	make \
-	man \
-	nano \
-	nload \
-	htop \
-	openssl \
-	openssl098e \
-	openssl-devel \
-	patch \
-	perl-ExtUtils-MakeMaker \
-	svn \
-	unzip \
-	valgrind \
-	ruby \
-	ruby-devel \
-	sqlite \
-	sqlite-devel \
-	squashfs-tools \
-	telnet \
-	vim \
-	wget \
-	zeromq \
-	zlib \
-	zlib-devel \
-	zip \
-	&& yum clean all
+    p7zip \
+    p7zip-plugins \
+    bison \
+    bzip2 \
+    bzip2-devel \
+    cmake \
+    curl-devel \
+    cronie \
+    czmq \
+    expat-devel \
+    file \
+    flex \
+    fontconfig-devel \
+    gcc \
+    gcc-c++ \
+    gcc-gfortran \
+    gdb \
+    gettext-devel \
+    glibc-devel \
+    gperf \
+    java-1.8.0-openjdk-devel \
+    lynx \
+    libaio \
+    libattr-devel \
+    libcurl \
+    libcurl-devel \
+    libedit-devel libffi-devel \
+    libgcc \
+    libstdc++-static \
+    libtool \
+    m4 \
+    make \
+    man \
+    nano \
+    nload \
+    htop \
+    openssl \
+    openssl098e \
+    openssl-devel \
+    patch \
+    perl-ExtUtils-MakeMaker \
+    svn \
+    unzip \
+    valgrind \
+    ruby \
+    ruby-devel \
+    sqlite \
+    sqlite-devel \
+    squashfs-tools \
+    telnet \
+    vim \
+    wget \
+    zeromq \
+    zlib \
+    zlib-devel \
+    zip \
+    && yum clean all
 
 ENV PATH /usr/local/sbin:/usr/local/bin:$PATH
 
@@ -97,13 +97,13 @@ ADD texlive.profile texlive.profile
 ENV TEXLIVE_VERSION 2018
 
 RUN wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso \
-	&& wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso.md5 \
-	&& RESULT=$(md5sum -c texlive$TEXLIVE_VERSION.iso.md5) \
-	&& echo ${RESULT} > ~/check-texlive-md5.txt \
-	&& osirrox -indev ./texlive$TEXLIVE_VERSION.iso -extract / ./texlive_install \
-	&& rm -f texlive$TEXLIVE_VERSION.iso \
-	&& ./texlive_install/install-tl -profile ./texlive.profile \
-	&& rm -rf texlive_install
+    && wget http://mirrors.rit.edu/CTAN/systems/texlive/Images/texlive$TEXLIVE_VERSION.iso.md5 \
+    && RESULT=$(md5sum -c texlive$TEXLIVE_VERSION.iso.md5) \
+    && echo ${RESULT} > ~/check-texlive-md5.txt \
+    && osirrox -indev ./texlive$TEXLIVE_VERSION.iso -extract / ./texlive_install \
+    && rm -f texlive$TEXLIVE_VERSION.iso \
+    && ./texlive_install/install-tl -profile ./texlive.profile \
+    && rm -rf texlive_install
 
 # Uncomment lines below to update TeX Live to latest packages
 # Sets texlive update mirror
@@ -118,10 +118,10 @@ ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 ENV GIT_VER 2.19.1
 
 RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
-	&& tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
-	&& make -j"$(nproc --all)" prefix=/usr/local all \
-	&& make prefix=/usr/local -j"$(nproc --all)" install \
-	&& cd .. && rm -f git-$GIT_VER.tar.gz && rm -rf git-$GIT_VER
+    && tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
+    && make -j"$(nproc --all)" prefix=/usr/local all \
+    && make prefix=/usr/local -j"$(nproc --all)" install \
+    && cd .. && rm -f git-$GIT_VER.tar.gz && rm -rf git-$GIT_VER
 
 # Makes git use https by default
 RUN git config --global url."https://".insteadOf git://
@@ -133,9 +133,9 @@ ENV CMAKE_VER_MIN .2
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
 RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
-	&& tar xf cmake-$CMAKE_VER.tar.gz && cd cmake-$CMAKE_VER \
-	&& ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf cmake-$CMAKE_VER && rm -f cmake-$CMAKE_VER.tar.gz
+    && tar xf cmake-$CMAKE_VER.tar.gz && cd cmake-$CMAKE_VER \
+    && ./bootstrap && make -j"$(nproc --all)" && make -j"$(nproc --all)" install \
+    && cd .. && rm -rf cmake-$CMAKE_VER && rm -f cmake-$CMAKE_VER.tar.gz
 
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
@@ -143,24 +143,24 @@ ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 ENV NODE_VER 8.12.0
 
 RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
-	&& tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
-	&& ./configure \
-	&& make -j"$(nproc --all)" \
-	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -f v$NODE_VER.tar.gz && rm -rf node-$NODE_VER
+    && tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
+    && ./configure \
+    && make -j"$(nproc --all)" \
+    && make -j"$(nproc --all)" install \
+    && cd .. && rm -f v$NODE_VER.tar.gz && rm -rf node-$NODE_VER
 
 # reinstall npm with the lastest version
 # Workaround https://github.com/npm/npm/issues/15558
 # with https://github.com/npm/npm/issues/15611#issuecomment-289133810
 RUN npm install npm \
-	&& rm -rf /usr/local/lib/node_modules \
-	&& mv node_modules /usr/local/lib/
+    && rm -rf /usr/local/lib/node_modules \
+    && mv node_modules /usr/local/lib/
 
 # Makes npm work behind proxy if http_proxy variable is set
 RUN npm config set proxy ${http_proxy} \
-	&& npm config set https-proxy ${https_proxy} \
-	&& npm config set registry http://registry.npmjs.org/ \
-	&& npm set strict-ssl false
+    && npm config set https-proxy ${https_proxy} \
+    && npm config set registry http://registry.npmjs.org/ \
+    && npm set strict-ssl false
 
 # Anaconda
 # https://repo.continuum.io/archive
@@ -169,16 +169,16 @@ ENV CONDA_VER 5.3.0
 ENV PATH $PATH:/usr/local/conda/anaconda3/bin
 
 RUN wget https://repo.continuum.io/archive/Anaconda3-$CONDA_VER-Linux-x86_64.sh \
-	&& bash Anaconda3-$CONDA_VER-Linux-x86_64.sh -b -p /usr/local/conda/anaconda3 \
-	&& rm -f Anaconda3-$CONDA_VER-Linux-x86_64.sh \
-	&& conda update -n base conda -y
+    && bash Anaconda3-$CONDA_VER-Linux-x86_64.sh -b -p /usr/local/conda/anaconda3 \
+    && rm -f Anaconda3-$CONDA_VER-Linux-x86_64.sh \
+    && conda update -n base conda -y
 
 # Install py2 and py3 envs, and registers jupyterhub kernels
 # https://github.com/jupyter/jupyter/issues/71
 
 # install everything (except JupyterHub itself) with Python 2 and 3. Jupyter is included in Anaconda.
 RUN conda create -n py3 python=3 anaconda \
-	&& conda create -n py2 python=2 anaconda
+    && conda create -n py2 python=2 anaconda
 
 # Set PYTHON env variable to point to Python2. This will be used by PyCall.jl julia package.
 ENV PYTHON /usr/local/conda/anaconda3/envs/py2/bin/python
@@ -206,16 +206,16 @@ RUN source activate py3 && conda install -c conda-forge jupyterlab -y
 
 # R
 RUN yum -y install \
-	lapack-devel \
-	blas-devel \
-	libicu-devel \
-	unixodbc-devel \
-	boost \
-	boost-devel \
-	libxml2 \
-	libxml2-devel \
-	R \
-	&& yum clean all
+    lapack-devel \
+    blas-devel \
+    libicu-devel \
+    unixodbc-devel \
+    boost \
+    boost-devel \
+    libxml2 \
+    libxml2-devel \
+    R \
+    && yum clean all
 
 # Set default CRAN Mirror
 RUN echo 'options(repos = c(CRAN="https://ftp.osuosl.org/pub/cran/"))' >> /usr/lib64/R/library/base/R/Rprofile
@@ -224,12 +224,12 @@ RUN echo 'options(repos = c(CRAN="https://ftp.osuosl.org/pub/cran/"))' >> /usr/l
 ENV RSTUDIO_VER 1.1.456
 
 RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
-	&& echo "2ecd9dd78d645bd79e2a4ac73da4ff84  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
-	&& RESULT=$(md5sum -c RSTUDIOMD5) \
-	&& echo ${RESULT} > ~/check-rstudio-md5.txt \
-	&& yum -y install --nogpgcheck rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
-	&& yum clean all \
-	&& rm -f rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm && rm -f RSTUDIOMD5
+    && echo "2ecd9dd78d645bd79e2a4ac73da4ff84  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
+    && RESULT=$(md5sum -c RSTUDIOMD5) \
+    && echo ${RESULT} > ~/check-rstudio-md5.txt \
+    && yum -y install --nogpgcheck rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
+    && yum clean all \
+    && rm -f rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm && rm -f RSTUDIOMD5
 
 # Libreoffice - https://www.libreoffice.org/download/libreoffice-fresh/
 # Linux x64 rpm
@@ -237,27 +237,27 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.r
 #ENV LIBREOFFICE_VER_MINOR .1
 
 #RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
-#	&& echo "b462407ca869da19c387d4349e51cf7a  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
-#	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
-#	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
-#	&& tar xf LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
-#	&& cd LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm/RPMS \
-#	&& yum -y install *.rpm \
-#	&& yum clean all \
-#	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
-#	&& rm -rf LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm
+#   && echo "b462407ca869da19c387d4349e51cf7a  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
+#   && RESULT=$(md5sum -c LIBREOFFICEMD5) \
+#   && echo ${RESULT} > ~/check-libreoffice-md5.txt \
+#   && tar xf LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
+#   && cd LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm/RPMS \
+#   && yum -y install *.rpm \
+#   && yum clean all \
+#   && cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
+#   && rm -rf LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm
 
 # Shiny - https://www.rstudio.com/products/shiny/download-server/
 ENV SHINY_VER 1.5.9.923
 
 RUN R -e 'install.packages("shiny", repos="https://cran.rstudio.com/")' \
-	&& wget https://download3.rstudio.org/centos6.3/x86_64/shiny-server-$SHINY_VER-x86_64.rpm \
-	&& echo "124aed894021af4f6aff22c8112e26bd  shiny-server-$SHINY_VER-x86_64.rpm" > SHINYSERVERMD5 \
-	&& RESULT=$(md5sum -c SHINYSERVERMD5) \
-	&& echo ${RESULT} > ~/check-shiny-server-md5.txt \
-	&& yum -y install --nogpgcheck shiny-server-$SHINY_VER-x86_64.rpm \
-	&& yum clean all \
-	&& cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-$SHINY_VER-x86_64.rpm
+    && wget https://download3.rstudio.org/centos6.3/x86_64/shiny-server-$SHINY_VER-x86_64.rpm \
+    && echo "124aed894021af4f6aff22c8112e26bd  shiny-server-$SHINY_VER-x86_64.rpm" > SHINYSERVERMD5 \
+    && RESULT=$(md5sum -c SHINYSERVERMD5) \
+    && echo ${RESULT} > ~/check-shiny-server-md5.txt \
+    && yum -y install --nogpgcheck shiny-server-$SHINY_VER-x86_64.rpm \
+    && yum clean all \
+    && cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-$SHINY_VER-x86_64.rpm
 
 # Julia
 ENV JULIA_VER_MAJ 1.0
@@ -265,10 +265,10 @@ ENV JULIA_VER_MIN .1
 ENV JULIA_VER $JULIA_VER_MAJ$JULIA_VER_MIN
 
 RUN wget https://julialang-s3.julialang.org/bin/linux/x64/$JULIA_VER_MAJ/julia-$JULIA_VER-linux-x86_64.tar.gz \
-		&& mkdir /usr/local/julia \
-		&& tar xf julia-$JULIA_VER-linux-x86_64.tar.gz --directory /usr/local/julia --strip-components=1 \
-		&& ln -s /usr/local/julia/bin/julia /usr/local/bin/julia \
-		&& rm -f julia-$JULIA_VER-linux-x86_64.tar.gz
+        && mkdir /usr/local/julia \
+        && tar xf julia-$JULIA_VER-linux-x86_64.tar.gz --directory /usr/local/julia --strip-components=1 \
+        && ln -s /usr/local/julia/bin/julia /usr/local/bin/julia \
+        && rm -f julia-$JULIA_VER-linux-x86_64.tar.gz
 
 ENV JULIA_PKGDIR /usr/local/julia/share/julia/site
 
@@ -289,51 +289,51 @@ ADD svn-servers /etc/subversion/servers
 ENV SYMPHONY_VER 5.6
 
 RUN git clone --depth=1 --branch=stable/$SYMPHONY_VER https://github.com/coin-or/SYMPHONY SYMPHONY-$SYMPHONY_VER \
-	&& cd SYMPHONY-$SYMPHONY_VER \
-	&& git clone --depth=1 --branch=stable/0.8 https://github.com/coin-or-tools/BuildTools/ \
-	&& chmod u+x ./BuildTools/get.dependencies.sh \
-	&& ./BuildTools/get.dependencies.sh fetch --no-third-party \
-	&& ./configure \
-	&& make -j"$(nproc --all)" \
-	&& make -j"$(nproc --all)" install \
-	&& cd .. && rm -rf SYMPHONY-$SYMPHONY_VER
+    && cd SYMPHONY-$SYMPHONY_VER \
+    && git clone --depth=1 --branch=stable/0.8 https://github.com/coin-or-tools/BuildTools/ \
+    && chmod u+x ./BuildTools/get.dependencies.sh \
+    && ./BuildTools/get.dependencies.sh fetch --no-third-party \
+    && ./configure \
+    && make -j"$(nproc --all)" \
+    && make -j"$(nproc --all)" install \
+    && cd .. && rm -rf SYMPHONY-$SYMPHONY_VER
 
 # calysto-scheme Jupyter kernel
 RUN pip install --upgrade calysto-scheme \
-	&& python3 -m calysto_scheme install
+    && python3 -m calysto_scheme install
 
 # bash Jupyter kernel
 RUN pip install bash_kernel \
-	&& python3 -m bash_kernel.install
+    && python3 -m bash_kernel.install
 
 # pigz: http://zlib.net/pigz/
 ENV PIGZ_VER 2.4
 
 RUN wget http://zlib.net/pigz/pigz-$PIGZ_VER.tar.gz \
-	&& tar xf pigz-$PIGZ_VER.tar.gz \
-	&& cd pigz-$PIGZ_VER \
-	&& make -j"$(nproc --all)" \
-	&& cp pigz /usr/local/bin \
-	&& cp unpigz /usr/local/bin \
-	&& cd .. && rm -rf pigz-$PIGZ_VER && rm -f pigz-$PIGZ_VER.tar.gz
+    && tar xf pigz-$PIGZ_VER.tar.gz \
+    && cd pigz-$PIGZ_VER \
+    && make -j"$(nproc --all)" \
+    && cp pigz /usr/local/bin \
+    && cp unpigz /usr/local/bin \
+    && cd .. && rm -rf pigz-$PIGZ_VER && rm -f pigz-$PIGZ_VER.tar.gz
 
 # uchardet: https://www.freedesktop.org/wiki/Software/uchardet/
 RUN git clone --depth=1 https://anongit.freedesktop.org/git/uchardet/uchardet.git \
-	&& cd uchardet \
-	&& cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release \
-	&& make -j"$(nproc --all)" \
-	&& make install \
-	&& cd .. && rm -rf uchardet
+    && cd uchardet \
+    && cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release \
+    && make -j"$(nproc --all)" \
+    && make install \
+    && cd .. && rm -rf uchardet
 
 ENV JAVA_HOME /etc/alternatives/java_sdk
 
 # Redis (https://redis.io)
 RUN wget http://download.redis.io/redis-stable.tar.gz \
-	&& tar xf redis-stable.tar.gz \
-	&& cd redis-stable \
-	&& make -j"$(nproc --all)" \
-	&& make install \
-	&& cd .. && rm -rf redis-stable && rm -f redis-stable.tar.gz
+    && tar xf redis-stable.tar.gz \
+    && cd redis-stable \
+    && make -j"$(nproc --all)" \
+    && make install \
+    && cd .. && rm -rf redis-stable && rm -f redis-stable.tar.gz
 
 # MongoDB (https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/)
 ADD mongodb-org-4.0.repo /etc/yum.repos.d/mongodb-org-4.0.repo
@@ -343,36 +343,42 @@ RUN yum install -y mongodb-org
 ## LIBS
 #################
 
+#RUN yum -y install \
+#   cyrus-sasl-devel \
+#   freeglut \
+#   freeglut-devel \
+#   freetype-devel \
+#   geos-devel \
+#   gdal-devel \
+#   glpk-devel \
+#   gsl-devel \
+#   gtk3-devel \
+#   hdf5 \
+#   ImageMagick \
+#   lcms2-devel \
+#   libjpeg-devel \
+#   libpng \
+#   libpng-devel \
+#   libtiff-devel \
+#   libtool \
+#   libwebp-devel \
+#   libxslt-devel \
+#   libxml2-devel \
+#   libzip-devel \
+#   mpfr-devel \
+#   pandoc \
+#   proj-devel \
+#   proj-epsg \
+#   proj-nad \
+#   tcl-devel \
+#   tk-devel \
+#   && yum clean all
+
 RUN yum -y install \
-	cyrus-sasl-devel \
-	freeglut \
-	freeglut-devel \
-	freetype-devel \
-	geos-devel \
-	gdal-devel \
-	glpk-devel \
-	gsl-devel \
-	gtk3-devel \
-	hdf5 \
-	ImageMagick \
-	lcms2-devel \
-	libjpeg-devel \
-	libpng \
-	libpng-devel \
-	libtiff-devel \
-	libtool \
-	libwebp-devel \
-	libxslt-devel \
-	libxml2-devel \
-	libzip-devel \
-	mpfr-devel \
-	pandoc \
-	proj-devel \
-	proj-epsg \
-	proj-nad \
-	tcl-devel \
-	tk-devel \
-	&& yum clean all
+    hdf5 \
+    libxml2-devel \
+    libzip-devel \
+    && yum clean all
 
 # http://ipyparallel.readthedocs.org/en/latest/
 #RUN ipcluster nbextension enable
@@ -382,8 +388,8 @@ ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib64/R/lib:/usr/local/lib:/lib:/usr/l
 
 # ffmpeg
 RUN rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro \
-	&& rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm \
-	&& yum install ffmpeg ffmpeg-devel -y
+    && rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm \
+    && yum install ffmpeg ffmpeg-devel -y
 
 # Altair - https://altair-viz.github.io/installation.html
 RUN conda install altair --channel conda-forge -y
@@ -415,4 +421,4 @@ ADD jupyterhub_config.py jupyterhub_config.py
 ENV TERM xterm
 
 CMD /usr/lib/rstudio-server/bin/rserver \
-	&& jupyterhub --no-ssl -f jupyterhub_config.py
+    && jupyterhub --no-ssl -f jupyterhub_config.py
