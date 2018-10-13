@@ -115,7 +115,7 @@ ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 
 # GIT - https://git-scm.com/
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-ENV GIT_VER 2.19.0
+ENV GIT_VER 2.19.1
 
 RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
 	&& tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
@@ -166,11 +166,12 @@ RUN npm config set proxy ${http_proxy} \
 # https://repo.continuum.io/archive
 ENV CONDA_VER 5.3.0
 
+ENV PATH $PATH:/usr/local/conda/anaconda3/bin
+
 RUN wget https://repo.continuum.io/archive/Anaconda3-$CONDA_VER-Linux-x86_64.sh \
 	&& bash Anaconda3-$CONDA_VER-Linux-x86_64.sh -b -p /usr/local/conda/anaconda3 \
-	&& rm -f Anaconda3-$CONDA_VER-Linux-x86_64.sh
-
-ENV PATH $PATH:/usr/local/conda/anaconda3/bin
+	&& rm -f Anaconda3-$CONDA_VER-Linux-x86_64.sh \
+	&& conda update -n base conda -y
 
 # Install py2 and py3 envs, and registers jupyterhub kernels
 # https://github.com/jupyter/jupyter/issues/71
@@ -188,7 +189,7 @@ RUN source activate py2 && ipython kernel install
 # same for py3, and install juptyerhub in the py3 env
 RUN source activate py3 && ipython kernel install
 
-RUN conda update -n base conda -y && conda install -c conda-forge jupyterhub -y
+RUN conda install -c conda-forge jupyterhub -y
 
 # ipywidgets: https://github.com/ipython/ipywidgets
 RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
@@ -197,7 +198,8 @@ RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 RUN source activate py3 && conda install -c conda-forge jupyterlab -y
 
 # Integration between jupyterhub and jupyterlab
-RUN jupyter labextension install @jupyterlab/hub-extension
+# not working: https://github.com/jupyterhub/jupyterlab-hub/issues/78
+#RUN jupyter labextension install @jupyterlab/hub-extension
 
 # Support for other languages
 # https://github.com/jupyter/jupyter/wiki/Jupyter-kernels
@@ -231,19 +233,19 @@ RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.r
 
 # Libreoffice - https://www.libreoffice.org/download/libreoffice-fresh/
 # Linux x64 rpm
-ENV LIBREOFFICE_VER 6.1.2
-ENV LIBREOFFICE_VER_MINOR .1
+#ENV LIBREOFFICE_VER 6.1.2
+#ENV LIBREOFFICE_VER_MINOR .1
 
-RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
-	&& echo "b462407ca869da19c387d4349e51cf7a  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
-	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
-	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
-	&& tar xf LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
-	&& cd LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm/RPMS \
-	&& yum -y install *.rpm \
-	&& yum clean all \
-	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
-	&& rm -rf LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm
+#RUN wget http://mirror.nbtelecom.com.br/tdf/libreoffice/stable/$LIBREOFFICE_VER/rpm/x86_64/LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
+#	&& echo "b462407ca869da19c387d4349e51cf7a  LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz" > LIBREOFFICEMD5 \
+#	&& RESULT=$(md5sum -c LIBREOFFICEMD5) \
+#	&& echo ${RESULT} > ~/check-libreoffice-md5.txt \
+#	&& tar xf LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
+#	&& cd LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm/RPMS \
+#	&& yum -y install *.rpm \
+#	&& yum clean all \
+#	&& cd && rm -f LIBREOFFICEMD5 && rm -f LibreOffice_${LIBREOFFICE_VER}_Linux_x86-64_rpm.tar.gz \
+#	&& rm -rf LibreOffice_${LIBREOFFICE_VER}${LIBREOFFICE_VER_MINOR}_Linux_x86-64_rpm
 
 # Shiny - https://www.rstudio.com/products/shiny/download-server/
 ENV SHINY_VER 1.5.9.923
