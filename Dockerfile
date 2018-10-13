@@ -343,6 +343,7 @@ RUN yum install -y mongodb-org
 ## LIBS
 #################
 
+# Optional libraries for packages
 #RUN yum -y install \
 #   cyrus-sasl-devel \
 #   freeglut \
