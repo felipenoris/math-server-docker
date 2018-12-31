@@ -115,7 +115,7 @@ ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 
 # GIT - https://git-scm.com/
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-ENV GIT_VER 2.19.1
+ENV GIT_VER 2.20.1
 
 RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
     && tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
@@ -128,7 +128,7 @@ RUN git config --global url."https://".insteadOf git://
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-ENV CMAKE_VER_MAJ 3.12
+ENV CMAKE_VER_MAJ 3.13
 ENV CMAKE_VER_MIN .2
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
@@ -140,7 +140,7 @@ RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
 ENV CMAKE_ROOT /usr/local/share/cmake-$CMAKE_VER_MAJ
 
 # node https://nodejs.org/en/
-ENV NODE_VER 8.12.0
+ENV NODE_VER 10.15.0
 
 RUN wget https://github.com/nodejs/node/archive/v$NODE_VER.tar.gz \
     && tar xf v$NODE_VER.tar.gz && cd node-$NODE_VER \
@@ -164,7 +164,7 @@ RUN npm config set proxy ${http_proxy} \
 
 # Anaconda
 # https://repo.continuum.io/archive
-ENV CONDA_VER 5.3.0
+ENV CONDA_VER 5.3.1
 
 ENV PATH $PATH:/usr/local/conda/anaconda3/bin
 
@@ -221,10 +221,10 @@ RUN yum -y install \
 RUN echo 'options(repos = c(CRAN="https://ftp.osuosl.org/pub/cran/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
 # RStudio - https://www.rstudio.com/products/rstudio/download-server/
-ENV RSTUDIO_VER 1.1.456
+ENV RSTUDIO_VER 1.1.463
 
 RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
-    && echo "2ecd9dd78d645bd79e2a4ac73da4ff84  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
+    && echo "4d00252fcf7f843fe4fcb00d753133b9  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
     && RESULT=$(md5sum -c RSTUDIOMD5) \
     && echo ${RESULT} > ~/check-rstudio-md5.txt \
     && yum -y install --nogpgcheck rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
@@ -261,7 +261,7 @@ RUN R -e 'install.packages("shiny", repos="https://cran.rstudio.com/")' \
 
 # Julia
 ENV JULIA_VER_MAJ 1.0
-ENV JULIA_VER_MIN .1
+ENV JULIA_VER_MIN .3
 ENV JULIA_VER $JULIA_VER_MAJ$JULIA_VER_MIN
 
 RUN wget https://julialang-s3.julialang.org/bin/linux/x64/$JULIA_VER_MAJ/julia-$JULIA_VER-linux-x86_64.tar.gz \
