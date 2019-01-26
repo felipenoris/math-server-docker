@@ -50,8 +50,6 @@ There's also a number of utilities under the hood:
 
 * [LaTeX](https://www.latex-project.org)
 
-* [LibreOffice](https://www.libreoffice.org)
-
 * [HDF5](https://support.hdfgroup.org/HDF5/)
 
 * [uchardet](https://www.freedesktop.org/wiki/Software/uchardet/)
