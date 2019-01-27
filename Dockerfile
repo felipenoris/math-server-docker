@@ -320,7 +320,7 @@ RUN wget http://zlib.net/pigz/pigz-$PIGZ_VER.tar.gz \
 # uchardet: https://www.freedesktop.org/wiki/Software/uchardet/
 RUN git clone --depth=1 https://anongit.freedesktop.org/git/uchardet/uchardet.git \
     && cd uchardet \
-    && cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release \
+    && cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release . \
     && make -j"$(nproc --all)" \
     && make install \
     && cd .. && rm -rf uchardet
