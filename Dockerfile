@@ -53,6 +53,7 @@ RUN yum update -y && yum install -y \
     man \
     nano \
     nload \
+    neovim python{2,34}-neovim \
     htop \
     openssl \
     openssl098e \
