@@ -168,21 +168,20 @@ RUN wget https://repo.continuum.io/archive/Anaconda3-$CONDA_VER-Linux-x86_64.sh 
     && rm -f Anaconda3-$CONDA_VER-Linux-x86_64.sh \
     && conda update -n base conda -y
 
+RUN conda update --all
+
 # Install py2 and py3 envs, and registers jupyterhub kernels
 # https://github.com/jupyter/jupyter/issues/71
 
 # install everything (except JupyterHub itself) with Python 2 and 3. Jupyter is included in Anaconda.
-RUN conda create -n py3 python=3 anaconda \
-    && conda create -n py2 python=2 anaconda
+RUN conda create -n py3 python=3 anaconda ipykernel \
+    && conda create -n py2 python=2 anaconda ipykernel
 
-# Set PYTHON env variable to point to Python2. This will be used by PyCall.jl julia package.
-ENV PYTHON /usr/local/conda/anaconda3/envs/py2/bin/python
+# Set PYTHON env variable to point to Python3. This will be used by PyCall.jl julia package.
+ENV PYTHON /usr/local/conda/anaconda3/envs/py3/bin/python
 
 # register py2 kernel
-RUN source activate py2 && ipython kernel install
-
-# same for py3, and install juptyerhub in the py3 env
-RUN source activate py3 && ipython kernel install
+RUN source activate py2 && python -m ipykernel install
 
 RUN conda install -c conda-forge jupyterhub -y
 
