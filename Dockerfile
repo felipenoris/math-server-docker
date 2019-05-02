@@ -129,8 +129,8 @@ RUN git config --global url."https://".insteadOf git://
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-ENV CMAKE_VER_MAJ 3.13
-ENV CMAKE_VER_MIN .4
+ENV CMAKE_VER_MAJ 3.14
+ENV CMAKE_VER_MIN .3
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
 RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
@@ -159,7 +159,7 @@ RUN npm config set proxy ${http_proxy} \
 
 # Anaconda
 # https://repo.continuum.io/archive
-ENV CONDA_VER 5.3.1
+ENV CONDA_VER 2019.03
 
 ENV PATH $PATH:/usr/local/conda/anaconda3/bin
 
@@ -215,10 +215,10 @@ RUN yum -y install \
 RUN echo 'options(repos = c(CRAN="https://ftp.osuosl.org/pub/cran/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
 # RStudio - https://www.rstudio.com/products/rstudio/download-server/
-ENV RSTUDIO_VER 1.1.463
+ENV RSTUDIO_VER 1.2.1335
 
-RUN wget https://download2.rstudio.org/rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
-    && echo "4d00252fcf7f843fe4fcb00d753133b9  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
+RUN wget https://download2.rstudio.org/server/centos6/x86_64/rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
+    && echo "da696c9823eb1c044f04adf75f722b64  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
     && RESULT=$(md5sum -c RSTUDIOMD5) \
     && echo ${RESULT} > ~/check-rstudio-md5.txt \
     && yum -y install --nogpgcheck rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
