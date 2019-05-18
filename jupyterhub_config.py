@@ -6,6 +6,9 @@ c.Spawner.env_keep = [ 'PATH', 'LD_LIBRARY_PATH', 'JAVA_HOME', 'CPATH', 'CMAKE_R
 # use jupyterlab as default user interface
 #c.Spawner.default_url = '/lab'
 
+# use classic notebook interface as default
+c.Spawner.default_url = '/tree'
+
 # set of usernames of admin users
 #
 # If unspecified, only the user that launches the server will be admin.
