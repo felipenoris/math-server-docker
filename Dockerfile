@@ -116,7 +116,7 @@ ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 
 # GIT - https://git-scm.com/
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-ENV GIT_VER 2.21.0
+ENV GIT_VER 2.22.0
 
 RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
     && tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
@@ -130,7 +130,7 @@ RUN git config --global url."https://".insteadOf git://
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
 ENV CMAKE_VER_MAJ 3.14
-ENV CMAKE_VER_MIN .3
+ENV CMAKE_VER_MIN .5
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
 RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
@@ -239,7 +239,7 @@ RUN R -e 'install.packages("shiny", repos="https://cran.rstudio.com/")' \
 
 # Julia - https://julialang.org/downloads/
 ENV JULIA_VER_MAJ 1.1
-ENV JULIA_VER_MIN .0
+ENV JULIA_VER_MIN .1
 ENV JULIA_VER $JULIA_VER_MAJ$JULIA_VER_MIN
 
 RUN wget https://julialang-s3.julialang.org/bin/linux/x64/$JULIA_VER_MAJ/julia-$JULIA_VER-linux-x86_64.tar.gz \
