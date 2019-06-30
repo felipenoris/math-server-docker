@@ -18,10 +18,6 @@ but often offers outdated packages. In order to provide up-to-date tools, this D
 
 	* R
 
-	* Julia 1.0
-
-	* Scheme (provided by *Calysto Scheme* python package)
-
 	* Bash
 
 * [RStudio Server](https://www.rstudio.com/)
@@ -29,6 +25,8 @@ but often offers outdated packages. In order to provide up-to-date tools, this D
 * [Shiny Server](https://www.rstudio.com/products/shiny/shiny-server2/)
 
 There's also a number of utilities under the hood:
+
+* [Julia](https://julialang.org/)
 
 * [p7zip](http://p7zip.sourceforge.net)
 
