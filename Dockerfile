@@ -262,18 +262,15 @@ RUN R -e "IRkernel::installspec(user = FALSE)"
 ADD svn-servers /etc/subversion/servers
 
 # coin SYMPHONY
-# https://projects.coin-or.org/SYMPHONY
+# https://github.com/coin-or/SYMPHONY
 ENV SYMPHONY_VER 5.6
 
-RUN git clone --depth=1 --branch=stable/$SYMPHONY_VER https://github.com/coin-or/SYMPHONY SYMPHONY-$SYMPHONY_VER \
-    && cd SYMPHONY-$SYMPHONY_VER \
-    && git clone --depth=1 --branch=stable/0.8 https://github.com/coin-or-tools/BuildTools/ \
-    && chmod u+x ./BuildTools/get.dependencies.sh \
-    && ./BuildTools/get.dependencies.sh fetch --no-third-party \
-    && ./configure \
-    && make -j"$(nproc --all)" \
-    && make -j"$(nproc --all)" install \
-    && cd .. && rm -rf SYMPHONY-$SYMPHONY_VER
+RUN git clone https://www.github.com/coin-or/coinbrew \
+    && cd coinbrew \
+    && ./coinbrew fetch --no-prompt SYMPHONY:stable/$SYMPHONY_VER \
+    && ./coinbrew build --no-prompt SYMPHONY --prefix=/usr/local --parallel-jobs="$(nproc --all)" \
+    && ./coinbrew install SYMPHONY \
+    && cd .. && rm -rf coinbrew
 
 # bash Jupyter kernel
 RUN source activate py3 && pip install bash_kernel \
