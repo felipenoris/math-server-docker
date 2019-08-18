@@ -170,26 +170,30 @@ RUN wget https://repo.continuum.io/archive/Anaconda3-$CONDA_VER-Linux-x86_64.sh 
 
 RUN conda update --all
 
-# Install py2 and py3 envs, and registers jupyterhub kernels
-# https://github.com/jupyter/jupyter/issues/71
+# Jupyterlab
+RUN conda install -c conda-forge jupyterlab
 
-# install everything (except JupyterHub itself) with Python 2 and 3. Jupyter is included in Anaconda.
-RUN conda create -n py3 python=3 anaconda ipykernel \
-    && conda create -n py2 python=2 anaconda ipykernel
+# Create py2/py3 envs
+RUN conda create -n py3 python=3 anaconda \
+    && conda create -n py2 python=2 anaconda
 
 # Set PYTHON env variable to point to Python3. This will be used by PyCall.jl julia package.
 ENV PYTHON /usr/local/conda/anaconda3/envs/py3/bin/python
 
+# install everything (except JupyterHub itself) with Python 2 and 3. Jupyter is included in Anaconda.
+#RUN conda create -n py3 python=3 anaconda ipykernel \
+#    && conda create -n py2 python=2 anaconda ipykernel
+
 # register py2 kernel
-RUN source activate py2 && python -m ipykernel install
+#RUN source activate py2 && python -m ipykernel install
 
 RUN conda install -c conda-forge jupyterhub -y
 
 # ipywidgets: https://github.com/ipython/ipywidgets
-RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
+#RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 # Jupyterlab: https://github.com/jupyterlab/jupyterlab
-RUN source activate py3 && conda install -c conda-forge jupyterlab -y
+#RUN source activate py3 && conda install -c conda-forge jupyterlab -y
 
 # Integration between jupyterhub and jupyterlab
 # not working: https://github.com/jupyterhub/jupyterlab-hub/issues/78
