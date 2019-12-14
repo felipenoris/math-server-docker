@@ -116,7 +116,7 @@ ENV PATH /usr/local/texlive/distribution/bin/x86_64-linux:$PATH
 
 # GIT - https://git-scm.com/
 # http://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/#
-ENV GIT_VER 2.22.0
+ENV GIT_VER 2.24.1
 
 RUN wget https://www.kernel.org/pub/software/scm/git/git-$GIT_VER.tar.gz \
     && tar xf git-$GIT_VER.tar.gz && cd git-$GIT_VER \
@@ -129,8 +129,8 @@ RUN git config --global url."https://".insteadOf git://
 
 # llvm needs CMake 2.8.12.2 or higher
 # https://cmake.org/download/
-ENV CMAKE_VER_MAJ 3.14
-ENV CMAKE_VER_MIN .5
+ENV CMAKE_VER_MAJ 3.16
+ENV CMAKE_VER_MIN .1
 ENV CMAKE_VER $CMAKE_VER_MAJ$CMAKE_VER_MIN
 
 RUN wget https://cmake.org/files/v$CMAKE_VER_MAJ/cmake-$CMAKE_VER.tar.gz \
@@ -159,7 +159,7 @@ RUN npm config set proxy ${http_proxy} \
 
 # Anaconda
 # https://repo.continuum.io/archive
-ENV CONDA_VER 2019.03
+ENV CONDA_VER 2019.10
 
 ENV PATH $PATH:/usr/local/conda/anaconda3/bin
 
@@ -215,10 +215,10 @@ RUN yum -y install \
 RUN echo 'options(repos = c(CRAN="https://ftp.osuosl.org/pub/cran/"))' >> /usr/lib64/R/library/base/R/Rprofile
 
 # RStudio - https://www.rstudio.com/products/rstudio/download-server/
-ENV RSTUDIO_VER 1.2.1335
+ENV RSTUDIO_VER 1.2.5019
 
 RUN wget https://download2.rstudio.org/server/centos6/x86_64/rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
-    && echo "da696c9823eb1c044f04adf75f722b64  rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
+    && echo "748bd5a45f1c386b538da9be83203c24 rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm" > RSTUDIOMD5 \
     && RESULT=$(md5sum -c RSTUDIOMD5) \
     && echo ${RESULT} > ~/check-rstudio-md5.txt \
     && yum -y install --nogpgcheck rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm \
@@ -226,11 +226,11 @@ RUN wget https://download2.rstudio.org/server/centos6/x86_64/rstudio-server-rhel
     && rm -f rstudio-server-rhel-$RSTUDIO_VER-x86_64.rpm && rm -f RSTUDIOMD5
 
 # Shiny - https://www.rstudio.com/products/shiny/download-server/
-ENV SHINY_VER 1.5.9.923
+ENV SHINY_VER 1.5.12.933
 
 RUN R -e 'install.packages("shiny", repos="https://cran.rstudio.com/")' \
     && wget https://download3.rstudio.org/centos6.3/x86_64/shiny-server-$SHINY_VER-x86_64.rpm \
-    && echo "124aed894021af4f6aff22c8112e26bd  shiny-server-$SHINY_VER-x86_64.rpm" > SHINYSERVERMD5 \
+    && echo "af1daa27220cef698efa600072509a25 shiny-server-$SHINY_VER-x86_64.rpm" > SHINYSERVERMD5 \
     && RESULT=$(md5sum -c SHINYSERVERMD5) \
     && echo ${RESULT} > ~/check-shiny-server-md5.txt \
     && yum -y install --nogpgcheck shiny-server-$SHINY_VER-x86_64.rpm \
@@ -238,8 +238,8 @@ RUN R -e 'install.packages("shiny", repos="https://cran.rstudio.com/")' \
     && cd && rm -f SHINYSERVERMD5 && rm -f shiny-server-$SHINY_VER-x86_64.rpm
 
 # Julia - https://julialang.org/downloads/
-ENV JULIA_VER_MAJ 1.1
-ENV JULIA_VER_MIN .1
+ENV JULIA_VER_MAJ 1.3
+ENV JULIA_VER_MIN .0
 ENV JULIA_VER $JULIA_VER_MAJ$JULIA_VER_MIN
 
 RUN wget https://julialang-s3.julialang.org/bin/linux/x64/$JULIA_VER_MAJ/julia-$JULIA_VER-linux-x86_64.tar.gz \
@@ -306,7 +306,7 @@ RUN wget http://download.redis.io/redis-stable.tar.gz \
     && cd .. && rm -rf redis-stable && rm -f redis-stable.tar.gz
 
 # MongoDB (https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/)
-ADD mongodb-org-4.0.repo /etc/yum.repos.d/mongodb-org-4.0.repo
+ADD mongodb-org-4.2.repo /etc/yum.repos.d/mongodb-org-4.2.repo
 RUN yum install -y mongodb-org
 
 #################
